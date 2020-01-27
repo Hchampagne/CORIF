@@ -7,7 +7,7 @@
 
       <div class="modal-header">
         <h4 class="modal-title">
-          Connexion espace de jeu
+         Se connecter à l'espace de jeu
         </h4>
       </div>
 

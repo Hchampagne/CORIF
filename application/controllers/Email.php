@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Email extends CI_Controller {
 
 	// gère les envois email	
 
@@ -22,14 +22,13 @@ class Welcome extends CI_Controller {
 		//envoie du mail
 		$response = $this->Mail_model->mail($from, $to, $subject, $message);
 
-		if ($response == false) {
-			message("L'envoie du mail de confirmation n'a pas pu aboutir");
-			redirect('administration/adherent');
-		} else {
-			redirect('administration/email_val');
-			message('Votre inscription est en cours de validation.');
-			redirect('administration/adherent');
+		if ($response){
+			// inscription et mail envoyé
+		}else{
+			// inscription réussi
+			// problème de mail
 		}
+		
 	}
 
 	public function email_val()
@@ -57,14 +56,6 @@ class Welcome extends CI_Controller {
 		$message = "Des profils sont en attente de validation sur le site !";
 
 		//envoie du mail       
-		$response = $this->Mail_model->mail($from, $to, $subject, $message);
-
-		// test si le mail a été envoyer
-		if ($response == false) {
-			echo "envoie ko";
-		} else {
-			message('Votre inscription est en cours de validation.');
-			redirect('accueil');
-		}
+		$response = $this->Mail_model->mail($from, $to, $subject, $message);		
 	}
 }

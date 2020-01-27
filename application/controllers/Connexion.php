@@ -45,7 +45,7 @@ class Connexion extends CI_Controller{
                 'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', 
                 array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
 
-            $this->form_validation->set_rules('verifmdp','Verifmdp','required|matches[mdp]',             
+            $this->form_validation->set_rules('verifmdp','Verifmdp','required|matches[adh_mdp]',             
                 array('required'=>'Le champs est vide', 'matches'=>'Les mots de passes ne sont pas identiques' ));
 
                 if($this->form_validation->run() == false ){ 
@@ -54,8 +54,7 @@ class Connexion extends CI_Controller{
                     // rechargement de la page
                     $this->load->view('head');
                     $this->load->view('header');
-                    $this->load->view('modal/inscriptionModal');
-                    $this->load->view('accueil/acueil');
+                    $this->load->view('connexion/inscription');                  
                     $this->load->view('footer');
                    
                 }else{  
@@ -70,8 +69,8 @@ class Connexion extends CI_Controller{
                     array_splice($data,6,1);
 
                     //le hash du mot de passe
-                    $password_hash = password_hash($data["mdp"], PASSWORD_DEFAULT);
-                    $data["mdp"] = $password_hash;                
+                    $password_hash = password_hash($data["adh_mdp"], PASSWORD_DEFAULT);
+                    $data["adh_mdp"] = $password_hash;                
 
                     // insertion dans base de donnée appel model corif_model->insert_adherents
                     $insert = $this->Connexion_model->insert_adherents($data);
@@ -85,7 +84,6 @@ class Connexion extends CI_Controller{
 
                     }else{
                         // insert en base a échoué
-
                         //pop_up avec retour a l'accueil
 
                         $this->load->view('head');
@@ -112,7 +110,7 @@ class Connexion extends CI_Controller{
 
         // recherche enregistrement base donnée email/login 
         $log = $email =$this->input->post("login");          
-        $data= $this->Connexion_model->login($log, $email);
+        $data = $this->Connexion_model->login($log, $email);
         $detail = $data->row();
             
             if ($data->num_rows() != 0){ 
@@ -122,35 +120,51 @@ class Connexion extends CI_Controller{
                     // mot de passe vérifié et compte validé  
                     
                     // update de la date de connexion
+                    $this->Connexion_model->conn_date($detail->adh_email);
                     
                     // création des valeur de session
-                    $_SESSION['role'] = $detail->adh_role;
-                    $_SESSION['nom'] = $detail->adh_nom;
-                    $_SESSION['prenom'] = $detail->adh_prenom;
+                    $this->session->set_userdata('role', $detail->adh_role);
+                    $this->session->set_userdata('nom', $detail->adh_nom);
+                    $this->session->set_userdata('prenom', $detail->adh_prenom);
+
+                    // redirection page accueil
                     redirect(site_url("Accueil"));
 
                 } elseif (password_verify($this->input->post("password"), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
                     // mot de passe vérifié et compte non validé 
                     // message compte non validé
-                    $message = "Votre compte n'est pas encore validé";
+                    $message['message'] = "Votre compte n'est pas encore validé : " . $detail->adh_nom . " " . $detail->adh_prenom;
+                    
+                    $this->load->view('head');
+		            $this->load->view('header',$message);
+		            $this->load->view('modal/connexionModal');
+		            $this->load->view('modal/espacejeuModal');
+		            $this->load->view('accueil/accueil');
+		            $this->load->view('footer');
                     
 
                 }else{
                     // mot de passe erroné
                     // message mot de passe incorrecte
-                    $message = "votre mot de passe est érroné";
+                    $message['message'] = "votre mot de passe est érroné";
+
+                    $this->load->view('head');
+		            $this->load->view('header',$message);
+		            $this->load->view('modal/connexionModal');
+		            $this->load->view('modal/espacejeuModal');
+		            $this->load->view('accueil/accueil');
+		            $this->load->view('footer');                   
                 }
 
             }else{
-                // compte nexiste pas
+                // compte n'existe pas
                 // redirection accueil
-                redirect(site_url("Accueil"));
-                //$this->load->view('head');
-                //$this->load->view('header');
-                //$this->load->view('modal/connexionModal');
-                //$this->load->view('modal/espacejeuModal');
-                //$this->load->view('accueil/accueil');
-                //$this->load->view('footer');
+                $this->load->view('head');
+		            $this->load->view('header');
+		            $this->load->view('modal/connexionModal');
+		            $this->load->view('modal/espacejeuModal');
+		            $this->load->view('accueil/accueil');
+		            $this->load->view('footer');               
             }
         }
     }
@@ -179,7 +193,7 @@ class Connexion extends CI_Controller{
 
                 $this->email->send();                
                 redirect('accueil');
-                message('Un Email avec un lien valable 24H vous a été envoyé !');
+                $message('Un Email avec un lien valable 24H vous a été envoyé !');
             }       
             else
             {

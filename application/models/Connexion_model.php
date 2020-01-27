@@ -36,10 +36,12 @@ class Connexion_model extends CI_Model {
         return $requete;
     } 
     
-    function update_connexion_date(){
+    function conn_date($email){
         // déf une date du jour en fonction de la timezone europe /Paris
-        $date = mdate("Y-m-d");      
+        $date = date("Y-m-d");      
         $this->db->set('adh_d_connexion', $date);
+        //condition where
+        $this->db->where("adh_email", $email);
         //update de la table adhérent avec date dernière connexion
         $this->db->update('adherent');
     }

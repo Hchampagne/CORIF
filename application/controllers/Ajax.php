@@ -3,11 +3,6 @@
 class Ajax extends CI_Controller
 {
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     //controle doublons
 
     public function doublon(){ //doublons email 
