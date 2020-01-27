@@ -98,7 +98,7 @@ $('#ins_email').change(function () {
          data:
         {
             verifRef: $("#ins_email").val(),
-            verifChamps: "email",
+            verifChamps: "adh_email",
             verifTable: "adherent",
         },
         success: function (data) {
@@ -118,7 +118,7 @@ $('#ins_login').change(function () {
         data:
         {
             verifRef: $("#ins_login").val(),
-            verifChamps: "login",
+            verifChamps: "adh_login",
             verifTable: "adherent",
         },
         success: function (data) {

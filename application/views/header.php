@@ -12,7 +12,7 @@
                         <a class="nav-link" id="accueil" href="<?= site_url("accueil") ?>">ACCUEIL</a>
 
                     </li>                   
-                    <?php  isset ($_SESSION['role']) ? $role = $_SSION['role'] : $role = "accueil"; ?>
+                    <?php  isset ($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "accueil"; ?>
 
                     <?php if ($role == "accueil") { ?>
                                                
@@ -20,13 +20,12 @@
                             <a class="nav-link" href= "<?= site_url("modal/connexionModal") ?>" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= site_url("modal/jeuModal") ?>" data-toggle="modal" data-target="#jeuModal">ESPACE JEU</a>
+                            <a class="nav-link" href="<?= site_url("modal/espacejeuModal") ?>" data-toggle="modal" data-target="#espacejeuModal">ESPACE JEU</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= site_url("accueil/animation") ?>">REGLES</a>
                         </li>
-                        <li class="nav-item dropdown">
-                           
+                        <li class="nav-item dropdown">                          
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="true">INFORMATIONS</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" href="<?= site_url("accueil/avantpropos") ?>">Avant propos</a>
@@ -52,7 +51,7 @@
                             </li>
                         <?php }  ?>
                         <!-- formateur -->
-                        <?php if ($_SESSION["role"] == "formateur") { ?>
+                        <?php if ($role == "formateur") { ?>
                            
                             <li>
                                 <a class="nav-link" href="<?= site_url("jeu/dashboad") ?>">GESTION</a>

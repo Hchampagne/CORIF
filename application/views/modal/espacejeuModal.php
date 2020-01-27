@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="jeuModal" role="dialog">
+<div class="modal fade" id="espacejeuModal" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->

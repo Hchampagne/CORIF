@@ -7,10 +7,9 @@
 
       <div class="modal-header">
         <h4 class="modal-title">
-          Login
+          Se connecter
         </h4>
       </div>
-
       <div class="modal-body">
 
         <?= form_open('connexion/login', 'id="form_inscription"'); ?>
@@ -35,26 +34,26 @@
           <div class="col-sm-1 col-form-label">
           </div>
           <div class="col-sm-11">
-            <input type="submit" id="login_submit" value="Connexion" class="btn btn-default">
-            <a href="<?= site_url("connexion/inscription") ?>" class="btn btn-default">Incription</a>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            <div>
+              <button type="submit" id="login_submit" value="" class="btn btn-default">connexion</button>
+              <a href="<?= site_url("connexion/inscription") ?>" class="btn btn-default">Incription</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+            <!-- message si mot de passe erroné ou compte no validé -->
+            <p>&nbsp <?= isset($message) ? $message : "" ; ?></p>
           </div>
         </div>
+        <hr>
 
         <div class="form-group row justify-content-md-center">
           <div class="col-sm-3 col-form-label">
           </div>
           <div class="col-sm-7">
-            <a id="mdpo" href="<?= site_url("connexion/reset") ?>" class="">Mot de passe oublié</a>
+            <a id="mdpo" href="<?= site_url("connexion/reset") ?>" class="btn btn-default">Mot de passe oublié</a>
           </div>
         </div>
-
-
-
         </form>
       </div>
-
     </div>
-
   </div>
 </div>
