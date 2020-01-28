@@ -184,7 +184,7 @@ class Connexion extends CI_Controller{
                 if ($data->num_rows() != 0){ 
                     // email ou login non présent dans la base
 
-                    if(password_verify($this->input->post("password",true), $detail->adh_mdp) && ($detail->adh_validation == 1)){
+                    if(password_verify($this->input->post("con_password",true), $detail->adh_mdp) && ($detail->adh_validation == 1)){
                         // mot de passe vérifié et compte validé  
                     
                         // update de la date de connexion
