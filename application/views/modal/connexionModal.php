@@ -15,18 +15,18 @@
         <?= form_open('connexion/login', 'id="form_inscription"'); ?>
 
         <div class="form-group row justify-content-md-center">
-          <label for="login" class="col-sm-3 col-form-label">Login</label>
+          <label for="con_login" class="col-sm-3 col-form-label">Login</label>
           <div class="col-sm-7">
-            <input type="text" name="login" id="log_login" class="form-control" value="<?php echo set_value('login') ?>" placeholder="Votre login">
-            <span id=alertLogin>&nbsp<?= form_error('login', '<span>', '</span>') ?></span>
+            <input type="text" name="con_login" id="con_login" class="form-control" value="<?php echo set_value('login') ?>" placeholder="Votre login ou email">
+            <span id=alertConLogin>&nbsp<?= form_error('con_login', '<span>', '</span>') ?></span>
           </div>
         </div>
 
         <div class="form-group row justify-content-md-center">
-          <label for="password" class="col-sm-3 col-form-label">Mot de passe</label>
+          <label for="con_password" class="col-sm-3 col-form-label">Mot de passe</label>
           <div class="col-sm-7">
-            <input name="password" type="password" class="form-control" id="log_mdp" value="<?php echo set_value('mdp') ?>" placeholder="Votre mot de passe">
-            <span id="alertMdp">&nbsp<?= form_error('mdp', '<span>', '</span>') ?></span>
+            <input name="con_password" type="password" class="form-control" id="con_mdp" value="<?php echo set_value('mdp') ?>" placeholder="Votre mot de passe">
+            <span id="alertConMdp">&nbsp<?= form_error('con_mdp', '<span>', '</span>') ?></span>
           </div>
         </div>
 
@@ -39,8 +39,6 @@
               <a href="<?= site_url("connexion/inscription") ?>" class="btn btn-default">Incription</a>
               <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
             </div>
-            <!-- message si mot de passe erroné ou compte no validé -->
-            <p>&nbsp <?= isset($message) ? $message : "" ; ?></p>
           </div>
         </div>
         <hr>

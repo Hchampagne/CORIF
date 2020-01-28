@@ -91,7 +91,13 @@ $('#ins_mdpverif').blur(function () {
     }
 });
 
-//controle doublons email (ajax)
+
+
+/*****************/
+/* REQUETES AJAX */
+/*****************/
+
+//controle doublons email (ajax) inscription
 $('#ins_email').change(function () {
     $.post({
          url: "./../Ajax/doublon",
@@ -111,7 +117,7 @@ $('#ins_email').change(function () {
     });
 });
 
-//controle doublons login (ajax)
+//controle doublons login (ajax) inscription
 $('#ins_login').change(function () {
     $.post({
         url: "./../Ajax/doublon",
@@ -131,6 +137,16 @@ $('#ins_login').change(function () {
     });
 });
 
+
+
+
+
+/*********************/
+/* auto active modal */
+/*********************/
+
+// inscriptionConfModal
+$('#inscriptionConfModal').modal('show')
 
 });
 

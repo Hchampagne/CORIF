@@ -10,7 +10,7 @@ class Connexion_model extends CI_Model {
 
 //PARTIE INSCRIPTION / CONNEXION
   
-    //Ajout d'adherent
+//Ajout d'adherent
     function insert_adherents($data)
     {
         //ajout de la date inscritpion
@@ -23,7 +23,7 @@ class Connexion_model extends CI_Model {
         return $insert;
     }
 
-    //retourne retourne une enregistrement => fct login ou email
+//Retourne un enregistrement => fct login ou email
     function login($log, $email)
     {   
         //select mot de passe table adhérent
@@ -35,12 +35,14 @@ class Connexion_model extends CI_Model {
         $requete =  $this->db->get();
         return $requete;
     } 
-    
+
+ // Met a jour la date de connexion    
     function conn_date($email){
         // déf une date du jour en fonction de la timezone europe /Paris
-        $date = date("Y-m-d");      
+        date_default_timezone_set('Europe/Paris');
+        $date = date("Y-m-d H:i:s");     
         $this->db->set('adh_d_connexion', $date);
-        //condition where
+        //condition where  sur email
         $this->db->where("adh_email", $email);
         //update de la table adhérent avec date dernière connexion
         $this->db->update('adherent');

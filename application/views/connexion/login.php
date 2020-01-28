@@ -8,17 +8,17 @@
     <?= form_open('connexion/login', 'id="form_inscription"'); ?>
 
     <div class="form-group row justify-content-md-center">
-      <label for="adh_login" class="col-sm-2 col-form-label">Login</label>
+      <label for="con_login" class="col-sm-2 col-form-label">Login</label>
       <div class="col-sm-6">
-        <input type="text" name="adh_login" id="log_login" class="form-control" value="<?php echo set_value('adh_login') ?>" placeholder="Votre login">
+        <input type="text" name="con_login" id="con_login" class="form-control" value="<?php echo set_value('adh_login') ?>" placeholder="Votre login">
         <span id=alertLogin>&nbsp<?= form_error('login', '<span>', '</span>') ?></span>
       </div>
     </div>
 
     <div class="form-group row justify-content-md-center">
-      <label for="adh_password" class="col-sm-2 col-form-label">Mot de passe</label>
+      <label for="con_password" class="col-sm-2 col-form-label">Mot de passe</label>
       <div class="col-sm-6">
-        <input name="password" type="adh_password" class="form-control" id="log_mdp" value="<?php echo set_value('adh_mdp') ?>" placeholder="Votre mot de passe">
+        <input name="password" type="con_password" class="form-control" id="con_password" value="<?php echo set_value('adh_mdp') ?>" placeholder="Votre mot de passe">
         <span id="alertMdp">&nbsp<?= form_error('mdp', '<span>', '</span>') ?></span>
       </div>
     </div>

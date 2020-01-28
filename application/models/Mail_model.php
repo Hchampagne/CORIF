@@ -12,17 +12,51 @@ class Mail_model extends CI_Model
     // envoi mail retourne true si envoi réussi
     // paramètres
 
-    public function mail($from, $to, $subject, $message){
+    public function sendMail($sendMail,$action){
 
-        // vide les paramètres email
+        switch ($action){
+            case "adhConf": // mail inscription ahérent confirmation inscription
+                $to = $sendMail;  // mail adhérent inscrit
+                $from = "noreply@jerem1formatic.fr";
+                $subject = "Inscription sur Corif : Des métiers, des vies ";
+                $message = "Une fois votre inscription validé, un email de confirmation vous sera envoyé.";
+                break;
+
+            case "adminConf" : // mail pour administrateur compte à valider
+                $to = "hch1@gmail.com"; //mail administrateur
+                $from = "noreply@jerem1formatic.fr";
+                $subject = "Inscription sur Corif : Des métiers, des vies ";
+                $message = $sendMail." "."Cet adhérent est en attente de validation !";
+                break;
 
 
-        $this->email->from($from , "CORIF des métiers, des vies");  // mail emetteur
+
+            default :
+                redirect('Accueil');
+                break;
+        }
+
+
+        //  paramètres email
+        $this->email->from($from, "CORIF des métiers, des vies");  // mail emetteur
         $this->email->to($to);           // mail destinataire
         $this->email->subject($subject);      // mail sujet
         $this->email->message($message);      // mail message
 
-        $response = $this->email->send();    // envoie le mail 
-        return $response;                    // et renvoi true si reussi   
-    }  
+        $reponse = $this->email->send();    // envoie le mail 
+        return $reponse; 
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+   
 }
