@@ -144,46 +144,53 @@ class Connexion extends CI_Controller{
         }     
     }
 
-//LOGIN
-//MANQUE CONTROLE FORMULAIRE
+
+/***********/
+/** LOGIN **/
+/***********/
+
     public function login(){
 
-        if ($this->input->post()) {  /// si il y a un post
+        if ($this->input->post()) {  // si il y a un post
 
-            //test si champ = mail
-
+        // VALIDATION FORMULAIRE
+            //test si champ saisie correspond a un mail valide
             $email = $this->input->post('con_login',true);
             $testEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
-
-            if ($testEmail){ // form email valide
-
-                $this->form_validation->set_rules('con_login', 'Con_login', 'required|html_escape');
-
-            }else{ // form email non valide
-
-                $this->form_validation->set_rules('con_login', 'Con_login', 'required|html_escape');
-
+            if ($testEmail){ 
+                // form email valide
+                $this->form_validation->set_rules('con_login', 'con_login', 'required|html_escape');
+            }else{ 
+                // form email non valide => peut etre login
+                $this->form_validation->set_rules('con_login', 'con_login',
+                    'required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',
+                    array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
             }
 
+            $this->form_validation->set_rules('con_password','con_password', 
+                'required|html_escape|matches[adherent.adh_mdp]|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
+                ,array('required' => 'Le champs est vide','matches'=>'Votre mot de passe est erroné', 'regex_match' => 'La saisie est incorrecte'));
 
-            $this->form_validation->set_rules('con_password','Con_password', 
-                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
-                ,array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
+            // recherche enregistrement base donnée en fonction de email/login 
+            // html escape sur le champ recupérer du post
+            $log = $email = $this->input->post("con_login", true);
+            // interroge base de donnée adhérent en fonction de l'eamil ou du login
+            $data = $this->Connexion_model->login($log, $email);
+            $detail = $data->row();
+            // compte le nopmbre d'enregistrement 0 ou 1
+            $row = $data->num_rows();
 
-            if($this->form_validation->run() == false){
-                // test validation non conforme
-                redirect('Accueil');
+        // test formulaire etr compte enregitré
+            if($this->form_validation->run() == false && $row == 0){
 
+                if ($row == 0){
+                    
+                    // pas enregistré ou erreur login ou email
+                   redirect("accueil");
+                }              
+               
             }else{
-                //tesvalidation conforme
-                // recherche enregistrement base donnée en fonction de email/login 
-                $log = $email =$this->input->post("con_login",true);          
-                $data = $this->Connexion_model->login($log, $email);
-                $detail = $data->row();
-            
-                if ($data->num_rows() != 0){ 
-                    // email ou login non présent dans la base
-
+                //test validation conform                      
                     if(password_verify($this->input->post("con_password",true), $detail->adh_mdp) && ($detail->adh_validation == 1)){
                         // mot de passe vérifié et compte validé  
                     
@@ -201,14 +208,14 @@ class Connexion extends CI_Controller{
                     } elseif (password_verify($this->input->post("password"), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
                         // mot de passe vérifié et compte non validé 
                         // message compte non validé                 
-                        $message['inscription'] = "Votre compte est en cours de validation";
+                        $message['message'] = "Votre compte est en cours de validation";
                         $titre['titre'] = 'Connexion';
 
                         $this->load->view('head');
 		                $this->load->view('header');
 		                $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
-                        $this->load->view('modal/inscriptionconfModal',$message + $titre);
+                        $this->load->view('modal/conConfModal',$message + $titre);
 		                $this->load->view('accueil/accueil');
 		                $this->load->view('footer');
                     
@@ -217,32 +224,20 @@ class Connexion extends CI_Controller{
                         // mot de passe erroné
                         // message mot de passe incorrecte
                         $message['inscription'] = "votre mot de passe est érroné";
-                        //$retest1['retest1'] = 'site_url("modal/connexionModal")';
+                        // active retour vers la modal connexion sur le bouton fermer
                         $retest2['retest2'] = 'data-toggle="modal" data-target="#connexionModal"'; // si absent le lien ne fonctionne pas
-                        $titre['titre'] = 'Connexion';
                         $active['active'] = "show";
 
                         $this->load->view('head');
 		                $this->load->view('header');
 		                $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
-                        $this->load->view('modal/inscriptionconfModal', $message+$titre+$retest2+$active);
+                        $this->load->view('modal/conConfModal', $message+$retest2+$active);
 		                $this->load->view('accueil/accueil');
-		             $this->load->view('footer');                   
-                    }
-
-                }else{
-                    // compte n'existe pas
-                    // redirection accueil
-                    $this->load->view('head');
-		            $this->load->view('header');
-		            $this->load->view('modal/connexionModal');
-		            $this->load->view('modal/espacejeuModal');
-		            $this->load->view('accueil/accueil');
-		            $this->load->view('footer');               
+		                $this->load->view('footer');                   
+                    }                              
                 }
-            }
-        } //fin test validation conforme  
+            } //fin test validation conforme  
     }
     
 

@@ -14,4 +14,18 @@ class Ajax_model extends CI_Model
         //retourne le resultat au controleur
         return $data;
     }
+
+    public function connexion($verifLogin){
+        // where or where pour login ou email
+        $this->db->where("adh_login", $verifLogin);
+        $this->db->or_where("adh_email",$verifLogin);
+        // de la table adherent
+        $this->db->form("adherent");
+        //select le champ mot de passe
+        $data = $this->db->select("adh_mdp");
+
+        return $data;
+
+    }
+
 }

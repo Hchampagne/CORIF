@@ -13,14 +13,14 @@
             </div>
             <div class="col align-self-center">
                 <p id="textFoot1">CONTACTS</p>
-                <p id="textFoot">               
+                <p id="textFoot">
                     T.03 20 54 73 55</br>
                     M.<a href="">contact@corif.fr</a>
                 </p>
             </div>
             <div class="col align-self-center">
                 <p id="textFoot1">MENTIONS LEGALES</p>
-                <p id="textFoot">                  
+                <p id="textFoot">
                     <a href="#"> Mentions légales</a></Br>
                     CORIF 2015
                 </p>
@@ -31,7 +31,7 @@
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="<?= base_url("assets/JS/ctrl_inscription.js") ?>"></script>
-
+<script src="<?= base_url("assets/JS/ctrl_connexion.js") ?>"></script>
 </body>
 
 </html>
