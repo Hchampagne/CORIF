@@ -16,31 +16,4 @@ class Ajax extends CI_Controller
         echo $dat;        
     } 
     
-    public function connexion(){
-        //post requete ajax
-        $verifLogin = $this->input->post("verifLogin",true);
-        $verifMdp = $this->input->post("verifMdp",true);
-        // interroge le model reour mot de passe hashé
-        $result = $this->Ajax_model->connexion($verifLogin);
-
-        if ($result != false){
-            // enregistré
-            if(password_verify($verifMdp, $result)){
-                // enregistré et mdp match
-                $dat = 2;
-            }else{               
-                // enregistré et mdp non match
-                $dat = 1;
-            }
-        }else{
-            //pas enregistré
-            $dat = 0;
-        }   
-        echo $dat;
-
-
-
-
-    }
-    
 }

@@ -48,6 +48,14 @@ class Connexion_model extends CI_Model {
         $this->db->update('adherent');
     }
 
-   
+//  
+    function participantb($nom){
+        $this->db->select('*');
+        $this->db->from('invite');
+        $this->db->join('session', 'session.id = invite.id_session');
+        $this->db->where('nom', $nom);
+        $requete= $this->db->get();
+        return  $requete->row();
+}   
 
 }

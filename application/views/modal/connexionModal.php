@@ -35,7 +35,7 @@
           </div>
           <div class="col-sm-11">
             <div>
-              <button type="submit" id="login_submit" value="on" class="btn btn-default">connexion</button>
+              <button type="submit" id="submit" class="btn btn-default">connexion</button>
               <a href="<?= site_url("connexion/inscription") ?>" class="btn btn-default">Incription</a>
               <a href="<?= site_url("accueil") ?> " type="button" class="btn btn-default" data-dismiss="modal">Fermer</a>
             </div>

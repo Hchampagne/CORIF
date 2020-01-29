@@ -12,9 +12,14 @@ var regMdp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
 
 // champ login  
 $('#con_login').blur(function () {
-    if ($('#con_login').val() == '') {      
+    if ($('#con_login').val().length === 0) {      
         $('#alertConLogin').text("Le champs n'est pas rempli");
-    } else if ((regLogin.test($('#con_login').val()) == false) || (regMail.test($('#con_login').val() == false))){
+    } 
+    else if($('#con_login').val().length > 100){
+        $('#alertConLogin').text("La saisie est trop longue");
+        event.preventDefault();
+    }
+    else if ((regLogin.test($('#con_login').val()) == false) || (regMail.test($('#con_login').val() == false))){
         $('#alertConLogin').text("La saisie est incorrecte");
     } else {
         $('#alertConLogin').html('&nbsp');
@@ -23,9 +28,14 @@ $('#con_login').blur(function () {
 
 // champ mot de passe 
 $('#con_password').blur(function () {
-    if ($('#con_password').val() == '') {      
+    if ($('#con_password').val().length === 0) {      
         $('#alertConMdp').text("Le champs n'est pas rempli");
-    } else if (regMdp.test($('#con_password').val()) == false) {
+    } 
+    else if($('#con_password').val().length > 60){
+        $('#alertConMdp').text("Votre saisie est trop longue");
+        event.preventDefault();
+    }
+    else if (regMdp.test($('#con_password').val()) == false) {
         $('#alertConMdp').text("La saisie est incorrecte");
     }     
     else {
@@ -33,35 +43,38 @@ $('#con_password').blur(function () {
     }
 });
 
-//controle doublons login (ajax) inscription
-$('#login_submit').submit(function () {
-     
-    $.post({
-        url: "./../Ajax/connexion",
-        data: {
-            verifLogin : $("#con_login").val(),
-            verifMdp : $("#con_password").val(),          
-        },
-        success: function (data) {
-          switch(data){
-            case "2" :
-                break;
-            
-            case "1" :
-                event.preventDefault();
-                $("#alertConMdp").text("Le mot de passe est erroné !");
-                break;
-
-            case "0" :
-                event.preventDefault();
-                $('#alertConLogin').text("Vous n'êtes pas enregistré");
-                $('#alertConMdp').text("Vous n'êtes pas enregistré");
-          }
-        }
-    });
+$("#form_connexion").submit(function(event){
+    
+    if($('#con_login').val().length === 0){
+        $('#alertConLogin').text("Le champs n'est pas rempli");
+        event.preventDefault();
+    }
+    else if($('#con_login').val().length > 100){
+        $('#alertConLogin').text("La saisie est trop longue");
+        event.preventDefault();
+    }
+    else if((regLogin.test($('#con_login').val()) == false) || (regMail.test($('#con_login').val() == false))){
+        $('#alertConLogin').text("La saisie est incorrecte");
+        event.preventDefault();
+    }else{
+        $('#alertConLogin').html('&nbsp');
+    }
+    
+    if($('#con_password').val().length === 0){
+        $('#alertConMdp').text("Le champs n'est pas rempli");
+        event.preventDefault();
+    }
+    else if($('#con_password').val().length > 60){
+        $('#alertConMdp').text("Votre saisie est trop longue");
+        event.preventDefault();
+    }
+    else if (regMdp.test($('#con_password').val()) == false){
+        $('#alertConMdp').text("La saisie est incorrecte");
+        event.preventDefault();
+    }else{
+        $('#alertConMdp').html('&nbsp'); 
+    }
 });
-
-
 
 });
 

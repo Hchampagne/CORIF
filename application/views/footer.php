@@ -29,9 +29,10 @@
     </div>
 </footer>
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <script src="<?= base_url("assets/JS/ctrl_inscription.js") ?>"></script>
 <script src="<?= base_url("assets/JS/ctrl_connexion.js") ?>"></script>
+<script src="<?= base_url("assets/JS/ctrl_invite.js") ?>"></script>
 </body>
 
 </html>

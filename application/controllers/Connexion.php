@@ -185,8 +185,17 @@ class Connexion extends CI_Controller{
 
                 if ($row == 0){
                     
+                    $this->session->sess_destroy();
+
                     // pas enregistré ou erreur login ou email
-                   redirect("accueil");
+                    $message['message'] = "Vous n'êtes pas enregistré (erreur login).";
+                   
+                    $this->load->view('head');
+                    $this->load->view('header', $message);
+                    $this->load->view('modal/connexionModal');
+                    $this->load->view('modal/espacejeuModal');
+                    $this->load->view('accueil/accueil');
+                    $this->load->view('footer');
                 }              
                
             }else{
@@ -206,16 +215,16 @@ class Connexion extends CI_Controller{
                         redirect(site_url("Accueil"));
 
                     } elseif (password_verify($this->input->post("password"), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
+
+                        $this->session->sess_destroy();
                         // mot de passe vérifié et compte non validé 
                         // message compte non validé                 
-                        $message['message'] = "Votre compte est en cours de validation";
-                        $titre['titre'] = 'Connexion';
+                        $message['message'] = "Vous êtes enregitré mais votre compte n'est pas validé.";
 
                         $this->load->view('head');
-		                $this->load->view('header');
+		                $this->load->view('header', $message);
 		                $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
-                        $this->load->view('modal/conConfModal',$message + $titre);
+		                $this->load->view('modal/espacejeuModal');
 		                $this->load->view('accueil/accueil');
 		                $this->load->view('footer');
                     
@@ -223,23 +232,73 @@ class Connexion extends CI_Controller{
                     }else{
                         // mot de passe erroné
                         // message mot de passe incorrecte
-                        $message['inscription'] = "votre mot de passe est érroné";
-                        // active retour vers la modal connexion sur le bouton fermer
-                        $retest2['retest2'] = 'data-toggle="modal" data-target="#connexionModal"'; // si absent le lien ne fonctionne pas
-                        $active['active'] = "show";
+                        $this->session->sess_destroy();
 
+                        $message['message'] = "Votre mot de passe n'est pas conforme.";
+                        
                         $this->load->view('head');
-		                $this->load->view('header');
+		                $this->load->view('header', $message);
 		                $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
-                        $this->load->view('modal/conConfModal', $message+$retest2+$active);
+		                $this->load->view('modal/espacejeuModal');
 		                $this->load->view('accueil/accueil');
-		                $this->load->view('footer');                   
+		                $this->load->view('footer');
+                                          
                     }                              
                 }
             } //fin test validation conforme  
     }
-    
+   
+    function loginInvite() {
+
+        if ($this->input->post()){  //si post  
+            
+            
+            // manque control formulaire
+
+            //recup valeur du post
+            $nom = $this->input->post("nom",true);
+            $prenom = $this->input->post("prenom",true);
+            $mail = $this->input->post("email",true);
+
+            // interroge la base de donnée table invité pour le nom
+            $data= $this->Connexion_model->participantb($nom, $prenom, $mail);
+
+            // recup id de la session, date de session, email
+            $idsession = $data->id_session;
+            $datesession = $data->date_session;
+            $email= $data->email;
+
+            // interroge la base de donnée
+            $model= $this->Corif_model->loginjeu($email);
+            $detail = $model->row();
+                        
+
+            if ($model->num_rows() == 0){
+               
+                message("Vous n'êtes pas enregistré !!");
+                redirect(site_url("accueil"));
+                
+            }else{
+                if ($data->email == $email && $today == $datesession){    
+
+                    $id=$data->id;
+                    $this->auth->loginjeu($nom, $email);
+                    $message ="Bienvenue !!";
+                    Redirect(site_url('jeu/index/').$idsession);
+                }else{
+                             
+                    $message ="Merci de vérifier les identifiants de connexion reçu par Email ou la date et heure de connexion";
+                    redirect(site_url("accueil"));
+                    }
+                }
+        }else{
+       
+        $this->load->view('head');
+        $this->load->view('header');
+        $this->load->view('jeu/login');
+        $this->load->view('footer');
+    }
+}
 
 // DECONNEXION
     public function deconnexion(){       
