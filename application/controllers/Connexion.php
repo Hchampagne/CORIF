@@ -157,6 +157,7 @@ class Connexion extends CI_Controller{
             //test si champ saisie correspond a un mail valide
             $email = $this->input->post('con_login',true);
             $testEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
+            //test si mail ou login
             if ($testEmail){ 
                 // form email valide
                 $this->form_validation->set_rules('con_login', 'con_login', 'required|html_escape');
@@ -245,23 +246,50 @@ class Connexion extends CI_Controller{
                                           
                     }                              
                 }
-            } //fin test validation conforme  
+            }   
     }
    
     function loginInvite() {
 
         if ($this->input->post()){  //si post  
             
+            $this->form_validation->set_rules('inv_nom','Nom',
+                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
+                array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte')); 
+
+            $this->form_validation->set_rules('inv_prenom', 'Prenom',
+                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
+                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
+
+            $this->form_validation->set_rules('inv_email', 'Email', 'required|valid_email',   
+            array('required'=>'Le champs est vide','valid_email'=>'Votre email est incorrecte'));    
+
+            if($this->form_validation->run() == false){
+
+                // formualaire non valid
+
+            }else{
+
+                //fromulaire valid
+                //recup poste  + filtre html escape
+                $nom = $this->input->post("nom",true);
+                $mail = $this->input->post("email",true);
+
+                //appel model pour lecture base de données table invité
+                //filtre sur email et nom
+                $data= $this->Connexion_model->participantb($nom, $mail);
+                 // recup id de la session, date de session, email
+                $idsession = $data->id_session;
+                $datesession = $data->date_session;
+                $email= $data->email;
+
+            }
+
             
-            // manque control formulaire
 
-            //recup valeur du post
-            $nom = $this->input->post("nom",true);
-            $prenom = $this->input->post("prenom",true);
-            $mail = $this->input->post("email",true);
+            
 
-            // interroge la base de donnée table invité pour le nom
-            $data= $this->Connexion_model->participantb($nom, $prenom, $mail);
+            
 
             // recup id de la session, date de session, email
             $idsession = $data->id_session;
