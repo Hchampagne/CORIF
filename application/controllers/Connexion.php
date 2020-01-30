@@ -325,7 +325,7 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header',);
+                        $this->load->view('header');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal', $message);
                         $this->load->view('accueil/accueil');
@@ -406,29 +406,42 @@ class Connexion extends CI_Controller{
                     // validation conforme
                     // filtre post email html_escape xss
                     $mail = $mail = $this->input->post("email",true);
+
                     // genere et enregistre la cle de confirmation en base
-                    //$data = $this->Connexion_model->create_key($mail);
+                    $resultat = "";
+                    $digits = "0123456789";
+                    for ($i=0; $i < 10; $i++) { 
+                        $r = mt_rand(0, 9);
+                        $resultat .= $digits[$r];
+                    }
+                    // temps en 
+                    $time = microtime(true)*10000;
+                    $key = $resultat.$time;
 
-                    $this->Mail_model->sendMail($mail, "resetMdp");
 
-
-
+                    $data = $this->Connexion_model->create_key($mail,$key);
+                    // envoi email avec le lien de retour et la clé
                     
-                    //$this->email->message('<a href="https://dev.amorce.org/corif/index.php/administration/newpassword/' . $data . '"><strong>Réinitialisation de mot de passe</strong></a>');
-
-                    $this->email->send();
-                    redirect('accueil');
 
 
-                }
+                    if($data == 1){
+                        // update cle dans table invite réussi
+                        // envoi email avec le lien de retour et la clé
+                        $message = 'href="https://localhost/corif/index.php/administration/newpassword/"'.$key;
+                        $envoi = $this->Mail_model->sendMail($mail, "resetMdp", $message);
 
+                        if($envoi){
+                            // bonne fin update et envoie mail
 
+                        }else{
+                            // echec opération
 
+                        }
+                    }else{
+                        // échec opération
 
-                           
-
-                
-               
+                    }
+                }              
             }else{
 
                 $this->load->view('head');

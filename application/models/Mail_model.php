@@ -12,7 +12,7 @@ class Mail_model extends CI_Model
     // envoi mail retourne true si envoi réussi
     // paramètres
 
-    public function sendMail($sendMail,$action){
+    public function sendMail($sendMail,$action,$message){
 
         switch ($action){
             case "adhConf": // mail inscription ahérent confirmation inscription
@@ -29,13 +29,13 @@ class Mail_model extends CI_Model
                 $message = $sendMail." "."Cet adhérent est en attente de validation !";
                 break;
             
-            case "resetMdp" :
+            case "resetMdp" :  // reset mot de passe
                 $to = $sendMail;
                 $from = "noreply@jerem1formatic.fr";
                 $from = "noreply@jerem1formatic.fr";
                 $subject = "Réinitialisation de mots de passe";
-                $message = "essai";
-            break;
+                $message = $message;
+                break;
 
             default :
                 redirect('Accueil');
