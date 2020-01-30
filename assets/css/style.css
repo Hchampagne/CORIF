@@ -59,6 +59,12 @@ header{
         color: black;
     }
 
+/* lien mdp 24h*/
+
+
+    #lienMdp{
+        color: red;
+    }
 
 
 

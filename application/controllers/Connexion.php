@@ -379,30 +379,62 @@ class Connexion extends CI_Controller{
             $this->session->sess_destroy();
             redirect('Accueil');
         }
-
+ 
 
 // RESET MOT DE PASSE
         public function reset()      
         {           
-            if($this->input->post())          
-            {               
-               $mail= $this->input->post();              
-               $data= $this->Corif_model->create_key($mail);               
+            if($this->input->post()){  //si il y a un post
 
-                $this->email->from('noreply@jerem1formatic.fr', 'Corif');
-                $this->email->to($mail);
-                
-                $this->email->subject('Réinitialisation de mots de passe');
-                $this->email->message('<a href="https://dev.amorce.org/corif/index.php/administration/newpassword/'.$data.'"><strong>Réinitialisation de mot de passe</strong></a>');
+            // regle de validation email    
+            $this->form_validation->set_rules('email', 'email', 'required|html_escape|valid_email',
+                array("required"=>"Le champs est vide","valid_email"=>"L'email saisie n'est pas correcte"));
 
-                $this->email->send();                
-                redirect('accueil');
-                $message('Un Email avec un lien valable 24H vous a été envoyé !');
-            }       
-            else
-            {
+                if($this->form_validation->run() == false){
+                // validation non conforme retour au formulaire
+
+
                 $this->load->view('head');
                 $this->load->view('header');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('connexion/reset');
+                $this->load->view('footer');
+
+
+                }else{
+                    // validation conforme
+                    // filtre post email html_escape xss
+                    $mail = $mail = $this->input->post("email",true);
+                    // genere et enregistre la cle de confirmation en base
+                    //$data = $this->Connexion_model->create_key($mail);
+
+                    $this->Mail_model->sendMail($mail, "resetMdp");
+
+
+
+                    
+                    //$this->email->message('<a href="https://dev.amorce.org/corif/index.php/administration/newpassword/' . $data . '"><strong>Réinitialisation de mot de passe</strong></a>');
+
+                    $this->email->send();
+                    redirect('accueil');
+
+
+                }
+
+
+
+
+                           
+
+                
+               
+            }else{
+
+                $this->load->view('head');
+                $this->load->view('header');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
                 $this->load->view('connexion/reset');
                 $this->load->view('footer');   
             }

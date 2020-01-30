@@ -28,8 +28,14 @@ class Mail_model extends CI_Model
                 $subject = "Inscription sur Corif : Des métiers, des vies ";
                 $message = $sendMail." "."Cet adhérent est en attente de validation !";
                 break;
-
-
+            
+            case "resetMdp" :
+                $to = $sendMail;
+                $from = "noreply@jerem1formatic.fr";
+                $from = "noreply@jerem1formatic.fr";
+                $subject = "Réinitialisation de mots de passe";
+                $message = "essai";
+            break;
 
             default :
                 redirect('Accueil');

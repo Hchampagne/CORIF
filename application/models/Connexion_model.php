@@ -60,6 +60,23 @@ class Connexion_model extends CI_Model {
         //retourne le resultat de la requete
         $requete =  $this->db->get();
         return $requete;
-    } 
+    }
+
+    // ajoute d'une key reinitialisation mdp
+    public function create_key($mail)
+    {
+    
+        $key = generate_number(10) . microtime(true) * 10000 . generate_number(10);
+        //$requete = $this->db->query("update adherent set key=? where email=?", array($key, $mail));
+        //return $key;
+
+        $this->db->update("invite");
+        $this->db->set("inv_cle",$key);
+        $this->db->where("inv_email",$mail);
+
+
+
+
+    }
 
 }
