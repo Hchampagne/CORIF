@@ -27,10 +27,10 @@ class Connexion_model extends CI_Model {
     function login($log, $email)
     {   
         //select mot de passe table adhérent
-        $this->db->from('adherent');
+        $this->db->from("adherent");
         //where en fonction de l'email ou du login
-        $this->db->where('adh_login', $log);
-        $this->db->or_where('adh_email', $email);
+        $this->db->where("adh_login", $log);
+        $this->db->or_where("adh_email", $email);
         // retourne le resultat du row
         $requete =  $this->db->get();
         return $requete;
@@ -45,17 +45,21 @@ class Connexion_model extends CI_Model {
         //condition where  sur email
         $this->db->where("adh_email", $email);
         //update de la table adhérent avec date dernière connexion
-        $this->db->update('adherent');
+        $this->db->update("adherent");
     }
 
-//  
-    function participantb($nom){
-        $this->db->select('*');
-        $this->db->from('invite');
-        $this->db->join('session', 'session.id = invite.id_session');
-        $this->db->where('nom', $nom);
-        $requete= $this->db->get();
-        return  $requete->row();
-}   
+// selection row de la table invite jointure table session where email et nom
+    function loginjeu($email, $nom){
+        $this->db->select("*");
+        // table invite
+        $this->db->from("invite");
+        $this->db->join("session","ses_id=inv_ses_id");
+        // condition where email et nom
+        $this->db->where("inv_email", $email);
+        $this->db->where("inv_nom", $nom);
+        //retourne le resultat de la requete
+        $requete =  $this->db->get();
+        return $requete;
+    } 
 
 }

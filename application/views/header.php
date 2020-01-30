@@ -78,8 +78,7 @@
                    
                 </ul>
                 
-                <span id="afLogin"> <?= isset($_SESSION['role']) ? $_SESSION["role"] . " : " . $_SESSION['nom'] . " " . $_SESSION['prenom'] : "" ;?></span>
-                <span id="afLogin"><?=  isset($message) ? $message : ""; ?></span>           
+                <span id="afLogin"> <?= isset($_SESSION['role']) ? $_SESSION["role"] . " : " . $_SESSION['nom'] . " " . $_SESSION['prenom'] : "" ;?></span>                          
             </nav>
         </div>
     </header>

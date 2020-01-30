@@ -7,7 +7,7 @@
 
       <div class="modal-header">
         <h4 class="modal-title">
-          <?= isset($titre) ? $titre : ""; ?>
+          Confirmation d'inscription
         </h4>
       </div>
       <hr>
@@ -26,7 +26,7 @@
           <div class="col-sm-1 col-form-label">
           </div>
           <div class="col-sm-7">
-            <a href="<?= site_url("modal/connexionModal") ?>" <?= isset($retest2) ? $retest2 :""; ?> type="button" class="btn btn-default" data-dismiss="modal">Fermer</a>
+            <a href="" type="button" class="btn btn-default" data-dismiss="modal">Fermer</a>
           </div>
         </div>
       </div>

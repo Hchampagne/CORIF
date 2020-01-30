@@ -41,6 +41,11 @@
             </div>
           </div>
         </div>
+
+        <div>
+          <span>&nbsp<?= isset($message) ? $message : "" ; ?></span>
+        </div>
+        
         <hr>
 
         <div class="form-group row justify-content-md-center">

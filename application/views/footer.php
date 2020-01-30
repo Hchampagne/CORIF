@@ -31,8 +31,10 @@
 
 
 <script src="<?= base_url("assets/JS/ctrl_inscription.js") ?>"></script>
-<script src="<?= base_url("assets/JS/ctrl_connexion.js") ?>"></script>
+ <script src="<?= base_url("assets/JS/ctrl_connexion.js") ?>"></script> 
 <script src="<?= base_url("assets/JS/ctrl_invite.js") ?>"></script>
+<!-- reload modal -->
+<?= isset($reload) ? $reload : "" ; ?>
 </body>
 
 </html>

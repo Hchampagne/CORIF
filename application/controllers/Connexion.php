@@ -3,15 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Connexion extends CI_Controller{
 
-// controller servant à la connexion des adimlinistrateurs et des adhérents
+// controller servant à la connexion des administrateurs et des adhérents et invités
 // comporte les fonctions : inscription 
-//                          login
+//                          connexion administrateur/adhérent/invité
 //                          deconnexion
-//                          reset mot de passse 
+//                          reset mot de passse
 
-
-
-
+/*************************/
+/* inscription adhérents */
+/*************************/
     public function inscription(){
              
         if ($this->input->post()){
@@ -94,30 +94,32 @@ class Connexion extends CI_Controller{
                                 // modal avec retour a l'accueil
                                 $inscription['inscription'] = "Votre inscription est en attente de validation";
                                 $envoi['envoi'] = "Un mail de confirmation vous a été envoyé";
-                                $titre['titre'] = "Inscription";
+                               //reload modal
+                                $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                                 $this->load->view('head');
                                 $this->load->view('header');
-                                $this->load->view('modal/inscriptionConfModal',$inscription + $envoi + $titre);
+                                $this->load->view('modal/inscriptionConfModal',$inscription + $envoi);
                                 $this->load->view('modal/connexionModal');
                                 $this->load->view('modal/espacejeuModal');
                                 $this->load->view('accueil/accueil');
-                                $this->load->view('footer');
+                                $this->load->view('footer', $reload);
 
                             }else{
                                 // affichage inscription réussi / problème envoi mail
                                 // modal avec retour a l'accueil 
                                 $inscription['inscription'] = "Votre inscription est en attente de validation";
                                 $envoi['envoi'] = "Le mail de confirmation a échoué !";
-                                $titre['titre'] = "Inscription";
+                                //reload modal
+                                $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                                 $this->load->view('head');
                                 $this->load->view('header');
-                                $this->load->view('modal/inscriptionConfModal', $inscription + $envoi + $titre);
+                                $this->load->view('modal/inscriptionConfModal', $inscription + $envoi);
                                 $this->load->view('modal/connexionModal');
                                 $this->load->view('modal/espacejeuModal');
                                 $this->load->view('accueil/accueil');
-                                $this->load->view('footer');
+                                $this->load->view('footer', $reload);
                             }
                     }else{
                         // insert en base a échoué
@@ -125,13 +127,16 @@ class Connexion extends CI_Controller{
                         $incription['inscription'] = "Votre inscription a échouée !";
                         $titre['titre'] = "Inscription";
 
+                        //reload modal
+                        $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
+
                         $this->load->view('head');
                         $this->load->view('header');
-                        $this->load->view('modal/inscriptionConfModal', $inscription+$titre);
+                        $this->load->view('modal/inscriptionConfModal', $inscription);
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');;
-                        $this->load->view('footer');
+                        $this->load->view('footer', $reload);
                         }                   
                     }
         } else {
@@ -145,19 +150,19 @@ class Connexion extends CI_Controller{
     }
 
 
-/***********/
-/** LOGIN **/
-/***********/
-
+/*************************************/
+/* connexion administrateur/adhérent */
+/*************************************/
     public function login(){
 
         if ($this->input->post()) {  // si il y a un post
 
-        // VALIDATION FORMULAIRE
+
             //test si champ saisie correspond a un mail valide
             $email = $this->input->post('con_login',true);
             $testEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
-            //test si mail ou login
+
+            //Règles devalidation
             if ($testEmail){ 
                 // form email valide
                 $this->form_validation->set_rules('con_login', 'con_login', 'required|html_escape');
@@ -169,20 +174,38 @@ class Connexion extends CI_Controller{
             }
 
             $this->form_validation->set_rules('con_password','con_password', 
-                'required|html_escape|matches[adherent.adh_mdp]|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
-                ,array('required' => 'Le champs est vide','matches'=>'Votre mot de passe est erroné', 'regex_match' => 'La saisie est incorrecte'));
+                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
+                ,array('required' => 'Le champs est vide','regex_match' => 'La saisie est incorrecte'));
 
-            // recherche enregistrement base donnée en fonction de email/login 
-            // html escape sur le champ recupérer du post
-            $log = $email = $this->input->post("con_login", true);
-            // interroge base de donnée adhérent en fonction de l'eamil ou du login
-            $data = $this->Connexion_model->login($log, $email);
-            $detail = $data->row();
-            // compte le nopmbre d'enregistrement 0 ou 1
-            $row = $data->num_rows();
+            
 
-        // test formulaire etr compte enregitré
-            if($this->form_validation->run() == false && $row == 0){
+            // 
+            if($this->form_validation->run() == false){ // non conforme
+
+                $this->session->sess_destroy();
+
+                //reload modal
+                $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
+
+                $this->load->view('head');
+                $this->load->view('header');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('accueil/accueil');
+                $this->load->view('footer', $reload);
+              
+            }else{
+
+                // recherche enregistrement base donnée en fonction de email/login 
+                // html escape sur le champ recupérer du post
+                $log = $email = $this->input->post("con_login", true);
+                // interroge base de donnée adhérent en fonction de l'eamil ou du login
+                $data = $this->Connexion_model->login($log, $email);
+                $detail = $data->row();
+                //nombre enregistremt
+                $row = $data->num_rows(); 
+
+                
 
                 if ($row == 0){
                     
@@ -190,23 +213,33 @@ class Connexion extends CI_Controller{
 
                     // pas enregistré ou erreur login ou email
                     $message['message'] = "Vous n'êtes pas enregistré (erreur login).";
+
+                    //reload modal
+                    $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
                    
                     $this->load->view('head');
-                    $this->load->view('header', $message);
-                    $this->load->view('modal/connexionModal');
+                    $this->load->view('header');
+                    $this->load->view('modal/connexionModal',$message);
                     $this->load->view('modal/espacejeuModal');
                     $this->load->view('accueil/accueil');
-                    $this->load->view('footer');
-                }              
-               
-            }else{
-                //test validation conform                      
-                    if(password_verify($this->input->post("con_password",true), $detail->adh_mdp) && ($detail->adh_validation == 1)){
+                    $this->load->view('footer',$reload);
+
+                }else{
+
+                    // recherche enregistrement base donnée en fonction de email/login 
+                    // html escape sur le champ recupérer du post
+                    $log = $email = $this->input->post("con_login", true);
+                    // interroge base de donnée adhérent en fonction de l'eamil ou du login
+                    $data = $this->Connexion_model->login($log, $email);
+                    $detail = $data->row();                  
+
+                    //test validation conform                      
+                    if (password_verify($this->input->post("con_password", true), $detail->adh_mdp) && ($detail->adh_validation == 1)) {
                         // mot de passe vérifié et compte validé  
-                    
+
                         // update de la date de connexion
                         $this->Connexion_model->conn_date($detail->adh_email);
-                    
+
                         // création des valeur de session
                         $this->session->set_userdata('role', $detail->adh_role);
                         $this->session->set_userdata('nom', $detail->adh_nom);
@@ -214,119 +247,132 @@ class Connexion extends CI_Controller{
 
                         // redirection page accueil
                         redirect(site_url("Accueil"));
-
-                    } elseif (password_verify($this->input->post("password"), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
+                    } elseif (password_verify($this->input->post("con_password", true), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
 
                         $this->session->sess_destroy();
                         // mot de passe vérifié et compte non validé 
                         // message compte non validé                 
                         $message['message'] = "Vous êtes enregitré mais votre compte n'est pas validé.";
 
-                        $this->load->view('head');
-		                $this->load->view('header', $message);
-		                $this->load->view('modal/connexionModal');
-		                $this->load->view('modal/espacejeuModal');
-		                $this->load->view('accueil/accueil');
-		                $this->load->view('footer');
-                    
+                        //reload modal
+                        $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
 
-                    }else{
+                        $this->load->view('head');
+                        $this->load->view('header');
+                        $this->load->view('modal/connexionModal', $message);
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer', $reload);
+                    } else {
                         // mot de passe erroné
                         // message mot de passe incorrecte
                         $this->session->sess_destroy();
 
                         $message['message'] = "Votre mot de passe n'est pas conforme.";
-                        
+
+                        //reload modal
+                        $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
+
                         $this->load->view('head');
-		                $this->load->view('header', $message);
-		                $this->load->view('modal/connexionModal');
-		                $this->load->view('modal/espacejeuModal');
-		                $this->load->view('accueil/accueil');
-		                $this->load->view('footer');
-                                          
-                    }                              
-                }
-            }   
+                        $this->load->view('header');
+                        $this->load->view('modal/connexionModal', $message);
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer', $reload);
+                    }
+                }              
+            }             
+        }   
     }
-   
+ 
+/********************/   
+/* connexion invite */
+/********************/
     function loginInvite() {
 
         if ($this->input->post()){  //si post  
             
-            $this->form_validation->set_rules('inv_nom','Nom',
+            //Défénit les règles du controle du formulaire
+            $this->form_validation->set_rules('inv_nom','inv_nom',
                 'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
                 array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte')); 
 
-            $this->form_validation->set_rules('inv_prenom', 'Prenom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
-                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
+            $this->form_validation->set_rules('inv_mail', 'inv_mail', 'required|valid_email',   
+            array('required'=>'Le champs est vide','valid_email'=>'Votre email est incorrecte'));
 
-            $this->form_validation->set_rules('inv_email', 'Email', 'required|valid_email',   
-            array('required'=>'Le champs est vide','valid_email'=>'Votre email est incorrecte'));    
+            $valForm = $this->form_validation->run();
+           
+                if ($valForm != false ){
 
-            if($this->form_validation->run() == false){
+                    //recup poste  + filtre html escape
+                    $nom = $this->input->post("inv_nom", true);
+                    $email = $this->input->post("inv_mail", true);
 
-                // formualaire non valid
+                    //appel model pour lecture base de données table invité
+                    //filtre sur email et nom
+                    $model = $this->Connexion_model->loginjeu($email, $nom);
+                    $detail = $model->row();
+                    $retour = $model->num_rows();                                    
 
-            }else{
+                    if ($retour == 0){ 
 
-                //fromulaire valid
-                //recup poste  + filtre html escape
-                $nom = $this->input->post("nom",true);
-                $mail = $this->input->post("email",true);
+                        $this->session->sess_destroy();
 
-                //appel model pour lecture base de données table invité
-                //filtre sur email et nom
-                $data= $this->Connexion_model->participantb($nom, $mail);
-                 // recup id de la session, date de session, email
-                $idsession = $data->id_session;
-                $datesession = $data->date_session;
-                $email= $data->email;
+                        // Erreur dans la saisie 
+                        $message['message'] = "Le compte n'existe pas !";
 
-            }
+                        //reload modal
+                        $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
 
-            
+                        $this->load->view('head');
+                        $this->load->view('header',);
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal', $message);
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer',$reload);
 
-            
-
-            
-
-            // recup id de la session, date de session, email
-            $idsession = $data->id_session;
-            $datesession = $data->date_session;
-            $email= $data->email;
-
-            // interroge la base de donnée
-            $model= $this->Corif_model->loginjeu($email);
-            $detail = $model->row();
                         
 
-            if ($model->num_rows() == 0){
-               
-                message("Vous n'êtes pas enregistré !!");
-                redirect(site_url("accueil"));
-                
-            }else{
-                if ($data->email == $email && $today == $datesession){    
+                    }else{
+                        // invite enregistré dans la base
 
-                    $id=$data->id;
-                    $this->auth->loginjeu($nom, $email);
-                    $message ="Bienvenue !!";
-                    Redirect(site_url('jeu/index/').$idsession);
-                }else{
-                             
-                    $message ="Merci de vérifier les identifiants de connexion reçu par Email ou la date et heure de connexion";
-                    redirect(site_url("accueil"));
-                    }
+                        // création des valeurs de session
+                        $this->session->set_userdata('role', $detail->inv_role);
+                        $this->session->set_userdata('nom', $detail->inv_nom);
+                        $this->session->set_userdata('prenom', $detail->inv_prenom);
+                        $this->session->set_userdata("date", $detail->ses_d_session);
+                        $this->session->set_userdata('idSession', $detail->ses_id);
+
+                        $this->load->view('head');
+                        $this->load->view('header');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer');
+                    }                                  
+                } else {
+
+                    $this->session->sess_destroy();
+
+                    // Erreur dans la saisie 
+                    $message['message'] = "Erreur dans la saisie !";
+
+                    //reload modal
+                    $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
+
+                    $this->load->view('head');
+                    $this->load->view('header');
+                    $this->load->view('modal/connexionModal');
+                    $this->load->view('modal/espacejeuModal', $message);
+                    $this->load->view('accueil/accueil');
+                    $this->load->view('footer', $reload);
+                  
                 }
         }else{
-       
-        $this->load->view('head');
-        $this->load->view('header');
-        $this->load->view('jeu/login');
-        $this->load->view('footer');
+            redirect("Accueil");
+        }         
+      
     }
-}
 
 // DECONNEXION
     public function deconnexion(){       

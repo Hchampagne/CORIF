@@ -268,15 +268,6 @@ $('#ins_login').change(function () {
 
 
 
-
-
-/*********************/
-/* auto active modal */
-/*********************/
-
-// inscriptionConfModal
-$('#inscriptionConfModal').modal('show')
-
 });
 
 
