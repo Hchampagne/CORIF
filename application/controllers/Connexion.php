@@ -73,7 +73,7 @@ class Connexion extends CI_Controller{
                     $data["adh_mdp"] = $password_hash;                
 
                     // insertion dans base de donnée appel model corif_model->insert_adherents
-                    $insert = $this->Connexion_model->insert_adherents($data);
+                    $insert = $this->Adherent_model->insert_adherents($data);
 
                     if($insert == 1){                      
                     // insert en base réussi                     
@@ -84,10 +84,11 @@ class Connexion extends CI_Controller{
                         // mail adhérent
                         $sendMail = $data['adh_email'];
                         $action = "adhConf";
-                        $retour = $this->Mail_model->sendMail($sendMail,$action);
+                        $message = ""; // déjà paramètré dans le model
+                        $retour = $this->Mail_model->sendMail($sendMail,$action, $message);
                         // mail admin
                         $action = "adminConf";
-                        $this->Mail_model->sendMail($sendMail, $action);
+                        $this->Mail_model->sendMail($sendMail, $action, $message);
 
                             if($retour){
                                 // affichage inscription et confirmation réussies
@@ -415,30 +416,54 @@ class Connexion extends CI_Controller{
                         $resultat .= $digits[$r];
                     }
                     // temps en 
-                    $time = microtime(true)*10000;
-                    $key = $resultat.$time;
-
+                    $time = now("europe/paris");
+                    $key = $resultat.$time;                    
 
                     $data = $this->Connexion_model->create_key($mail,$key);
-                    // envoi email avec le lien de retour et la clé
+                    
                     
 
 
                     if($data == 1){
                         // update cle dans table invite réussi
-                        // envoi email avec le lien de retour et la clé
-                        $message = 'href="https://localhost/corif/index.php/administration/newpassword/"'.$key;
-                        $envoi = $this->Mail_model->sendMail($mail, "resetMdp", $message);
+                        // envoi email avec le lien de retour et la clé en GET
+                        $url = "http://localhost/corif/index.php/administration/newpassword/".$key;
+                        $envoi = $this->Mail_model->sendMail($mail, "resetMdp", $url);
 
                         if($envoi){
-                            // bonne fin update et envoie mail
+                        // bonne fin update et envoie mail
+
+                            $reload['reload'] = "<script> $('#resetConfModal').modal('show') </script>";
+
+                            // echec opération
+                            $this->load->view('head');
+                            $this->load->view('header');
+                            $this->load->view('modal/connexionModal');
+                            $this->load->view('modal/espacejeuModal');
+                            $this->load->view('modal/resetConfModal');
+                            $this->load->view('accueil/accueil');
+                            $this->load->view('footer', $reload); 
+
+
 
                         }else{
                             // echec opération
+                            $this->load->view('head');
+                            $this->load->view('header');
+                            $this->load->view('modal/connexionModal');
+                            $this->load->view('modal/espacejeuModal');
+                            $this->load->view('connexion/reset');
+                            $this->load->view('footer'); 
 
                         }
                     }else{
                         // échec opération
+                        $this->load->view('head');
+                        $this->load->view('header');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('connexion/reset');
+                        $this->load->view('footer'); 
 
                     }
                 }              

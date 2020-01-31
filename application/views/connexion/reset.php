@@ -25,7 +25,7 @@
         <div class="col-sm-1 col-form-label">
         </div>
         <div class="col-sm-6">
-          <p>Renseignez votre email un lien de réinitialisation pour votre mot de passe vous sera sur celui-ci.</p>
+          <p>Un lien de réinitialisation pour votre mot de passe vous sera envoyé par mail.</p>
           <p id="lienMdp">Attention ce lien sera actif pendant 24 heures.</p>
         </div>
       </div>
