@@ -62,20 +62,54 @@ class Connexion_model extends CI_Model {
         return $requete;
     }
 
-    // ajoute d'une key reinitialisation mdp
-    public function create_key($mail,$key){
 
-        // update la cle dans la table adhérent
-        // retourne le nombre d'enregistrement(s) affecté(s)
-        $this->db->set("adh_cle",$key);
-        $this->db->where("adh_email",$mail);
-        $this->db->update("adherent");
+// RESET MOT DE PASSE   
+
+// inesrt cles de reset dans table reset
+    public function insert_reset_cle($cle_url, $cle_conf, $adh_id){
+        // date et du jour heure de Paris
+        date_default_timezone_set('Europe/Paris');
+        $date = date("Y-m-d H:i:s");
+
+        //param insert
+        $this->db->set('res_adh_id', $adh_id );
+        $this->db->set('res_cle_url', $cle_url );
+        $this->db->set('res_conf', $cle_conf);
+        $this->db->set('res_date', $date);
+        //fait insert dans table reset
+        $this->db->insert('reset');
+        // retourne 1 si une ligne ajoutée
         $data = $this->db->affected_rows();
         return $data;
+    } 
 
-
-
-
+// retourne l'enregistrement en fonction cle_url et la cle de confirmation
+    public function edit_reset_cle($cle_url, $cle_conf){
+        $this->db->from('reset');
+        $this->db->where('res_cle_url', $cle_url);
+        $this->db->where('cle_conf', $cle_conf);
+        $resultat = $this->db->get();
+        return $resultat;
     }
+
+// supprime enregisrement table reset where res_adh_id
+   public function delete_reset_cle($id){
+        $this->db->from('reset');
+        $this->db->where('res_adh_id', $id );
+        $this->db->delete();
+   } 
+
+//met a jour le mot de passe
+   public function modif_password($mdp, $id){
+
+    $this->db->from('adherent');
+    $this->db->set('adh_mdp',$mdp);
+    $this->db->where('adh_id', $id);
+    $this->db->update();
+
+    $data = $this->db->affected_rows();
+    return $data;
+
+   }
 
 }

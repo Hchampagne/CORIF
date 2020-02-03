@@ -375,64 +375,52 @@ class Connexion extends CI_Controller{
       
     }
 
-// DECONNEXION
-    public function deconnexion(){       
-            $this->session->sess_destroy();
-            redirect('Accueil');
-        }
- 
 
 // RESET MOT DE PASSE
-        public function reset()      
-        {           
-            if($this->input->post()){  //si il y a un post
+    public function resetPassword() {          
+                       
+        if($this->input->post()){  //si il y a un post
 
             // regle de validation email    
-            $this->form_validation->set_rules('email', 'email', 'required|html_escape|valid_email',
+            $this->form_validation->set_rules('res_mail', 'res_mail', 'required|html_escape|valid_email',
                 array("required"=>"Le champs est vide","valid_email"=>"L'email saisie n'est pas correcte"));
 
-                if($this->form_validation->run() == false){
-                // validation non conforme retour au formulaire
+            if($this->form_validation->run() != false){
 
+                //controle formulaire ok
 
-                $this->load->view('head');
-                $this->load->view('header');
-                $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
-                $this->load->view('connexion/reset');
-                $this->load->view('footer');
+                // filtre post email html_escape xss
+                $log = $email = $mail = $this->input->post("res_mail", true);
+                // interroge base avec email
+                $results = $this->Connexion_model->login($log, $email);
+                $res = $results->row();
 
+                if ($results->num_rows() == 1) {
+                    // present dans base
+                    // génère les clés
+                    $time = now("europe/paris");  // timestamp heure de paris
+                    $cle_url = key_gen(10) . $time;  // génère la clé url
+                    $cle_conf = key_gen(6);          // génère le clé de confirmation 
 
-                }else{
-                    // validation conforme
-                    // filtre post email html_escape xss
-                    $mail = $mail = $this->input->post("email",true);
+                    // supprime si il y a déjà un enregistrement dans la base
+                    $this->Connexion_model->delete_reset_cle($res->adh_id);
 
-                    // genere et enregistre la cle de confirmation en base
-                    $resultat = "";
-                    $digits = "0123456789";
-                    for ($i=0; $i < 10; $i++) { 
-                        $r = mt_rand(0, 9);
-                        $resultat .= $digits[$r];
-                    }
-                    // temps en 
-                    $time = now("europe/paris");
-                    $key = $resultat.$time;                    
+                    // insert clés dans la base
+                    $data = $this->Connexion_model->insert_reset_cle($cle_url, $cle_conf, $res->adh_id);
 
-                    $data = $this->Connexion_model->create_key($mail,$key);
-                    
-                    
-
-
-                    if($data == 1){
-                        // update cle dans table invite réussi
+                    if ($data == 1) {
+                        // insert cle dans table reset réussi
                         // envoi email avec le lien de retour et la clé en GET
-                        $url = "http://localhost/corif/index.php/administration/newpassword/".$key;
-                        $envoi = $this->Mail_model->sendMail($mail, "resetMdp", $url);
+                        $message = "Bonjour, " ."\r\n\n".
+                            "Cliquez sur le lien pour réinitialiser votre mot de passe :"."\r\n" .
+                            "http://localhost/corif/index.php/Connexion/newPassword/" . $cle_url."\r\n\n".
+                            "Clé de confirmation : " . $cle_conf . "\r\n\n" .  
+                            "L'équipe CORIF";
+
+                        $envoi = $this->Mail_model->sendMail($mail, "resetMdp", $message);
 
                         if($envoi){
-                        // bonne fin update et envoie mail
-
+                            // envoi message réussi
                             $reload['reload'] = "<script> $('#resetConfModal').modal('show') </script>";
 
                             // echec opération
@@ -442,40 +430,176 @@ class Connexion extends CI_Controller{
                             $this->load->view('modal/espacejeuModal');
                             $this->load->view('modal/resetConfModal');
                             $this->load->view('accueil/accueil');
-                            $this->load->view('footer', $reload); 
-
-
+                            $this->load->view('footer', $reload);
 
                         }else{
-                            // echec opération
+                            // envoi message échoué
+                            // echec opération + message
+
+                            // efface insertion evite double demande dans système
+                            $this->Connexion_model->delete_reset_cle($res->adh_id);
+
+                            $message['message'] = " Désolé fonction indisponible, veuillez essayer ulterieurement";
+
                             $this->load->view('head');
                             $this->load->view('header');
                             $this->load->view('modal/connexionModal');
                             $this->load->view('modal/espacejeuModal');
-                            $this->load->view('connexion/reset');
-                            $this->load->view('footer'); 
+                            $this->load->view('connexion/resetPassword',$message);
+                            $this->load->view('footer');
 
                         }
+
                     }else{
-                        // échec opération
+                        // insert base a échoué
+                        // + message erreur
+
+                        $message['message'] = "Désolé fonction indisponible, veuillez essayer ulterieurement";
+
                         $this->load->view('head');
                         $this->load->view('header');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
-                        $this->load->view('connexion/reset');
-                        $this->load->view('footer'); 
-
+                        $this->load->view('connexion/resetPassword', $message);
+                        $this->load->view('footer');
                     }
-                }              
-            }else{
+                }else{
+                    // email inconnu
+                    // + message erreur
 
+                    $message['message'] = "Vous n'êtes pas inscrit";
+
+                    $this->load->view('head');
+                    $this->load->view('header');
+                    $this->load->view('modal/connexionModal');
+                    $this->load->view('modal/espacejeuModal');
+                    $this->load->view('connexion/resetPassword', $message);
+                    $this->load->view('footer'); 
+
+
+                }
+            }else{
+                // validation non conforme retour au formulaire
+                // + message erreur
                 $this->load->view('head');
                 $this->load->view('header');
                 $this->load->view('modal/connexionModal');
                 $this->load->view('modal/espacejeuModal');
-                $this->load->view('connexion/reset');
-                $this->load->view('footer');   
-            }
-        }
+                $this->load->view('connexion/resetPassword');
+                $this->load->view('footer'); 
 
-}
+            }
+        }else{
+            // pas de post / premier affichage
+
+            $this->load->view('head');
+            $this->load->view('header');
+            $this->load->view('modal/connexionModal');
+            $this->load->view('modal/espacejeuModal');
+            $this->load->view('connexion/resetPassword');
+            $this->load->view('footer'); 
+        }                           
+    }
+
+// change le mot de passe
+    public function newPassword()
+    {
+        // regex pour cle_url entre 11 et 20 caratère des chiffres de de 0 à 9
+        $regex = "/^(?=.{11,20}$)(?=.*[0-9]).*$/";
+        // extraction cle_url
+        $cle_url = $this->uri->segment(3);
+        //test regex
+        $test = preg_match($regex, $cle_url);
+      
+        if ($test){
+            // clé valide
+
+            if($this->input->post()){
+                //il y a un post
+
+                $this->form_validation->set_rules ('cleConf','cleConf', 'required|html_escape|regex_match[/^(?=.{6,6}$)(?=.*[0-9]).*$/]',
+                     array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
+
+                $this->form_validation->set_rules('newMdp','newMdp','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]',
+                    array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
+
+                $this->form_validation->set_rules('verifNewMdp','VerifNewMdp','required|matches[newMdp]',
+                    array('required' => 'Le champs est vide', 'matches' => 'Les mots de passes ne sont pas identiques'));
+
+
+                    if($this->form_validation->run() != false){
+                        // champs valid
+
+                        $cle_conf = $this->input->post('cleConf');
+
+                        $result = $this->Connexion_model->edit_reset_cle($cle_url, $cle_conf);
+                        $res = $result->row();
+
+                        if($result->num_rows() == 1){
+                            // un enr dans la base
+
+                            // attribut à $id la valeur de res_adh_id <=> adh_id
+                            $id = $res->res_adh_id;       
+
+                            // update du mot de passe 
+                            $data = $this->connexion_model->modif_password($this->input->post('newMdp,true'),$id); 
+
+                                if($data){
+                                    // update reussi
+                                    //reirection accueil message bonne fin
+
+
+                                }else{
+                                    // l'update a échoué
+                                    //reirection accueil message erreur
+
+                                }
+
+                        }else{
+                        // pas enr dans base
+                        // redirection accueil pas de message d'erreur
+                        redirect('Accueil');
+
+                        }
+                    }else{
+                        // champs non valid
+                        $this->load->view('head');
+                        $this->load->view('header');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('connexion/newPassword');
+                        $this->load->view('footer');
+                    }
+                        
+            }else{
+                //il n'ya pas de post
+                $this->load->view('head');
+                $this->load->view('header');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('connexion/newPassword');
+                $this->load->view('footer'); 
+            }
+
+        }else{
+            
+            //cle incorrecte
+            // redirection accueil pas de message d'erreur
+            redirect('Accueil');
+
+        }
+      
+    }
+
+
+// DECONNEXION
+    public function deconnexion()
+    {
+        $this->session->sess_destroy();
+        redirect('Accueil');
+    }
+
+}                          
+            
+        
+

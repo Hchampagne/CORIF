@@ -52,7 +52,7 @@
           <div class="col-sm-3 col-form-label">
           </div>
           <div class="col-sm-7">
-            <a id="mdpo" href="<?= site_url("connexion/reset") ?>" class="btn btn-default">Mot de passe oublié</a>
+            <a id="mdpo" href="<?= site_url("connexion/resetPassword") ?>" class="btn btn-default">Mot de passe oublié</a>
           </div>
         </div>
         </form>
