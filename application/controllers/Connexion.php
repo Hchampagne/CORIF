@@ -505,7 +505,7 @@ class Connexion extends CI_Controller{
     public function newPassword()
     {
         // regex pour cle_url entre 11 et 20 caratère des chiffres de de 0 à 9
-        $regex = "/^(?=.{11,20}$)(?=.*[0-9]).*$/";
+        $regex = "/^[0-9]{11,20}$/";
         // extraction cle_url
         $cle_url = $this->uri->segment(3);
         //test regex

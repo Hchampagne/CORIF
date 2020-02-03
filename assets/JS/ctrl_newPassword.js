@@ -2,10 +2,11 @@
 $(document).ready(function () { 
 // initialise JQUERY au chargement du document
 
-//FORMULAIRE resetPassword
+//FORMULAIRE newPassword
 
 //REGEX
 var regMail = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
+var regCleConf = /^[0-9]{6,6}$/;
 
 // Messages erreurs
 var vide = "Le champs n'est pas rempli";
@@ -13,39 +14,91 @@ var long = "La saisie est trop longue";
 var saisie = "La saisie est incorrecte";
 
 
-
-// champs email
-$('#res_mail').blur(function () {
-    if ($('#res_mail').val().length === 0) {      
-        $('#alertResMail').text(vide);
+// champs cle de confirmation
+$("#cleConf").blur(function () {
+    if ($("#cleConf").val().length === 0) {      
+        $("#alertCleConf").text(vide);
     } 
-    else if($('#res_mail').val().length > 150){
-        $('#alertResMail').text(long);
-        event.preventDefault();
+    else if($("#cleConf").val().length > 6){
+        $("#alertCleConf").text(long);
+        
     }
-    else if (regMail.test($('#res_mail').val()) == false) {
-        $('#alertResMail').text(saisie);
+    else if (regCleConf.test($("#cleConf").val()) == false) {
+        $("#alertCleConf").text(saisie);
     }     
     else {
-        $('#alertResMail').html('&nbsp');       
+        $("#alertCleConf").html("&nbsp");       
     }
 });
 
-$("#form_resetPassword").submit(function(event){
-       
-    if($('#res_mail').val().length === 0){
-        $('#alertResMail').text(vide);
+// champs email
+$("#newMdp").blur(function () {
+    if ($("#newMdp").val().length === 0) {      
+        $("#alertNewMdp").text(vide);
+    } 
+    else if($("#newMdp").val().length > 150){
+        $("#alertNewMdp").text(long);
+        
+    }
+    else if (regMail.test($("#newMdp").val()) == false) {
+        $("#alertNewMdp").text(saisie);
+    }     
+    else {
+        $("#alertNewMdp").html("&nbsp");       
+    }
+});
+
+// champs verif mot de passe 
+$('#verifNewMdp').blur(function () {
+    if ($('#newMdp').val() != $('#verifNewMdp').val()) {
+        $('#alertVerifMdp').text("Vérification du mot de passe incorrecte")
+    } else {
+        $('#alertVerifMdp').html('&nbsp');
+    }
+});
+
+
+
+$("#form_newPassword").submit(function(event){
+
+// champs cle confirmation
+    if ($("#cleConf").val().length === 0) {      
+        $("#alertCleConf").text(vide);
+        event.preventDefault();
+    } 
+    else if($("#cleConf").val().length > 6){
+        $("#alertCleConf").text(long);
+        
+    }
+    else if (regCleConf.test($("#cleConf").val()) == false) {
+        $("#alertCleConf").text(saisie);
+        event.preventDefault();
+    }     
+    else {
+        $("#alertCleConf").html("&nbsp");       
+    }
+
+ // champs mot de passe      
+    if($("#newMdp").val().length === 0){
+        $("#alertNewMdp").text(vide);
         event.preventDefault();
     }
-    else if($('#res_mail').val().length > 150){
-        $('#alertResMail').text("Votre saisie est trop longue");
+    else if($("#newMdp").val().length > 150){
+        $("#alertNewMdp").text("Votre saisie est trop longue");
         event.preventDefault();
     }
-    else if (regMail.test($('#res_mail').val()) == false){
-        $('#alertResMail').text(saisie);
+    else if (regMail.test($("#newMdp").val()) == false){
+        $("#alertNewMdp").text(saisie);
         event.preventDefault();
     }else{
-        $('#alertResMail').html('&nbsp'); 
+        $("#alertNewMdp").html("&nbsp");        
+    }
+
+    if ($('#newMdp').val() != $('#verifNewMdp').val()) {
+        $('#alertVerifMdp').text("Vérification du mot de passe incorrecte")
+        event.preventDefault();
+    } else {
+        $('#alertVerifMdp').html('&nbsp');
     }
 });
 

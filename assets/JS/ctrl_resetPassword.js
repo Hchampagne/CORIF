@@ -20,8 +20,7 @@ $('#res_mail').blur(function () {
         $('#alertResMail').text(vide);
     } 
     else if($('#res_mail').val().length > 150){
-        $('#alertResMail').text(long);
-        event.preventDefault();
+        $('#alertResMail').text(long);       
     }
     else if (regMail.test($('#res_mail').val()) == false) {
         $('#alertResMail').text(saisie);
