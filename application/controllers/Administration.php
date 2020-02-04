@@ -3,65 +3,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administration extends CI_Controller {
 
-    
-
-/************************************************************************************ */
-    public function adherent()
-    {
-        $data["liste"] = $this->Corif_model->select_adherents();
+// affichage liste
+    public function adherent(){
+        $data["liste"] = $this->Adherent_model->select_adherents();
         $this->load->view('head');
-        $this->load->view('header');
-
-        if($this->auth->is_logged() == TRUE){
-            if($this->auth->is_admin() == TRUE){
-                $this->load->view('administration/adherent', $data);
-            }
-            else{
-                $this->load->view('accueil/accueil');  
-            }
-        }
-        
-        else{
-            $this->load->view('accueil/accueil');  
-            }
-        	$this->load->view('footer');
-    }  
-
-    public function suppr($id)
-    {           
-        $data =$this->input->post();
-        $data['adherent'] = $this->Corif_model->delete_adherents($id);
-        redirect(site_url("administration/adherent"));
-            
+        $this->load->view('header');       
+        $this->load->view('administration/adherent', $data);    
+        $this->load->view('footer');
     }
 
+// modification fiche adhérent
+    public function modif($id)  {
 
-//****************************************************************************************** */
-    public function carte()
-    {
+        if ($this->input->post()) {
+            $data = $this->input->post();
+            $this->Corif_model->update_adherents($id, $data);
+            redirect(site_url("administration/adherent"));
+        } else {           
+            $this->load->view('head');
+            $this->load->view('header');
+            $data['adherent'] = $this->Adherent_model->modif_adherent($id);
+            $this->load->view('administration/modif', $data);
+            $this->load->view('footer');           
+        }      
+    }
+
+// liste avec pagination
+    public function carte(){  
+        
         
 
-        if ($this->auth->is_logged()) {
 
-            $params = array();
-            $limit_per_page = 20;
-            $total_records = $this->Cards->get_total();
-    
-            if ($total_records > 0) 
-            {
-                // get current page records
-                
-                // var_dump($params);
-                // $this->output->enable_profiler(true);
-                $config['base_url'] = site_url() . '/administration/carte';
-                $config['total_rows'] = $total_records;
-                $config['per_page'] = $limit_per_page;
+
+
+
+        // get current page records
+
+                $params = array();
+                $config['base_url'] = site_url().'/administration/carte';
+                $config['total_rows'] = $this->Carte_model->get_total();
+                $config['per_page'] = 15;
                 $config["uri_segment"] = 3;
                 
                 // custom paging configuration
-                $config['num_links'] = 2;
-                $config['use_page_numbers'] = FALSE;
-                $config['reuse_query_string'] = TRUE;
+                $config['num_links'] = 3;
+                $config['use_page_numbers'] = true;
+                $config['reuse_query_string'] = false;
                 
                 
                 $config['first_link'] = 'Première';
@@ -87,21 +74,19 @@ class Administration extends CI_Controller {
                 $config['num_tag_close'] = '</span>';
 
                 $this->pagination->initialize($config);
+                $params["links"] = $this->pagination->create_links();
                 $start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
                 // build paging links
-                $params["links"] = $this->pagination->create_links();
-                $params["results"] = $this->Cards->get_current_page_records($limit_per_page, $start_index);
-            }
-            
+                $params["results"] = $this->Carte_model->pagination($config['per_page'], $start_index);
+
+
+          
+                 
+     
             $this->load->view('head');
             $this->load->view('header');
             $this->load->view('administration/carte', $params);
-            $this->load->view('footer');
-        }
-        else  {
-            message("Vous n'êtes pas autorisé à visualiser cette page !");
-            redirect(site_url("connexion/login"));
-        }
+            $this->load->view('footer');        
     }
     
 
@@ -129,29 +114,7 @@ class Administration extends CI_Controller {
 
 
 //************************************************************************* */   
-    public function modif($id)
-    {
-        if ($this->input->post())
-        {
-            $data = $this->input->post();
-            $this->Corif_model->update_adherents($id,$data);
-            redirect(site_url("administration/adherent"));
-        }
-        else
-        {
-            if($this->auth->is_admin() == TRUE){
-                $this->load->view('head');
-                $this->load->view('header');
-                $data['adherent'] = $this->Corif_model->modif_adherents($id);
-                $this->load->view('administration/modif', $data);
-                $this->load->view('footer');
-            }
-            else  {
-                message("Veuillez vous identifier !!");
-                redirect(site_url("connexion/login"));
-            }
-        }
-    }
+
 
 /************************************************************************ */
     public function ajout_metier()

@@ -8,6 +8,7 @@ header{
 }
 
 /* LIENS */
+
     /* tout les liens en blanc*/
     a {
     color: #fff;
@@ -17,10 +18,23 @@ header{
     #bp a {
     color: #F18F1F;
     }
+
+    /* lien mdp 24h*/
+    #lienMdp {
+        color: red;
+    }
+
+
+
+
 /* MODAL */
     /* couleur mdp oublié */
     #mdpo {
     color: blue
+    }
+    /* couleur entête */
+    .modal-header{
+        background-color: #F18F1F;
     }
 
 /*BARRE MENU*/
@@ -59,12 +73,17 @@ header{
         color: black;
     }
 
-/* lien mdp 24h*/
-
-
-    #lienMdp{
-        color: red;
+    /* Message erreur*/
+    /* messages erreurs controle formulaire */
+    .messerreur {
+        color : red;
+        font-style : italic;
     }
+ 
+
+
+
+
 
 
 

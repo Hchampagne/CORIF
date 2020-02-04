@@ -11,7 +11,7 @@
       <label for="res_mail" class="col-sm-1 col-form-label">Login</label>
       <div class="col-sm-6">
         <input type="text" name="res_mail" id="res_mail" class="form-control" value="<?php echo set_value('email') ?>" placeholder="Votre email">
-        <span id=alertResMail>&nbsp<?= form_error('res_mail', '<span>', '</span>') ?></span>
+        <span class="messerreur" id=alertResMail>&nbsp<?= form_error('res_mail', '<span>', '</span>') ?></span>
 
       </div>
     </div>
@@ -20,7 +20,7 @@
       </div>
       <div class="col-sm-6">
         <button type="submit" id="" value="" class="btn">Valider</button>
-        <span>&nbsp<?= isset($message) ? $message : ""; ?></span>
+        <span class="messerreur">&nbsp<?= isset($message) ? $message : ""; ?></span>
       </div>
     </div>
     <div class="form-group row justify-content-md-center">

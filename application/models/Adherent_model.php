@@ -9,23 +9,29 @@ class Adherent_model extends CI_Model
       parent::__construct();
     }
 
-    function insert_adherents($data)
-    {
-        //ajout de la date inscritpion
+
+//ajout de la date inscritpion
+    function insert_adherents($data) {
         $today = date("Y-m-d");
         $this->db->set("adh_d_inscription", $today);
         //insert dans la base
         $this->db->insert('adherent', $data);
-        //retourne le nombre de ligneinserré ou modifié
+        //retourne le nombre de ligne inserré ou modifié
         $insert = $this->db->affected_rows();
         return $insert;
     }
 
-    // Select adherent par ID
-    function select_adherent($col, $data)
-    {
+// selection des adherents tous les adhérents  
+    function select_adherents(){
         $this->db->from('adherent');
-        $this->db->where($col, $data);
+        $requete =  $this->db->get();
+        return $requete->result();
+    }
+
+// Select adherent par ID
+    function modif_adherent($id){
+        $this->db->from('adherent');
+        $this->db->where('adh_id', $id);
         $requete =  $this->db->get();
         return $requete->row();
     }

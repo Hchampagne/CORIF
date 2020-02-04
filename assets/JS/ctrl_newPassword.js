@@ -5,7 +5,7 @@ $(document).ready(function () {
 //FORMULAIRE newPassword
 
 //REGEX
-var regMail = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
+var regMdp = /^(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/;
 var regCleConf = /^[0-9]{6,6}$/;
 
 // Messages erreurs
@@ -87,7 +87,7 @@ $("#form_newPassword").submit(function(event){
         $("#alertNewMdp").text("Votre saisie est trop longue");
         event.preventDefault();
     }
-    else if (regMail.test($("#newMdp").val()) == false){
+    else if (regMdp.test($("#newMdp").val()) == false){
         $("#alertNewMdp").text(saisie);
         event.preventDefault();
     }else{

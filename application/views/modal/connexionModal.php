@@ -18,7 +18,7 @@
           <label for="con_login" class="col-sm-3 col-form-label">Login</label>
           <div class="col-sm-7">
             <input type="text" name="con_login" id="con_login" class="form-control" value="<?php echo set_value('con_login') ?>" placeholder="Votre login ou email">
-            <span id=alertConLogin>&nbsp<?= form_error('con_login', '<span>', '</span>') ?></span>
+            <span class="messerreur" id=alertConLogin>&nbsp<?= form_error('con_login', '<span>', '</span>') ?></span>
           </div>
         </div>
 
@@ -26,7 +26,7 @@
           <label for="con_password" class="col-sm-3 col-form-label">Mot de passe</label>
           <div class="col-sm-7">
             <input name="con_password" type="password" class="form-control" id="con_password" value="<?php echo set_value('con_password') ?>" placeholder="Votre mot de passe">
-            <span id="alertConMdp">&nbsp<?= form_error('con_password', '<span>', '</span>') ?></span>
+            <span class="messerreur" id="alertConMdp">&nbsp<?= form_error('con_password', '<span>', '</span>') ?></span>
           </div>
         </div>
 
@@ -43,9 +43,9 @@
         </div>
 
         <div>
-          <span>&nbsp<?= isset($message) ? $message : "" ; ?></span>
+          <span>&nbsp<?= isset($message) ? $message : ""; ?></span>
         </div>
-        
+
         <hr>
 
         <div class="form-group row justify-content-md-center">

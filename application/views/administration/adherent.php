@@ -1,10 +1,3 @@
-<div id="titre">
-<h1> Adherent</h1>
-</div>
-<div>
-<a class="btn" href="<?=site_url("connexion/inscription")?>" style="color:#343538">Ajouter</a>
-</div>
-
 
 <div class="corp">
     <div class="table-reponsive-xl">
@@ -18,25 +11,25 @@
                     <th scope="col">Role</th>
                     <th scole="col">Login</th>
                     <th scole="col">Validation</th>
-                    <th scole="col">Update</th>
-                    <th scole="col">Delete</th>
+                    <th scole="col"></th>
+                    <th scole="col"></th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach ($liste as $adherent){ ?>
             <tr>
-            <td><?= $adherent->nom ?> </td>
-            <td><?= $adherent->prenom ?> </td>
-            <td><?= $adherent->email ?> </td>
-            <td><?= $adherent->organisme ?> </td>
-            <td><?= $adherent->role ?> </td>
-            <td><?= $adherent->login ?> </td>
-            <td><?= $adherent->validation ?> </td>
+            <td><?= $adherent->adh_nom ?> </td>
+            <td><?= $adherent->adh_prenom ?> </td>
+            <td><?= $adherent->adh_email ?> </td>
+            <td><?= $adherent->adh_organisme ?> </td>
+            <td><?= $adherent->adh_role ?> </td>
+            <td><?= $adherent->adh_login ?> </td>
+            <td><?= ($adherent->adh_validation ==1) ? "oui" : "non" ;?> </td>
 
 
             
-            <td> <b><a class="btn" href="<?=site_url("administration/modif/$adherent->id")?>" style="color:#343538">Modifier</a></b>  </td>
-            <td> <b> <a class="btn btn-danger"href="<?=site_url("administration/suppr/$adherent->id")?>" style="color:#343538" Onclick='return confirm("Etes-vous sûr?")'>Suppression</a></b> </td>
+            <td><a class="btn" href="<?=site_url("administration/modif/$adherent->adh_id")?>" style="color:#343538">Modifier</a></td>
+            <td> <a class="btn btn-danger"href="<?=site_url("administration/suppr/")?>" style="color:#343538" Onclick='return confirm("Etes-vous sûr?")'>Suppression</a></td>
             </tr>
              <?php } ?>
 

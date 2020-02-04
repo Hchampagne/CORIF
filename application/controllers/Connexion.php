@@ -6,8 +6,8 @@ class Connexion extends CI_Controller{
 // controller servant à la connexion des administrateurs et des adhérents et invités
 // comporte les fonctions : inscription 
 //                          connexion administrateur/adhérent/invité
-//                          deconnexion
 //                          reset mot de passse
+//                          deconnexion
 
 /*************************/
 /* inscription adhérents */
@@ -23,27 +23,27 @@ class Connexion extends CI_Controller{
             // messages d'erreurs en fonction des tests
 
             $this->form_validation->set_rules('adh_nom','Nom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
-                array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte')); 
+                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',     
+                array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte','max_length'=>'Saisie trop longue')); 
 
             $this->form_validation->set_rules('adh_prenom', 'Prenom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
-                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
+                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]', 
+                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_organisme', 'Organisme',
-                'required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]', 
-                array('required'=>'Le champ est vide', 'regex_match'=>'La saisie est incorrecte'));
+                'required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]', 
+                array('required'=>'Le champ est vide', 'regex_match'=>'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('adh_email', 'Email', 'required|is_unique[adherent.adh_email]|valid_email',   
-                array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé','valid_email'=>'Votre email est incorrecte'));
+            $this->form_validation->set_rules('adh_email', 'Email', 'required|is_unique[adherent.adh_email]|valid_email|max_length[150]',   
+                array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé','valid_email'=>'Votre email est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_login', 'Login',
-                'required|is_unique[adherent.adh_login]|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]', 
-                array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé', 'regex_match'=>'La saisie est incorrecte'));
+                'required|is_unique[adherent.adh_login]|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[100]', 
+                array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé', 'regex_match'=>'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_mdp', 'MDP',
-                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]', 
-                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte'));
+                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]|min_length[8]', 
+                array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte', 'min_length' => 'Huit caractètres minimum'));
 
             $this->form_validation->set_rules('verifmdp','Verifmdp','required|matches[adh_mdp]',             
                 array('required'=>'Le champs est vide', 'matches'=>'Les mots de passes ne sont pas identiques' ));
@@ -502,64 +502,95 @@ class Connexion extends CI_Controller{
     }
 
 // change le mot de passe
-    public function newPassword()
-    {
-        // regex pour cle_url entre 11 et 20 caratère des chiffres de de 0 à 9
-        $regex = "/^[0-9]{11,20}$/";
-        // extraction cle_url
-        $cle_url = $this->uri->segment(3);
-        //test regex
-        $test = preg_match($regex, $cle_url);
-      
-        if ($test){
-            // clé valide
+    public function newPassword(){
+              
+        // extraction cle_url et passe dans champs input de la vue pour traitement
+        $cle_url['cle_url'] = $this->uri->segment(3);
 
             if($this->input->post()){
-                //il y a un post
+            //il y a un post
 
-                $this->form_validation->set_rules ('cleConf','cleConf', 'required|html_escape|regex_match[/^(?=.{6,6}$)(?=.*[0-9]).*$/]',
-                     array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
+                $this->form_validation->set_rules('cleUrl','cleUrl','required|html_escape|numeric|min_length[11]|max_length[20]',
+                    array());
+
+                $this->form_validation->set_rules ('cleConf','cleConf','required|html_escape|numeric|exact_length[6]',
+                     array('required' => 'Le champs est vide', 'numeric'=>'Saisie incorrecte','exact_length' => 'Six chiffres !'));
 
                 $this->form_validation->set_rules('newMdp','newMdp','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]',
                     array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
 
-                $this->form_validation->set_rules('verifNewMdp','VerifNewMdp','required|matches[newMdp]',
+                $this->form_validation->set_rules('verifNewMdp','erifNewMdp','required|matches[newMdp]',
                     array('required' => 'Le champs est vide', 'matches' => 'Les mots de passes ne sont pas identiques'));
 
 
                     if($this->form_validation->run() != false){
                         // champs valid
 
+                        // attribut les valeurs du post aux clés
                         $cle_conf = $this->input->post('cleConf');
-
+                        $cle_url = $this->input->post('cleUrl');
+                        // retourne l'enr de la base fct les clés url et conf
                         $result = $this->Connexion_model->edit_reset_cle($cle_url, $cle_conf);
                         $res = $result->row();
-
+                       
                         if($result->num_rows() == 1){
-                            // un enr dans la base
-
+                            // un enr dans la base 
                             // attribut à $id la valeur de res_adh_id <=> adh_id
-                            $id = $res->res_adh_id;       
-
+                            // attribut valeur du champs newMdp à $mdp
+                            $id = $res->res_adh_id;
+                            //$mdp = $this->input->post('newMdp',true);
+                            //hash du mot de passe 
+                            $mdp = password_hash($this->input->post('newMdp', true), PASSWORD_DEFAULT);
                             // update du mot de passe 
-                            $data = $this->connexion_model->modif_password($this->input->post('newMdp,true'),$id); 
-
+                            var_dump($mdp, $id);
+                            $data = $this->Connexion_model->modif_password($mdp, $id); 
+                            
                                 if($data){
-                                    // update reussi
-                                    //reirection accueil message bonne fin
+                                    // update reussi                                    
+                                    // delete la cle reset mot de passe
+                                    $this->Connexion_model->delete_reset_cle($id);
+                                    // redirection accueil message bonne fin
+                                    $messNewPass['messNewPass'] ="Votre mot de passe a été modifié";
+                                    $reload['reload'] = "<script> $('#newmdpConfModal').modal('show') </script>";
 
+                                    $this->load->view('head');
+                                    $this->load->view('header');
+                                    $this->load->view('modal/connexionModal');
+                                    $this->load->view('modal/espacejeuModal');
+                                    $this->load->view('modal/newmdpConfModal', $messNewPass);
+                                    $this->load->view('accueil/accueil');
+                                    $this->load->view('footer', $reload);
 
                                 }else{
-                                    // l'update a échoué
+                                    // l'update a échoué                                   
+                                    // delete la cle reset mot de passe
+                                    $this->Connexion_model->delete_reset_cle($id);
                                     //reirection accueil message erreur
+                                    $messNewPass['messNewPass'] = "La modification de votre mot passe a échoué";
+                                    $reload['reload'] = "<script> $('#newmdpConfModal').modal('show') </script>";
 
+                                    $this->load->view('head');
+                                    $this->load->view('header');
+                                    $this->load->view('modal/connexionModal');
+                                    $this->load->view('modal/espacejeuModal');
+                                    $this->load->view('modal/newmdpConfModal', $messNewPass);
+                                    $this->load->view('accueil/accueil');
+                                    $this->load->view('footer', $reload);
                                 }
 
                         }else{
                         // pas enr dans base
                         // redirection accueil pas de message d'erreur
-                        redirect('Accueil');
+                        $messNewPass['messNewPass'] = "Vous n'êtes pas enregistré";
+                        $reload['reload'] = "<script> $('#newmdpConfModal').modal('show') </script>";
 
+                        $this->load->view('head');
+                        $this->load->view('header');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('modal/newmdpConfModal', $messNewPass);
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer', $reload);
                         }
                     }else{
                         // champs non valid
@@ -567,28 +598,20 @@ class Connexion extends CI_Controller{
                         $this->load->view('header');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
-                        $this->load->view('connexion/newPassword');
+                        $this->load->view('connexion/newPassword',$cle_url);
                         $this->load->view('footer');
                     }
                         
             }else{
-                //il n'ya pas de post
+             
+                //il n'ya pas de post / premier affichage
                 $this->load->view('head');
                 $this->load->view('header');
                 $this->load->view('modal/connexionModal');
                 $this->load->view('modal/espacejeuModal');
-                $this->load->view('connexion/newPassword');
+                $this->load->view('connexion/newPassword',$cle_url);
                 $this->load->view('footer'); 
             }
-
-        }else{
-            
-            //cle incorrecte
-            // redirection accueil pas de message d'erreur
-            redirect('Accueil');
-
-        }
-      
     }
 
 

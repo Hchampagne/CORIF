@@ -87,7 +87,7 @@ class Connexion_model extends CI_Model {
     public function edit_reset_cle($cle_url, $cle_conf){
         $this->db->from('reset');
         $this->db->where('res_cle_url', $cle_url);
-        $this->db->where('cle_conf', $cle_conf);
+        $this->db->where('res_conf', $cle_conf);
         $resultat = $this->db->get();
         return $resultat;
     }

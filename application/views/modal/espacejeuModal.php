@@ -19,7 +19,7 @@
           <label for="inv_nom" class="col-sm-3 col-form-label">Nom</label>
           <div class="col-sm-7">
             <input type="text" name="inv_nom" id="inv_nom" class="form-control" value="<?php echo set_value("inv_nom") ?>" placeholder="Votre nom">
-            <span id=alertInvNom>&nbsp<?= form_error('inv_nom', '<span>', '</span>') ?></span>
+            <span class="messerreur" id=alertInvNom>&nbsp<?= form_error('inv_nom', '<span>', '</span>') ?></span>
           </div>
         </div>
 
@@ -27,12 +27,12 @@
           <label for="inv_mail" class="col-sm-3 col-form-label">Email</label>
           <div class="col-sm-7">
             <input name="inv_mail" type="mail" class="form-control" id="inv_mail" value="<?php echo set_value("inv_mail") ?>" placeholder="Votre email">
-            <span id="alertInvMail">&nbsp<?= form_error('inv_mail', '<span>', '</span>') ?></span>
+            <span class="messerreur" id="alertInvMail">&nbsp<?= form_error('inv_mail', '<span>', '</span>') ?></span>
           </div>
         </div>
 
         <div>
-          <span><?= isset($message) ? $message : "" ; ?></span>
+          <span><?= isset($message) ? $message : ""; ?></span>
         </div>
 
         <hr>
