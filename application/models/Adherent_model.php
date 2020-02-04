@@ -22,7 +22,7 @@ class Adherent_model extends CI_Model
     }
 
 // selection des adherents tous les adhérents  
-    function select_adherents(){
+    function liste_adherents(){
         $this->db->from('adherent');
         $requete =  $this->db->get();
         return $requete->result();

@@ -47,7 +47,7 @@
     </div>
 
     <div class="mc_signup_submit">
-        <input type="submit" id="mc_signup_submit" value="Modication" class="btn" style="font-weight: bold;padding: 8px 10px;color: #5E5E5E;text-transform: uppercase;" />
+        <input type="submit" id="mc_signup_submit" value="Modication" class="btn" />
     </div><!-- /mc_signup_submit -->
     <br>
 </form><!-- /mc_signup_form -->

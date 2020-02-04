@@ -3,117 +3,58 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administration extends CI_Controller {
 
+
+//ADHERENT
 // affichage liste
     public function adherent(){
-        $data["liste"] = $this->Adherent_model->select_adherents();
+        $data["liste"] = $this->Adherent_model->liste_adherents();
         $this->load->view('head');
         $this->load->view('header');       
-        $this->load->view('administration/adherent', $data);    
+        $this->load->view('administration/adherent/liste_adherent', $data);    
         $this->load->view('footer');
     }
 
 // modification fiche adhérent
     public function modif($id)  {
-
         if ($this->input->post()) {
             $data = $this->input->post();
             $this->Corif_model->update_adherents($id, $data);
-            redirect(site_url("administration/adherent"));
+            redirect(site_url("administration/adhrent/liste_adherent"));
         } else {           
             $this->load->view('head');
             $this->load->view('header');
             $data['adherent'] = $this->Adherent_model->modif_adherent($id);
-            $this->load->view('administration/modif', $data);
+            $this->load->view('administration/adherent/modif_adherent', $data);
             $this->load->view('footer');           
         }      
     }
 
-// liste avec pagination
+// CARTES
+// liste des cartes
     public function carte(){  
-        
-        
-
-
-
-
-
-        // get current page records
-
-                $params = array();
-                $config['base_url'] = site_url().'/administration/carte';
-                $config['total_rows'] = $this->Carte_model->get_total();
-                $config['per_page'] = 15;
-                $config["uri_segment"] = 3;
                 
-                // custom paging configuration
-                $config['num_links'] = 3;
-                $config['use_page_numbers'] = true;
-                $config['reuse_query_string'] = false;
-                
-                
-                $config['first_link'] = 'Première';
-                $config['first_tag_open'] = '<span class="firstlink">';
-                $config['first_tag_close'] = '</span>';
-                
-                $config['last_link'] = 'Derniére';
-                $config['last_tag_open'] = '<span class="lastlink">';
-                $config['last_tag_close'] = '</span>';
-                
-                $config['next_link'] = '&gt;';
-                $config['next_tag_open'] = '<span class="nextlink">';
-                $config['next_tag_close'] = '</span>';
-    
-                $config['prev_link'] = '&lt;';
-                $config['prev_tag_open'] = '<span class="prevlink">';
-                $config['prev_tag_close'] = '</span>';
-    
-                $config['cur_tag_open'] = '<span class="curlink">';
-                $config['cur_tag_close'] = '</span>';
-    
-                $config['num_tag_open'] = '<span class="numlink">';
-                $config['num_tag_close'] = '</span>';
-
-                $this->pagination->initialize($config);
-                $params["links"] = $this->pagination->create_links();
-                $start_index = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-                // build paging links
-                $params["results"] = $this->Carte_model->pagination($config['per_page'], $start_index);
-
-
-          
-                 
+            $aliste = $this->Carte_model->liste_carte();
+            $aview['liste_carte'] = $aliste;     
      
             $this->load->view('head');
             $this->load->view('header');
-            $this->load->view('administration/carte', $params);
+            $this->load->view('administration/carte/liste_carte', $aview);
             $this->load->view('footer');        
     }
+
+//modif carte 
+    public function modif_carte($id){      
+                      
+                $this->load->view('head');
+                $this->load->view('header');
+                $data['carte'] = $this->Carte_model->modif_carte($id);
+                $this->load->view('administration/carte/modif_carte', $data);
+                $this->load->view('footer');
+            }       
+    
     
 
-    
-//************************************************************************* */
-    public function search()
-    {
-        $data = $this->input->post("search");
-        $model["description"] = $this->Corif_model->search($data);
-        $this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('administration/recherche', $model);
-		$this->load->view('footer');
-    }
-
-//************************************************************************ */   
-    public function recap()
-    {
-        
-        $this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('administration/recap', $model);
-		$this->load->view('footer');
-    }
-
-
-//************************************************************************* */   
+  
 
 
 /************************************************************************ */
@@ -174,32 +115,7 @@ class Administration extends CI_Controller {
     }
 
 //******************************************************************************* */
-    public function modif_carte($id)
-    {
-
-        if($this->auth->is_admin()){
-            if ($this->input->post())
-            {
-
-                $data = $this->input->post();
-                $this->Corif_model->update_carte($id,$data);
-                message("La fiche a ete correctement modifié");
-                redirect(site_url("administration/carte"));
-            }
-            else
-            {
-                $this->load->view('head');
-                $this->load->view('header');
-                $data['carte'] = $this->Corif_model->modif_carte($id);
-                $this->load->view('administration/modif_carte', $data);
-                $this->load->view('footer');
-            }
-        }
-        else{
-            message("Vous n'êtes pas autorisé à visualiser cette page !");
-            redirect(site_url("connexion/login"));
-        }
-    }
+  
 
     public function delete($id)
     {
