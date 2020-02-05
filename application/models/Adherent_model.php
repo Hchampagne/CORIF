@@ -4,14 +4,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  
 class Adherent_model extends CI_Model 
 {
+  
     function __construct() 
     {
       parent::__construct();
     }
 
 
-//ajout de la date inscritpion
+//ajout adherent
     function insert_adherents($data) {
+        //ajout de la date inscritpion
         $today = date("Y-m-d");
         $this->db->set("adh_d_inscription", $today);
         //insert dans la base
@@ -21,18 +23,36 @@ class Adherent_model extends CI_Model
         return $insert;
     }
 
-// selection des adherents tous les adhérents  
+// liste adherent  
     function liste_adherents(){
         $this->db->from('adherent');
         $requete =  $this->db->get();
         return $requete->result();
     }
 
-// Select adherent par ID
-    function modif_adherent($id){
+// Select adherent par id
+    function select_adherent($id){
         $this->db->from('adherent');
         $this->db->where('adh_id', $id);
         $requete =  $this->db->get();
         return $requete->row();
     }
+
+// modification adherent par id
+    function modif_adherent($id, $data){
+        $this->db->from('adherent');
+        $this->db->where('adh_id', $id);
+        $this->db->update($data);
+        return;
+    }
+
+//suppression adherent par id
+    function suppr_adherent($id){
+        $this->db->from('adherent');
+        $this->db->where('adh_id', $id);
+        $this->db->delete();
+        return;
+    }
+
+
 }

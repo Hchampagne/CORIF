@@ -1,9 +1,9 @@
 
 
 
-/* background du header 
+/* background banner
 ajout bande de couleur*/
-header{
+.banner{
     background-color: #F18F1F;
 }
 

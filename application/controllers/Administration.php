@@ -4,9 +4,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Administration extends CI_Controller {
 
 
-//ADHERENT
-// affichage liste
+
+// CONTROLE ACCES ADMINISTRATEUR
+
+
+
+/*****************/
+/*** ADHERENTs ***/
+/*****************/
+
+// Liste adhérents
     public function adherent(){
+
         $data["liste"] = $this->Adherent_model->liste_adherents();
         $this->load->view('head');
         $this->load->view('header');       
@@ -14,131 +23,125 @@ class Administration extends CI_Controller {
         $this->load->view('footer');
     }
 
-// modification fiche adhérent
-    public function modif($id)  {
-        if ($this->input->post()) {
-            $data = $this->input->post();
-            $this->Corif_model->update_adherents($id, $data);
-            redirect(site_url("administration/adhrent/liste_adherent"));
-        } else {           
-            $this->load->view('head');
-            $this->load->view('header');
-            $data['adherent'] = $this->Adherent_model->modif_adherent($id);
-            $this->load->view('administration/adherent/modif_adherent', $data);
-            $this->load->view('footer');           
-        }      
-    }
+// Ajout adherent
+    public function ajout_adherent(){
 
-// CARTES
-// liste des cartes
-    public function carte(){  
-                
-            $aliste = $this->Carte_model->liste_carte();
-            $aview['liste_carte'] = $aliste;     
-     
-            $this->load->view('head');
-            $this->load->view('header');
-            $this->load->view('administration/carte/liste_carte', $aview);
-            $this->load->view('footer');        
-    }
-
-//modif carte 
-    public function modif_carte($id){      
-                      
-                $this->load->view('head');
-                $this->load->view('header');
-                $data['carte'] = $this->Carte_model->modif_carte($id);
-                $this->load->view('administration/carte/modif_carte', $data);
-                $this->load->view('footer');
-            }       
-    
-    
-
-  
-
-
-/************************************************************************ */
-    public function ajout_metier()
-    {
-        $this->output->enable_profiler(TRUE);   
-        if ($this->input->post())
-        {
-            
-            $data= $this->input->post();
-            $this->Corif_model->insert_metier($data);
-            redirect('administration/carte');
-
-        }
-        else
-        {
-            $this->load->view('head');
-            $this->load->view('header');
-            $this->load->view('administration/ajout_metier');
-            $this->load->view('footer');
-        }
-
-    }
-
-    public function ajout_carte()
-    {
-    
-        if ($this->input->post())
-        {
-            $metier= $this->input->post('id_metiers');
-            $data= $this->input->post();
-            $this->Corif_model->insert_carte($data);
-            redirect('administration/carte');
-            
-        }
-
-    else{
+        
         $this->load->view('head');
         $this->load->view('header');
-        $model['metier']= $this->Corif_model->liste_prenom();
-        if($this->auth->is_logged() == TRUE){
-            if($this->auth->is_admin() == TRUE){
+        $this->load->view('administration/adherent/ajout_adherent');
+        $this->load->view('footer');
+    }
+
+// modificvation adhérent
+    public function modif_adherent($id){
+
+        $this->load->view('head');
+        $this->load->view('header');
+        $data['adherent'] = $this->Adherent_model->select_adherent($id);
+        $this->load->view('administration/adherent/modif_adherent', $data);
+        $this->load->view('footer');
+    }
+
+// supprimer adhérent
+    public function suppr_adherent(){
+
+    }    
+
+
+/**************/
+/*** CARTES ***/
+/**************/
+
+// Liste des cartes
+    public function carte(){  
                 
-                $this->load->view('administration/ajoutcarte', $model);
-            }
-            else{
-                message("Vous n'êtes pas autorisé à visualiser cette page !");
-                $this->load->view('connexion/login');
-            }
-    }
-        else{
-            message("Vous n'êtes pas autorisé à visualiser cette page !");
-            $this->load->view('connexion/login');  
-        }
-
-		    $this->load->view('footer');
-        }
+        $aliste = $this->Carte_model->liste_carte();
+        $aview['liste_carte'] = $aliste;     
+     
+        $this->load->view('head');
+        $this->load->view('header');
+        $this->load->view('administration/carte/liste_carte', $aview);
+        $this->load->view('footer');        
     }
 
-//******************************************************************************* */
-  
-
-    public function delete($id)
+// Ajout carte
+    public function ajout_carte()
     {
+        $liste = $this->Metier_model->liste_metier();
 
-            if($this->auth->is_admin()){
-                $data =$this->input->post();
-                $data['carte'] = $this->Corif_model->delete_carte($id);
-                redirect(site_url("administration/carte"));
-            }
+        $this->load->view('head');
+        $this->load->view('header');
+        $this->load->view('administration/carte/ajout_carte',$liste);
+        $this->load->view('footer');
+    } 
+    
+// Modification carte
+    public function modif_carte($id){
 
-            else{
-                redirect(site_url("administration/carte"));
-            }
+        $data = $this->Carte_model->select_carte($id);
+        $liste = $this->Metier_model->liste_metier();
+
+        $this->load->view('head');
+        $this->load->view('header');      
+        $this->load->view('administration/carte/modif_carte', $data + $liste);
+        $this->load->view('footer');
+    }
+
+// supprimer adherent
+    public function suppr_carte(){
+
     }
 
 
+/***************/
+/*** METIERS ***/
+/***************/
 
-    
+// Liste metier
+    public function metier(){
+
+        $aliste = $this->Metier_model->liste_metier();
+        $aview['liste_metier'] = $aliste;
+
+        $this->load->view('head');
+        $this->load->view('header');
+        $this->load->view('administration/metier/liste_metier', $aview);
+        $this->load->view('footer');  
+    }
+
+// Ajout métier
+    public function ajout_metier(){
+        $this->load->view('head');
+        $this->load->view('header');
+        $this->load->view('administration/metier/ajout_metier');
+        $this->load->view('footer');
+    }
+
+// modif métier
+    public function modif_metier($id){
+
+        $this->load->view('head');
+        $this->load->view('header');
+        $data['metier'] = $this->Metier_model->select_metier($id);
+        $this->load->view('administration/metier/modif_metier', $data);
+        $this->load->view('footer'); 
+    }
+
+// supprimer metier
+    public function suppr_metier(){
+
+    }
+
+
+/***************/
+/*** SESSION ***/  
+/***************/ 
+
 // liste  session / formateur à venir 
     public function dashboad()
     {
-        $this->output->enable_profiler(FALSE);
-
+   
         if($this->auth->is_admin()){
             $this->load->view('head');
             $this->load->view('header');

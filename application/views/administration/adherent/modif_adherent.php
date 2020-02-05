@@ -12,18 +12,18 @@
     </div>
 
     <div class="form-group">
-        <label>Organisme:<span class="mc_required">*</span></label>
-        <input type="text" name="organisme" id="mc_mv_organisme" class="form-control" value="<?= $adherent->adh_organisme; ?>" required />
+        <label for="adh_organisme">OPrganisme</label>
+        <input type="text" name="adh_organisme" id="adh_organisme" class="form-control" value="<?= $adherent->adh_organisme; ?>"  />
     </div>
 
     <div class="form-group">
         <label for="adh_email">Email</label>
-        <input type="email" name="email" id="mc_mv_EMAIL" class="form-control" value="<?= $adherent->adh_email; ?>" required />
+        <input type="email" name="adh_email" id="adh_email" class="form-control" value="<?= $adherent->adh_email; ?>"  />
     </div>
 
     <div class="form-group">
-        <label>Login:<span class="mc_required">*</span></label>
-        <input type="text" name="login" id="mc_mv_login" class="form-control" value="<?= $adherent->adh_login; ?>" required />
+        <label for="adh_login">Login</label>
+        <input type="text" name="adh_login" id="adh_login" class="form-control" value="<?= $adherent->adh_login; ?>" />
     </div>
 
     <div class="form-check">
