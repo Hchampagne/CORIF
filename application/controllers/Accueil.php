@@ -7,42 +7,48 @@ class Accueil extends CI_Controller {
 	{
 		$this->load->view('head');
 		$this->load->view('banner');
-		$this->load->view('header');
+		$this->load->view('header/header_loader');
 		$this->load->view('modal/connexionModal');
 		$this->load->view('modal/espacejeuModal');
 		$this->load->view('accueil/accueil');
 		$this->load->view('footer');
+		$this->load->view('script');
 	}
 
 	public function avantpropos()
 	{
 		$this->load->view('head');
-		$this->load->view('header');
+		$this->load->view('banner');
+		$this->load->view('header/header_loader');
 		$this->load->view('modal/connexionModal');
 		$this->load->view('modal/espacejeuModal');
 		$this->load->view('accueil/avantpropos');
 		$this->load->view('footer');
+		$this->load->view('script');
 	}
 
 
 	public function remerciements()
 	{
 		$this->load->view('head');
-		$this->load->view('header');
-		$this->load->view('modal/connexionModal');
+		$this->load->view('banner');
+		$this->load->view('header/header_loader');
 		$this->load->view('modal/espacejeuModal');
 		$this->load->view('accueil/remerciements');
 		$this->load->view('footer');
+		$this->load->view('script');
 	}
 
 	public function animation()
 	{
 		$this->load->view('head');
-		$this->load->view('header');
+		$this->load->view('banner');
+		$this->load->view('header/header_loader');
 		$this->load->view('modal/connexionModal');
 		$this->load->view('modal/espacejeuModal');
 		$this->load->view('accueil/animation');
 		$this->load->view('footer');
+		$this->load->view('script');
 	}
 
 

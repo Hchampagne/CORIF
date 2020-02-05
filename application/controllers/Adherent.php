@@ -71,6 +71,7 @@ class Adherent extends CI_Controller
                 $this->load->view('header');
                 $this->load->view('connexion/inscription');
                 $this->load->view('footer');
+                $this->load->view('script');
             } else {
                 //pas d'erreurs dans les formulaires
                 // nous pouvons faire l'indsertion en base De donnée                 
@@ -119,6 +120,7 @@ class Adherent extends CI_Controller
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer', $reload);
+                        $this->load->view('script');
                     } else {
                         // affichage inscription réussi / problème envoi mail
                         // modal avec retour a l'accueil 
@@ -134,6 +136,7 @@ class Adherent extends CI_Controller
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer', $reload);
+                        $this->load->view('script');
                     }
                 } else {
                     // insert en base a échoué
@@ -151,6 +154,7 @@ class Adherent extends CI_Controller
                     $this->load->view('modal/espacejeuModal');
                     $this->load->view('accueil/accueil');;
                     $this->load->view('footer', $reload);
+                    $this->load->view('script');
                 }
             }
         } else {
@@ -160,6 +164,7 @@ class Adherent extends CI_Controller
             $this->load->view('header');
             $this->load->view('connexion/inscription');
             $this->load->view('footer');
+            $this->load->view('script');
         }
     }
 }

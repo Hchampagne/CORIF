@@ -53,9 +53,10 @@ class Connexion extends CI_Controller{
                     // formulaire non conforme aux controles
                     // rechargement de la page
                     $this->load->view('head');
-                    $this->load->view('header');
+                    $this->load->view('header/header_loader');
                     $this->load->view('connexion/inscription');                  
                     $this->load->view('footer');
+                    $this->load->view('script');
                    
                 }else{  
                     //pas d'erreurs dans les formulaires
@@ -99,12 +100,13 @@ class Connexion extends CI_Controller{
                                 $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                                 $this->load->view('head');
-                                $this->load->view('header');
+                                $this->load->view('header/header_loader');
                                 $this->load->view('modal/inscriptionConfModal',$inscription + $envoi);
                                 $this->load->view('modal/connexionModal');
                                 $this->load->view('modal/espacejeuModal');
                                 $this->load->view('accueil/accueil');
-                                $this->load->view('footer', $reload);
+                                $this->load->view('footer');
+                                $this->load->view('script', $reload);
 
                             }else{
                                 // affichage inscription réussi / problème envoi mail
@@ -115,12 +117,13 @@ class Connexion extends CI_Controller{
                                 $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                                 $this->load->view('head');
-                                $this->load->view('header');
+                                $this->load->view('header/header_loader');
                                 $this->load->view('modal/inscriptionConfModal', $inscription + $envoi);
                                 $this->load->view('modal/connexionModal');
                                 $this->load->view('modal/espacejeuModal');
                                 $this->load->view('accueil/accueil');
-                                $this->load->view('footer', $reload);
+                                $this->load->view('footer');
+                                $this->load->view('script', $reload);
                             }
                     }else{
                         // insert en base a échoué
@@ -132,24 +135,29 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/inscriptionConfModal', $inscription);
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');;
-                        $this->load->view('footer', $reload);
-                        }                   
-                    }
+                        $this->load->view('footer');
+                        $this->load->view('script', $reload);
+                    }                   
+                }
         } else {
 
         // pas de post() rechargement de la page premier affichage
         $this->load->view('head');
-        $this->load->view('header');
+        $this->load->view('header/header_loader');
         $this->load->view('connexion/inscription');
+        $this->load->view('modal/connexionModal');
+        $this->load->view('modal/espacejeuModal');
         $this->load->view('footer');
+        $this->load->view('script');
+
         }     
     }
-
+    
 
 /*************************************/
 /* connexion administrateur/adhérent */
@@ -189,11 +197,12 @@ class Connexion extends CI_Controller{
                 $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
 
                 $this->load->view('head');
-                $this->load->view('header');
+                $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
                 $this->load->view('modal/espacejeuModal');
                 $this->load->view('accueil/accueil');
-                $this->load->view('footer', $reload);
+                $this->load->view('footer');
+                $this->load->view('script',$reload);
               
             }else{
 
@@ -219,11 +228,12 @@ class Connexion extends CI_Controller{
                     $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
                    
                     $this->load->view('head');
-                    $this->load->view('header');
+                    $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal',$message);
                     $this->load->view('modal/espacejeuModal');
                     $this->load->view('accueil/accueil');
-                    $this->load->view('footer',$reload);
+                    $this->load->view('footer');
+                    $this->load->view('script',$reload);
 
                 }else{
 
@@ -245,9 +255,21 @@ class Connexion extends CI_Controller{
                         $this->session->set_userdata('role', $detail->adh_role);
                         $this->session->set_userdata('nom', $detail->adh_nom);
                         $this->session->set_userdata('prenom', $detail->adh_prenom);
+                        $this->session->set_userdata('validation',$detail->adh_validation);
 
                         // redirection page accueil
-                        redirect(site_url("Accueil"));
+                        $this->load->view('head');
+                        $this->load->view('banner');
+                        $this->load->view('header/header_loader');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('accueil/accueil');
+                        $this->load->view('footer');
+                        $this->load->view('script');
+
+
+
+
                     } elseif (password_verify($this->input->post("con_password", true), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
 
                         $this->session->sess_destroy();
@@ -259,11 +281,12 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader'); 
                         $this->load->view('modal/connexionModal', $message);
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
-                        $this->load->view('footer', $reload);
+                        $this->load->view('footer');
+                        $this->load->view('script', $reload);
                     } else {
                         // mot de passe erroné
                         // message mot de passe incorrecte
@@ -275,11 +298,12 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal', $message);
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
-                        $this->load->view('footer', $reload);
+                        $this->load->view('footer');
+                        $this->load->view('script', $reload);
                     }
                 }              
             }             
@@ -326,12 +350,12 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal', $message);
                         $this->load->view('accueil/accueil');
-                        $this->load->view('footer',$reload);
-
+                        $this->load->view('footer');
+                        $this->load->view('script', $reload);
                         
 
                     }else{
@@ -345,11 +369,12 @@ class Connexion extends CI_Controller{
                         $this->session->set_userdata('idSession', $detail->ses_id);
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
+                        $this->load->view('script');
                     }                                  
                 } else {
 
@@ -362,12 +387,12 @@ class Connexion extends CI_Controller{
                     $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
 
                     $this->load->view('head');
-                    $this->load->view('header');
+                    $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal');
                     $this->load->view('modal/espacejeuModal', $message);
                     $this->load->view('accueil/accueil');
-                    $this->load->view('footer', $reload);
-                  
+                    $this->load->view('footer');
+                    $this->load->view('script', $reload);
                 }
         }else{
             redirect("Accueil");
@@ -425,7 +450,7 @@ class Connexion extends CI_Controller{
 
                             // echec opération
                             $this->load->view('head');
-                            $this->load->view('header');
+                            $this->load->view('header/header_loader');
                             $this->load->view('modal/connexionModal');
                             $this->load->view('modal/espacejeuModal');
                             $this->load->view('modal/resetConfModal');
@@ -442,7 +467,7 @@ class Connexion extends CI_Controller{
                             $message['message'] = " Désolé fonction indisponible, veuillez essayer ulterieurement";
 
                             $this->load->view('head');
-                            $this->load->view('header');
+                            $this->load->view('header/header_loader');
                             $this->load->view('modal/connexionModal');
                             $this->load->view('modal/espacejeuModal');
                             $this->load->view('connexion/resetPassword',$message);
@@ -457,7 +482,7 @@ class Connexion extends CI_Controller{
                         $message['message'] = "Désolé fonction indisponible, veuillez essayer ulterieurement";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('connexion/resetPassword', $message);
@@ -470,7 +495,7 @@ class Connexion extends CI_Controller{
                     $message['message'] = "Vous n'êtes pas inscrit";
 
                     $this->load->view('head');
-                    $this->load->view('header');
+                    $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal');
                     $this->load->view('modal/espacejeuModal');
                     $this->load->view('connexion/resetPassword', $message);
@@ -482,7 +507,7 @@ class Connexion extends CI_Controller{
                 // validation non conforme retour au formulaire
                 // + message erreur
                 $this->load->view('head');
-                $this->load->view('header');
+                $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
                 $this->load->view('modal/espacejeuModal');
                 $this->load->view('connexion/resetPassword');
@@ -493,7 +518,7 @@ class Connexion extends CI_Controller{
             // pas de post / premier affichage
 
             $this->load->view('head');
-            $this->load->view('header');
+            $this->load->view('header/header_loader');
             $this->load->view('modal/connexionModal');
             $this->load->view('modal/espacejeuModal');
             $this->load->view('connexion/resetPassword');
@@ -554,7 +579,7 @@ class Connexion extends CI_Controller{
                                     $reload['reload'] = "<script> $('#newmdpConfModal').modal('show') </script>";
 
                                     $this->load->view('head');
-                                    $this->load->view('header');
+                                    $this->load->view('header/header_loader');
                                     $this->load->view('modal/connexionModal');
                                     $this->load->view('modal/espacejeuModal');
                                     $this->load->view('modal/newmdpConfModal', $messNewPass);
@@ -570,7 +595,7 @@ class Connexion extends CI_Controller{
                                     $reload['reload'] = "<script> $('#newmdpConfModal').modal('show') </script>";
 
                                     $this->load->view('head');
-                                    $this->load->view('header');
+                                    $this->load->view('header/header_loader');
                                     $this->load->view('modal/connexionModal');
                                     $this->load->view('modal/espacejeuModal');
                                     $this->load->view('modal/newmdpConfModal', $messNewPass);
@@ -585,7 +610,7 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#newmdpConfModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('modal/newmdpConfModal', $messNewPass);
@@ -595,7 +620,7 @@ class Connexion extends CI_Controller{
                     }else{
                         // champs non valid
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('connexion/newPassword',$cle_url);
@@ -606,7 +631,7 @@ class Connexion extends CI_Controller{
              
                 //il n'ya pas de post / premier affichage
                 $this->load->view('head');
-                $this->load->view('header');
+                $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
                 $this->load->view('modal/espacejeuModal');
                 $this->load->view('connexion/newPassword',$cle_url);

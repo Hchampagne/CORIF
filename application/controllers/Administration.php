@@ -20,7 +20,7 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');       
         $this->load->view('administration/adherent/liste_adherent', $data);    
-        $this->load->view('footer');
+        $this->load->view('script');
     }
 
 // Ajout adherent
@@ -30,7 +30,8 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');
         $this->load->view('administration/adherent/ajout_adherent');
-        $this->load->view('footer');
+
+        $this->load->view('script');
     }
 
 // modificvation adhérent
@@ -40,7 +41,7 @@ class Administration extends CI_Controller {
         $this->load->view('header');
         $data['adherent'] = $this->Adherent_model->select_adherent($id);
         $this->load->view('administration/adherent/modif_adherent', $data);
-        $this->load->view('footer');
+        $this->load->view('script');
     }
 
 // supprimer adhérent
@@ -62,7 +63,7 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');
         $this->load->view('administration/carte/liste_carte', $aview);
-        $this->load->view('footer');        
+        $this->load->view('script');       
     }
 
 // Ajout carte
@@ -73,7 +74,7 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');
         $this->load->view('administration/carte/ajout_carte',$liste);
-        $this->load->view('footer');
+        $this->load->view('script');
     } 
     
 // Modification carte
@@ -85,7 +86,7 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');      
         $this->load->view('administration/carte/modif_carte', $data + $liste);
-        $this->load->view('footer');
+        $this->load->view('script');
     }
 
 // supprimer adherent
@@ -107,7 +108,7 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');
         $this->load->view('administration/metier/liste_metier', $aview);
-        $this->load->view('footer');  
+        $this->load->view('script'); 
     }
 
 // Ajout métier
@@ -115,7 +116,7 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header');
         $this->load->view('administration/metier/ajout_metier');
-        $this->load->view('footer');
+        $this->load->view('script');
     }
 
 // modif métier
@@ -125,7 +126,7 @@ class Administration extends CI_Controller {
         $this->load->view('header');
         $data['metier'] = $this->Metier_model->select_metier($id);
         $this->load->view('administration/metier/modif_metier', $data);
-        $this->load->view('footer'); 
+        $this->load->view('script');
     }
 
 // supprimer metier
