@@ -228,6 +228,7 @@ class Connexion extends CI_Controller{
                     $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
                    
                     $this->load->view('head');
+                    $this->load->view('banner');
                     $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal',$message);
                     $this->load->view('modal/espacejeuModal');
@@ -267,9 +268,6 @@ class Connexion extends CI_Controller{
                         $this->load->view('footer');
                         $this->load->view('script');
 
-
-
-
                     } elseif (password_verify($this->input->post("con_password", true), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
 
                         $this->session->sess_destroy();
@@ -281,6 +279,7 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
 
                         $this->load->view('head');
+                        $this->load->view('banner');
                         $this->load->view('header/header_loader'); 
                         $this->load->view('modal/connexionModal', $message);
                         $this->load->view('modal/espacejeuModal');
@@ -298,6 +297,7 @@ class Connexion extends CI_Controller{
                         $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
 
                         $this->load->view('head');
+                        $this->load->view('banner');
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal', $message);
                         $this->load->view('modal/espacejeuModal');
