@@ -39,8 +39,7 @@
                     <!-- bloc menu déroulant -->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="<?= site_url("administration/ajout_metier") ?>">Ajout</a>
-                        <a class="dropdown-item" href="<?= site_url("administration/metier") ?>">Modification/Liste</a>
-                        <a class="dropdown-item" href="#">Dernier service</a>
+                        <a class="dropdown-item" href="<?= site_url("administration/metier") ?>">Modification/Liste</a>                   
                     </div>
                 </li>
 

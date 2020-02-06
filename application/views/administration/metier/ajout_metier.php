@@ -1,30 +1,45 @@
-<div class="corp">
-    <div id="titre">
-        <h1> Ajout d'un Métiers</h1>
+<div class="container ">
+  <div>
+    <h1> Ajout d'une fiche métier</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col">
+
+      <form method="post" action="" id="form_modifMetier">
+        <div class="form-group row justify-content-center">
+          <label for="met_metier" class="col-sm-1 col-form-label ">Métier</label>
+          <div class="col-sm-5">
+            <input type="text" name="met_metier" id="met_metier" class="form-control" value="">
+            <span id="alertMetMetier">&nbsp</span>
+          </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <label for="met_prenom" class="col-sm-1 col-form-label">Prénom</label>
+          <div class="col-sm-5">
+            <input type="text" name="met_prenom" id="met_prenom" class="form-control" value="">
+            <span id="alertMetMetier">&nbsp</span>
+          </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <label for="met_age" class="col-sm-1 col-form-label">Age</label>
+          <div class="col-sm-5">
+            <input type="text" name="met_age" id="met_age" class="form-control" value="">
+            <span id="alertMetMetier">&nbsp</span>
+          </div>
+        </div>
+
+        <div class="form-group row justify-content-center">
+          <label for="" class="col-sm-1 col-form-label"></label>
+          <div class="col-5">
+            <input type="submit" id="mc_signup_submit" value="Modifier" class="btn">
+            <span id="">&nbsp</span>
+          </div>
+        </div>
+      </form>
+
     </div>
-<hr>
-
-    <div>
-
-    <form method="post" action="" id="mc_signup_form">
-  <div class="form-group">
-    <label for="formGroupExampleInput">Métier</label>
-    <input type="text" class="form-control" name="metier">
   </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Nom</label>
-    <input type="text" class="form-control" name="nom">
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput">Prénom</label>
-    <input type="text" class="form-control" name="prenom">
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Age</label>
-    <input type="number" class="form-control" name="age">
-  </div>
-
-  <input type="submit"  id="mc_signup_submit" value="Ajout du métier" class="btn" style="margin-bottom:2.5rem" />
-</form>
-
 </div>

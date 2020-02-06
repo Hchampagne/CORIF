@@ -1,53 +1,91 @@
-<form method="post" action="" id="mc_signup_form">
-
-
-    <div class="form-group">
-        <label for="adh_nom">Nom</label>
-        <input type="text" name="adh_nom" id="adh_nom" class="form-control" value="" />
+<div class="container ">
+    <div>
+        <h1>Ajout fiche adhérent</h1>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col">
 
-    <div class="form-group">
-        <label for="adh_prenom">Prénom</label>
-        <input type="text" name="adh_prenom" id="adh_prenom" class="form-control" value="" />
+            <form method="post" action="" id="form_modifAdherent">
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_nom" class="col-sm-1 col-form-label ">Nom</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="adh_nom" id="adh_nom" class="form-control">
+                        <span id="alertAdhNom">&nbsp</span>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_prenom" class="col-sm-1 col-form-label ">Prénom</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="adh_prenom" id="adh_prenom" class="form-control" value="">
+                        <span id="alertAdhPrenom">&nbsp</span>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_organisme" class="col-sm-1 col-form-label ">Organisme</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="adh_organisme" id="adh_organisme" class="form-control" value="">
+                        <span id="alertAdhOrganisme">&nbsp</span>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_email" class="col-sm-1 col-form-label ">Email</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="adh_email" id="adh_email" class="form-control" value="">
+                        <span id="alertAdhEmail">&nbsp</span>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_login" class="col-sm-1 col-form-label ">Login</label>
+                    <div class="col-sm-5">
+                        <input type="text" name="adh_login" id="adh_login" class="form-control" value="">
+                        <span id="alertAdhLogin">&nbsp</span>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_login" class="col-sm-1 col-form-label "></label>
+                    <div class="col-sm-5">
+                        <label class="radio-inline">
+                            <input type="radio" name="adh_role" id="adh_role" value="formateur" checked>
+                            formateur
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="adh_role" id="adh_role" value="administrateur">
+                            administrateur
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="adh_login" class="col-sm-1 col-form-label "></label>
+                    <div class="col-sm-5">
+                        <label class="radio-inline">
+                            <input type="radio" name="adh_validation" id="adh_validation" value="0" checked>
+                            En cours de validation
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="adh_validation" id="adh_validation" value="1">
+                            validé
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group row justify-content-center">
+                    <label for="" class="col-sm-1 col-form-label"></label>
+                    <div class="col-5">
+                        <input type="submit" id="formAjoutAdh" value="Enregistrer" class="btn">
+                        
+                        <span id="">&nbsp</span>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
-
-    <div class="form-group">
-        <label>Organisme:<span class="mc_required">*</span></label>
-        <input type="text" name="organisme" id="mc_mv_organisme" class="form-control" value=""/>
-    </div>
-
-    <div class="form-group">
-        <label for="adh_email">Email</label>
-        <input type="email" name="email" id="mc_mv_EMAIL" class="form-control" value="" />
-    </div>
-
-    <div class="form-group">
-        <label>Login:<span class="mc_required">*</span></label>
-        <input type="text" name="login" id="mc_mv_login" class="form-control" value="" />
-    </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="adh_role" id="adh_role" class="form-control" value="formateur" checked>
-        <label class="form-check-label">formateur</label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="adh_role" id="adh_role" class="form-control" value="administrateur">
-        <label class="form-check-label">administrateur</label>
-    </div>
-
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="adh_validation" id="adh_validation" class="form-control" value="0" checked>
-        <label class="form-check-label">En cours de validation</label>
-    </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="adh_validation" id="adh_validation" class="form-control" value="1">
-        <label class="form-check-label">Validation</label>
-    </div>
-
-    <div class="mc_signup_submit">
-        <input type="submit" id="mc_signup_submit" value="Modication" class="btn" />
-    </div><!-- /mc_signup_submit -->
-    <br>
-</form><!-- /mc_signup_form -->
+</div>

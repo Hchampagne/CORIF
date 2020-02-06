@@ -16,9 +16,9 @@ class Administration extends CI_Controller {
 // Liste adhérents
     public function adherent(){
 
-        $data["liste"] = $this->Adherent_model->liste_adherents();
+        $data = $this->Adherent_model->liste_adherents();
         $this->load->view('head');
-        $this->load->view('header');       
+        $this->load->view('header/header_loader');     
         $this->load->view('administration/adherent/liste_adherent', $data);    
         $this->load->view('script');
     }
@@ -28,20 +28,64 @@ class Administration extends CI_Controller {
 
         
         $this->load->view('head');
-        $this->load->view('header');
+        $this->load->view('header/header_loader');
         $this->load->view('administration/adherent/ajout_adherent');
 
         $this->load->view('script');
     }
 
-// modificvation adhérent
+// modification adhérent
     public function modif_adherent($id){
 
-        $this->load->view('head');
-        $this->load->view('header');
-        $data['adherent'] = $this->Adherent_model->select_adherent($id);
-        $this->load->view('administration/adherent/modif_adherent', $data);
-        $this->load->view('script');
+        if($this->input->post()){
+
+            // set les règles de validation
+
+            $this->form_validation->set_rules('adh_nom','adh_nom','required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('adh_prenom','adh_prenom','required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('adh_organisme','adh_rganisme','required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]',
+                array('required' => 'Le champ est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('adh_email','adh_email','required|valid_email|max_length[150]',
+                array('required' => 'Le champs est vide', 'valid_email' => 'Votre email est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('adh_login','adh_login','required|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[100]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+                if ($this->form_validation->run() != false){
+                // validation de formulaire OK
+                    // html escape sur le post
+                    $data = $this->input->post(null, true);
+                    // envoi au model pou r mis a jour base
+                    $this->Adherent_model->modif_adherent($id, $data);
+                    // retour à laliste
+                    redirect('Administration/adherent');
+
+                
+                }else{
+                // validation formulaire non ok    
+                //recharge le formulaire 
+                $data = $this->Adherent_model->select_adherent($id);              
+
+                $this->load->view('head');
+                $this->load->view('header/header_loader');
+                $this->load->view('administration/adherent/modif_adherent', $data);
+                $this->load->view('script');
+                }
+        }else{
+            // pas depost premier affichage
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $data = $this->Adherent_model->select_adherent($id);
+            $this->load->view('administration/adherent/modif_adherent', $data);
+            $this->load->view('script');
+        }
+
+       
     }
 
 // supprimer adhérent
@@ -61,7 +105,7 @@ class Administration extends CI_Controller {
         $aview['liste_carte'] = $aliste;     
      
         $this->load->view('head');
-        $this->load->view('header');
+        $this->load->view('header/header_loader');
         $this->load->view('administration/carte/liste_carte', $aview);
         $this->load->view('script');       
     }
@@ -72,7 +116,7 @@ class Administration extends CI_Controller {
         $liste = $this->Metier_model->liste_metier();
 
         $this->load->view('head');
-        $this->load->view('header');
+        $this->load->view('header/header_loader');
         $this->load->view('administration/carte/ajout_carte',$liste);
         $this->load->view('script');
     } 
@@ -84,7 +128,7 @@ class Administration extends CI_Controller {
         $liste = $this->Metier_model->liste_metier();
 
         $this->load->view('head');
-        $this->load->view('header');      
+        $this->load->view('header/header_loader');     
         $this->load->view('administration/carte/modif_carte', $data + $liste);
         $this->load->view('script');
     }
@@ -102,19 +146,18 @@ class Administration extends CI_Controller {
 // Liste metier
     public function metier(){
 
-        $aliste = $this->Metier_model->liste_metier();
-        $aview['liste_metier'] = $aliste;
+        $aliste = $this->Metier_model->liste_metier();       
 
         $this->load->view('head');
-        $this->load->view('header');
-        $this->load->view('administration/metier/liste_metier', $aview);
+        $this->load->view('header/header_loader');
+        $this->load->view('administration/metier/liste_metier', $aliste);
         $this->load->view('script'); 
     }
 
 // Ajout métier
     public function ajout_metier(){
         $this->load->view('head');
-        $this->load->view('header');
+        $this->load->view('header/header_loader');
         $this->load->view('administration/metier/ajout_metier');
         $this->load->view('script');
     }
@@ -123,8 +166,8 @@ class Administration extends CI_Controller {
     public function modif_metier($id){
 
         $this->load->view('head');
-        $this->load->view('header');
-        $data['metier'] = $this->Metier_model->select_metier($id);
+        $this->load->view('header/header_loader');
+        $data = $this->Metier_model->select_metier($id);
         $this->load->view('administration/metier/modif_metier', $data);
         $this->load->view('script');
     }

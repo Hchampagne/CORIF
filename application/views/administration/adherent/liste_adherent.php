@@ -1,5 +1,5 @@
 
-<div class="corp">
+
     <div class="table-reponsive">
         <table class="table table-striped">
             <thead>
@@ -32,7 +32,7 @@
             </tbody>
         </table>
     </div>
-</div>
+
 
 
 

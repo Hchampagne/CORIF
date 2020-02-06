@@ -26,23 +26,22 @@ class Adherent_model extends CI_Model
 // liste adherent  
     function liste_adherents(){
         $this->db->from('adherent');
-        $requete =  $this->db->get();
-        return $requete->result();
+        $requete['liste'] =  $this->db->get()->result();
+        return $requete;
     }
 
 // Select adherent par id
     function select_adherent($id){
         $this->db->from('adherent');
         $this->db->where('adh_id', $id);
-        $requete =  $this->db->get();
-        return $requete->row();
+        $requete['adherent'] =  $this->db->get()->row();
+        return $requete;
     }
 
 // modification adherent par id
-    function modif_adherent($id, $data){
-        $this->db->from('adherent');
+    function modif_adherent($id, $data){      
         $this->db->where('adh_id', $id);
-        $this->db->update($data);
+        $this->db->update('adherent',$data);
         return;
     }
 

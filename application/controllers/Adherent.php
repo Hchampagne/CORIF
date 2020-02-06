@@ -68,8 +68,11 @@ class Adherent extends CI_Controller
                 // formulaire non conforme aux controles
                 // rechargement de la page
                 $this->load->view('head');
-                $this->load->view('header');
-                $this->load->view('connexion/inscription');
+                $this->load->view('banner');
+                $this->load->view('header/header_loader');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('accueil/accueil');
                 $this->load->view('footer');
                 $this->load->view('script');
             } else {
@@ -114,13 +117,14 @@ class Adherent extends CI_Controller
                         $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('banner');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/inscriptionConfModal', $inscription + $envoi);
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
-                        $this->load->view('footer', $reload);
-                        $this->load->view('script');
+                        $this->load->view('footer');
+                        $this->load->view('script', $reload);
                     } else {
                         // affichage inscription réussi / problème envoi mail
                         // modal avec retour a l'accueil 
@@ -130,13 +134,14 @@ class Adherent extends CI_Controller
                         $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                         $this->load->view('head');
-                        $this->load->view('header');
+                        $this->load->view('banner');
+                        $this->load->view('header/header_loader');
                         $this->load->view('modal/inscriptionConfModal', $inscription + $envoi);
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
-                        $this->load->view('footer', $reload);
-                        $this->load->view('script');
+                        $this->load->view('footer',);
+                        $this->load->view('script', $reload);
                     }
                 } else {
                     // insert en base a échoué
@@ -148,21 +153,25 @@ class Adherent extends CI_Controller
                     $reload['reload'] = "<script> $('#inscriptionConfModal').modal('show') </script>";
 
                     $this->load->view('head');
-                    $this->load->view('header');
+                    $this->load->view('banner');
+                    $this->load->view('header/header_loader');
                     $this->load->view('modal/inscriptionConfModal', $inscription);
                     $this->load->view('modal/connexionModal');
                     $this->load->view('modal/espacejeuModal');
                     $this->load->view('accueil/accueil');;
-                    $this->load->view('footer', $reload);
-                    $this->load->view('script');
+                    $this->load->view('footer');
+                    $this->load->view('script', $reload);
                 }
             }
         } else {
 
             // pas de post() rechargement de la page premier affichage
             $this->load->view('head');
-            $this->load->view('header');
-            $this->load->view('connexion/inscription');
+            $this->load->view('banner');
+            $this->load->view('header/header_loader');
+            $this->load->view('modal/connexionModal');
+            $this->load->view('modal/espacejeuModal');
+            $this->load->view('accueil/accueil');
             $this->load->view('footer');
             $this->load->view('script');
         }
