@@ -1,31 +1,34 @@
-<footer>
-    <div id="hp">
-        <div class="row">
-            <div class="col-2">
-            </div>
-            <div class="col align-self-center">
-                <p id="textFoot1">ADRESSE</p>
-                <p id="textFoot">
-                    CORIF</br>
-                    145 rues des stations</br>
-                    59000 LILLE
-                </p>
-            </div>
-            <div class="col align-self-center">
-                <p id="textFoot1">CONTACTS</p>
-                <p id="textFoot">
-                    T.03 20 54 73 55</br>
-                    M.<a href="">contact@corif.fr</a>
-                </p>
-            </div>
-            <div class="col align-self-center">
-                <p id="textFoot1">MENTIONS LEGALES</p>
-                <p id="textFoot">
-                    <a href="#"> Mentions légales</a></Br>
-                    CORIF 2015
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
 
+<footer class="page-footer font-small">  
+  <div class="container-fluid ">
+    <div class="row ">  
+        <div class="col-sm-4">       
+            <ul>
+                <li><h5 class="text-uppercase font-weight-bold" id="footer">Adresse</h5></li>
+                <li>CORIF</li>
+                <li>145 rues des stations</li>
+                <li>59000 LILLE</li>
+            </ul>
+      </div>
+      <div class="col-sm-4">
+            <ul>              
+                <li><h5 class="text-uppercase font-weight-bold" id="footer">CONTACTS</h5></li>
+                <li>&nbsp</li>
+                <li>tel: 03 20 54 73 55</li>
+                <li>Mail: <a href="">contact@corif.fr</a></li>
+            </ul>
+      </div>
+      <div class="col-sm-4">
+            <ul>              
+                <li><h5 class="text-uppercase font-weight-bold" id="footer">mentions légales</h5></li>
+                <li>&nbsp</li>
+                <li><a href="#"> Mentions légales</a></li>
+                <li>CORIF 2015</li>
+            </ul>
+      </div>       
+  </div>
+
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="http://www.corif.fr"> www.CORIF.fr</a>
+  </div>
+</footer>

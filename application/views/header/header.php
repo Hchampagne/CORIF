@@ -3,9 +3,6 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- appeler le logo apres le bouton -->
-        <a class="navbar-brand" href="#"></a>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
 
@@ -33,7 +30,6 @@
                         <a class="dropdown-item" href="<?= site_url("accueil/remerciements") ?>" >Remerciements</a>
                     </div>
                 </li>             
-
             </ul>
         </div>      
     </nav>
