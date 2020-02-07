@@ -71,7 +71,7 @@
                 <div class="form-group row">
                     <label for="car_description" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-sm-9">
-                    <textarea rows="5" cols="33" type="text" name="car_description" id="car_description" class="form-control"><?= $carte->car_description; ?></textarea>
+                    <textarea rows="7" cols="33" type="text" name="car_description" id="car_description" class="form-control"><?= $carte->car_description; ?></textarea>
                         <span id="alertCarDescription">&nbsp</span>
                     </div>
                 </div>

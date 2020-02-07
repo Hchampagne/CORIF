@@ -7,7 +7,7 @@
 
       <div class="modal-header">
         <h4 class="modal-title">
-          Confirmation d'inscription
+          Confirmation
         </h4>
       </div>
       <hr>
@@ -15,12 +15,8 @@
       <div class="modal-body">
 
         <div>
-          <p><?= isset($inscription) ? $inscription : ""; ?></p>
+          <p><?= isset($mess) ? $mess : ""; ?></p>
         </div>
-        <div>
-          <p><?= isset($envoi) ? $envoi : ""; ?></p>
-        </div>
-
         <hr>
         <div class="form-group row justify-content-md-center">
           <div class="col-sm-1 col-form-label">

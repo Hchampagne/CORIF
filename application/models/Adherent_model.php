@@ -42,7 +42,8 @@ class Adherent_model extends CI_Model
     function modif_adherent($id, $data){      
         $this->db->where('adh_id', $id);
         $this->db->update('adherent',$data);
-        return;
+        $update = $this->db->affected_rows();
+        return $update;
     }
 
 //suppression adherent par id

@@ -4,11 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Administration extends CI_Controller {
 
 
-
-// CONTROLE ACCES ADMINISTRATEUR
-
-
-
 /*****************/
 /*** ADHERENTs ***/
 /*****************/
@@ -19,7 +14,7 @@ class Administration extends CI_Controller {
         $data = $this->Adherent_model->liste_adherents();
         $this->load->view('head');
         $this->load->view('header/header_loader');     
-        $this->load->view('administration/adherent/liste_adherent', $data);    
+        $this->load->view('Administration/adherent/liste_adherent', $data);    
         $this->load->view('script');
     }
 
@@ -61,11 +56,46 @@ class Administration extends CI_Controller {
                     // html escape sur le post
                     $data = $this->input->post(null, true);
                     // envoi au model pou r mis a jour base
-                    $this->Adherent_model->modif_adherent($id, $data);
-                    // retour à laliste
-                    redirect('Administration/adherent');
+                    $update=$this->Adherent_model->modif_adherent($id, $data);
 
-                
+                        // prepare les message de confirmation mail
+                        if ($update && $this->input->post('adh_validation') === "1"){
+                            // envoi message validation effectué
+                            $message =  "Bonjour, " . "\r\n\n" .
+                                        "Votre compte sur le Site CORIF est modifié."."\r\n".
+                                        "Votre inscription est validé."."\r\n\n".                                                                              
+                                        "L'équipe CORIF";
+                        }else{
+                            // envoi message compte modifié                          
+                            $message =  "Bonjour, " . "\r\n\n" .
+                                        "Votre compte sur le Site CORIF est modifié." . "\r\n" .
+                                        "Vorte inscription n'est pas validé." . "\r\n\n" .
+                                        "L'équipe CORIF";
+                        }
+                    // def paramètres pour envoi mail   
+                    $sendMail = $this->input->post('adh_email');
+                    $action = "validation";
+
+                    $envoi = $this->Mail_model->sendMail($sendMail, $action, $message);
+                    
+                        if($envoi){
+                            // envoie mail réussi
+                            $messModal['mess'] = "L'émail de modification a été envoyé ." ;
+                            $reload['reload'] = "<script> $('#mailConfModal').modal('show') </script>";                           
+                        }else{
+                    // envoie mail échoué
+                            $messModal['mess'] = "L'émail de modification n'a pas été envoyé !";
+                            $reload['reload'] = "<script> $('#mailConfModal').modal('show') </script>";                           
+                        }
+
+                    // retour à la liste gestion adherent
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('modal/mailConfModal', $messModal);
+                    $data = $this->Adherent_model->liste_adherents();
+                    $this->load->view('administration/adherent/liste_adherent', $data);
+                    $this->load->view('script', $reload); 
+
                 }else{
                 // validation formulaire non ok    
                 //recharge le formulaire 
@@ -73,6 +103,7 @@ class Administration extends CI_Controller {
 
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
+                $this->load->view('modal/mailConfModal');
                 $this->load->view('administration/adherent/modif_adherent', $data);
                 $this->load->view('script');
                 }
@@ -80,16 +111,18 @@ class Administration extends CI_Controller {
             // pas depost premier affichage
             $this->load->view('head');
             $this->load->view('header/header_loader');
+            $this->load->view('modal/mailConfModal');
             $data = $this->Adherent_model->select_adherent($id);
             $this->load->view('administration/adherent/modif_adherent', $data);
             $this->load->view('script');
         }
-
-       
     }
 
 // supprimer adhérent
-    public function suppr_adherent(){
+    public function suppr_adherent($id){
+
+        $this->Adherent_model->suppr_adherent($id);
+        redirect('Administration/adherent');
 
     }    
 

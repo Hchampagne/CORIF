@@ -272,6 +272,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
+                        $this->load->view('modal/mailConfModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
                         $this->load->view('script');

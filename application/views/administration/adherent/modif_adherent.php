@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col">
 
-            <!-- <form method="post" action="" id="form_modifAdherent"> -->
-            <?= form_open('Administration/modif_adherent/' . $adherent->adh_id, 'id="form_modifAdherent"'); ?>
+            
+            
 
             <div class="form-group row justify-content-center">
                 <label for="adh_id" class="col-sm-1 col-form-label ">Index</label>

@@ -85,9 +85,8 @@ ajout bande de couleur*/
         font-style : italic;
     }
 
-
  /* FOOTER */
-/* liste ul sans puces */
+    /* liste ul sans puces */
     ul{
         list-style-type: none;
     }
