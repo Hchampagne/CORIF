@@ -25,12 +25,11 @@ class Administration extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('administration/adherent/ajout_adherent');
-
         $this->load->view('script');
     }
 
 // modification adhérent
-    public function modif_adherent($id){
+    public function modif_adherent(){
 
         if($this->input->post()){
 
@@ -51,12 +50,30 @@ class Administration extends CI_Controller {
             $this->form_validation->set_rules('adh_login','adh_login','required|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[100]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
+            // AJOUTE DES REGLES POUR LES DOUBLONS SI MODIFICATION DE L'EMAIL ET/OU DU LOGIN
+            // recup enregistrement fct id du post
+            $id = $this->input->post('adh_id');
+            $data = $this->Adherent_model->adherent($id);    
+            // pour email
+            if($this->input->post('adh_email') != $data->adh_email ){
+                // ajoute regle is_unique mail modifié
+                $this->form_validation->set_rules('adh_email','adh_email','is_unique[adherent.adh_email]',array('is_unique'=>'Déjà utilisé'));
+            }
+            // pour login
+            if ($this->input->post('adh_login') != $data->adh_login) {
+                // ajoute regle is_unique mail modifié
+                $this->form_validation->set_rules('adh_login', 'adh_login', 'is_unique[adherent.adh_login]', array('is_unique' => 'Déjà utilisé'));
+            }
+               
+
+                // VALIDATION FORMULAIRE
                 if ($this->form_validation->run() != false){
                 // validation de formulaire OK
-                    // html escape sur le post
+                    // html escape sur le post$thius->input->post(), 
                     $data = $this->input->post(null, true);
-                    // envoi au model pou r mis a jour base
-                    $update=$this->Adherent_model->modif_adherent($id, $data);
+                    // envoi au model pour mis a jour base
+                    $adh_id = $this->input->post('adh_id',true);
+                    $update=$this->Adherent_model->modif_adherent($adh_id, $data);
 
                         // prepare les message de confirmation mail
                         if ($update && $this->input->post('adh_validation') === "1"){
@@ -88,31 +105,39 @@ class Administration extends CI_Controller {
                             $reload['reload'] = "<script> $('#mailConfModal').modal('show') </script>";                           
                         }
 
-                    // retour à la liste gestion adherent
+                // retour à la liste gestion adherent
+                    $data = $this->Adherent_model->liste_adherents();                    
+
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
-                    $this->load->view('modal/mailConfModal', $messModal);
-                    $data = $this->Adherent_model->liste_adherents();
+                    $this->load->view('modal/mailConfModal', $messModal);                   
                     $this->load->view('administration/adherent/liste_adherent', $data);
                     $this->load->view('script', $reload); 
 
                 }else{
                 // validation formulaire non ok    
-                //recharge le formulaire 
-                $data = $this->Adherent_model->select_adherent($id);              
-
+                // recharge le formulaire 
+                // recup id passé dans le post
+                $id = $this->input->post('adh_id');
+                // recup données pour affichage
+                $data = $this->Adherent_model->select_adherent($id);
+                        
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
-                $this->load->view('modal/mailConfModal');
+                $this->load->view('modal/mailConfModal');              
                 $this->load->view('administration/adherent/modif_adherent', $data);
                 $this->load->view('script');
                 }
         }else{
             // pas depost premier affichage
+            // recup id passé dans url
+            $id = $this->uri->segment(3);
+            // recup données pour affichage
+            $data = $this->Adherent_model->select_adherent($id);
+
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('modal/mailConfModal');
-            $data = $this->Adherent_model->select_adherent($id);
             $this->load->view('administration/adherent/modif_adherent', $data);
             $this->load->view('script');
         }

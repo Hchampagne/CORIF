@@ -224,22 +224,7 @@ $("#form_ajoutAdherent").submit(function(event){
 
     }
 
-// champs mot de passe 
-    if ($('#ins_mdp').val().length === 0) {
-        $('#alertMdp').text(vide);
-        event.preventDefault();
-    } 
-    else if ($('#ins_mdp').val().length > 60) {
-        $('#alertMdp').text(long);
-        event.preventDefault();
-    } 
-    else if (regMdp.test($('#ins_mdp').val()) == false) {
-        $('#alertMdp').text(saisie);
-        event.preventDefault();
-    }     
-    else {
-        $('#alertMdp').html('&nbsp');
-    }  
+
 });
 
 

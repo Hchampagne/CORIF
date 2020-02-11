@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col">
 
-            
-            
+
+            <?= form_open('Administration/modif_adherent/', 'id="form_modifAdherent"'); ?>
 
             <div class="form-group row justify-content-center">
                 <label for="adh_id" class="col-sm-1 col-form-label ">Index</label>
@@ -21,7 +21,7 @@
             <div class="form-group row justify-content-center">
                 <label for="adh_nom" class="col-sm-1 col-form-label ">Nom</label>
                 <div class="col-sm-5">
-                    <input type="text" name="adh_nom" id="adh_nom" class="form-control" value="<?= (set_value('adh_nom'))? set_value('adh_nom') : $adherent->adh_nom ; ?>">
+                    <input type="text" name="adh_nom" id="adh_nom" class="form-control" value="<?= (set_value('adh_nom')) ? set_value('adh_nom') : $adherent->adh_nom; ?>">
                     <span id="alertAdhNom">&nbsp<?= form_error('adh_nom', '<span>', '</span>') ?></span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group row justify-content-center">
                 <label for="adh_login" class="col-sm-1 col-form-label ">Login</label>
                 <div class="col-sm-5">
-                    <input type="text" name="adh_login" id="adh_login" class="form-control" value="<?= (set_value('adh_login')) ? set_value('adh_login') : $adherent->adh_login;?>">
+                    <input type="text" name="adh_login" id="adh_login" class="form-control" value="<?= (set_value('adh_login')) ? set_value('adh_login') : $adherent->adh_login; ?>">
                     <span id="alertAdhLogin">&nbsp<?= form_error('adh_login', '<span>', '</span>') ?></span>
                 </div>
             </div>

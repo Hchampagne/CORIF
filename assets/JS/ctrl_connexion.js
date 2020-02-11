@@ -16,8 +16,7 @@ $('#con_login').blur(function () {
         $('#alertConLogin').text("Le champs n'est pas rempli");
     } 
     else if($('#con_login').val().length > 100){
-        $('#alertConLogin').text("La saisie est trop longue");
-        event.preventDefault();
+        $('#alertConLogin').text("La saisie est trop longue");     
     }
     else if ((regLogin.test($('#con_login').val()) == false) || (regMail.test($('#con_login').val() == false))){
         $('#alertConLogin').text("La saisie est incorrecte");
@@ -32,8 +31,7 @@ $('#con_password').blur(function () {
         $('#alertConMdp').text("Le champs n'est pas rempli");
     } 
     else if($('#con_password').val().length > 60){
-        $('#alertConMdp').text("Votre saisie est trop longue");
-        event.preventDefault();
+        $('#alertConMdp').text("Votre saisie est trop longue");      
     }
     else if (regMdp.test($('#con_password').val()) == false) {
         $('#alertConMdp').text("La saisie est incorrecte");
