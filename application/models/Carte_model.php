@@ -24,7 +24,7 @@ class Carte_model extends CI_Model
         return $aliste;
     }
 
-// select carte par id
+// select carte par id pour affichage vue
     function select_carte($id){
         $this->db->from('carte');
         $this->db->join('metier', 'car_met_id= met_id');
@@ -32,6 +32,17 @@ class Carte_model extends CI_Model
         $requete['carte'] =  $this->db->get()->row();
         return $requete;
     }
+
+    // select carte par id pour affichage vue
+    function carte($id)
+    {
+        $this->db->from('carte');
+        $this->db->where('car_id', $id);
+        $requete =  $this->db->get()->row();
+        return $requete;
+    }
+
+
 
 // modificatioin carte par id
     function modif_carte($id, $data){

@@ -3,12 +3,12 @@
 // Construction de lacarte
 
 var regNum = /^[A-Z][ ][0-9]{1,8}$/; // regex 1 lettre Maj + espace + 8 chifres max / 1 mini
-var regDescript = /^[^<>\/]+[\w\W]{1,300}$/;  // regex exclu chevron et  slash de 1 à 300 caractères
+var regDescript = /^[^<>\/]+[\w\W]{1,500}$/;  // regex exclu chevron et  slash de 1 à 300 caractères
 
 // Construction de la carte
 // recopie la valeur des champs dans le visuel carte
 $('#car_type').click(function () {
-    $('#text_type').html($("#car_type").val());
+    $('#text_type').html($("#car_type  option:selected").text());
 });
 
 $('#car_numero').keyup(function () {
@@ -18,6 +18,11 @@ $('#car_numero').keyup(function () {
 $('#car_description').keyup(function () {
     $('#text_description').html($("#car_description").val());
 });
+
+$('#car_met_id').click(function () {
+    $('#text_metier').html($("#car_met_id option:selected").text());
+});
+
 
 // Contrôle les champs du formulaire
 
@@ -53,7 +58,7 @@ $('#car_type').click(function () {
 $('#car_description').blur(function () {
     if ($('#car_description').val().length === 0) {
         $('#alertCarDescription').text("Le champs n'est pas rempli");
-    } else if ($('#car_description').val().length > 350) {
+    } else if ($('#car_description').val().length > 500) {
         $('#alertCarDescription').text("La saisie est trop longue");       
     } else if ((regDescript.test($('#car_description').val()) == false) || (regMail.test($('#car_numero').val() == false))) {
         $('#alertCarDescription').text("La saisie est incorrecte");
@@ -120,7 +125,7 @@ $("#form_ajoutCarte").submit(function (event) {
     if ($('#car_description').val().length === 0) {
         $('#alertCarDescription').text("Le champs n'est pas rempli");
         event.preventDefault();
-    } else if ($('#car_description').val().length > 350) {
+    } else if ($('#car_description').val().length > 500) {
         $('#alertCarDescription').text("La saisie est trop longue");
         event.preventDefault();
     } else if ((regDescript.test($('#car_description').val()) == false)) {

@@ -171,24 +171,132 @@ class Administration extends CI_Controller {
 // Ajout carte
     public function ajout_carte()
     {
-        $liste = $this->Metier_model->liste_metier();
+        if($this->input->post()){
+            // il y a un post
 
-        $this->load->view('head');
-        $this->load->view('header/header_loader');
-        $this->load->view('administration/carte/ajout_carte',$liste);
-        $this->load->view('script');
+            // Règles de valkidation
+            $this->form_validation->set_rules('car_numero','car_numero','required|html_escape|regex_match[/^[A-Z][ ][0-9]{1,8}$/]|is_unique[carte.car_numero]|max_length[10]',
+                array('required' => 'Le champs est vide', 'reg_match' => 'La saisie est incorrecte','is_unique'=>'Déjà utilisé', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('car_met_id','car_met_id','required|html_escape|regex_match[/^[0-9]+$/]|max_length[10]',
+                array('required' => 'Sélectionner une option', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('car_type','car_type','required|html_escape|reg_match[/^[a-z]+$/]|max_length[10]', 
+                array('required' => 'Sélectionner une option', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('car_description','car_description','required|html_escape|reg_match[/^[^<>\/]+[\w\W]{1,500}$/]|max_length[500]',
+                array('required' => 'Le champs est vide', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            if($this->form_validation->run() != false){
+                    // validation formulaire ok
+                    $data = $this->input->post(null,true); //filtre html
+                    $this->input->post($data);
+
+                    $liste = $this->Metier_model->liste_metier();
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('administration/carte/ajout_carte', $liste);
+                    $this->load->view('script');
+
+            }else{
+                // validation formulaire ok
+                //liste des métiers
+                $liste = $this->Metier_model->liste_metier();
+
+                $this->load->view('head');
+                $this->load->view('header/header_loader');
+                $this->load->view('administration/carte/ajout_carte', $liste);
+                $this->load->view('script');
+                
+            }
+        }else{
+            /// pas de post chargement premier démarrage
+            //liste des métiers
+            $liste = $this->Metier_model->liste_metier();
+
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $this->load->view('administration/carte/ajout_carte', $liste);
+            $this->load->view('script');
+        }       
     } 
     
 // Modification carte
-    public function modif_carte($id){
+    public function modif_carte(){
 
-        $data = $this->Carte_model->select_carte($id);
-        $liste = $this->Metier_model->liste_metier();
+        if($this->input->post()){
+            // post existant
 
-        $this->load->view('head');
-        $this->load->view('header/header_loader');     
-        $this->load->view('administration/carte/modif_carte', $data + $liste);
-        $this->load->view('script');
+            // Règles de validation
+
+            $this->form_validation->set_rules('car_numero','car_numero','required|html_escape|regex_match[/^[A-Z][ ][0-9]{1,8}$/]|max_length[10]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+                // recup l'id de input post filtre html 
+                $id = $this->input->post('car_id', true);
+                // une règle is_unique si on modifie le numéro de la carte
+                // evite les doublon et ereur DB colonne index unique 
+                $data = $this->Carte_model->carte($id);
+                if($this->input->post('car_numero') != $data->car_numero){
+                    $this->form_validation ->set_rules('car_numero', 'car_numero','is_unique[carte.car_numero]',
+                    array('is_unique'=>'Déjà utilisé'));
+                }
+
+            $this->form_validation->set_rules('car_met_id','car_met_id','required|html_escape|numeric|max_length[10]',
+                array('required' => 'Sélectionner une option', 'numeric' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('car_type','car_type','required|html_escape|in_list[metier,parcours]|max_length[10]',
+                array('required' => 'Sélectionner une option', 'in_list' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('car_description','car_description','required|html_escape|reg_match[^[^<>\/]+[\w\W]{1,500}$]|max_length[500]',
+                array('required' => 'Le champs est vide', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+                if($this->form_validation->run() != false){
+
+                    // validation formulaire ok
+                    // Liste des cartes
+
+                    $aliste = $this->Carte_model->liste_carte();
+                    $aview['liste_carte'] = $aliste;
+
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('administration/carte/liste_carte', $aview);
+                    $this->load->view('script');
+
+
+                }else{
+                    // validation formulaire non ok
+                    // recup l'id de input post filtre html 
+                    $id = $this->input->post('car_id', true);
+                    //données de la carte
+                    $data = $this->Carte_model->select_carte($id);
+                    //liste des métiers
+                    $liste = $this->Metier_model->liste_metier();
+
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('administration/carte/modif_carte', $data + $liste);
+                    $this->load->view('script');
+
+                }
+
+        }else{
+            // pas de post premier affichage
+            // recup id passé dans url
+            $id = $this->uri->segment(3);
+            //données de la carte
+            $data = $this->Carte_model->select_carte($id);
+            //liste des métiers
+            $liste = $this->Metier_model->liste_metier();
+
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $this->load->view('administration/carte/modif_carte', $data + $liste);
+            $this->load->view('script');
+
+
+        }
+
     }
 
 // supprimer adherent
