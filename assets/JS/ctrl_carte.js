@@ -60,7 +60,7 @@ $('#car_description').blur(function () {
         $('#alertCarDescription').text("Le champs n'est pas rempli");
     } else if ($('#car_description').val().length > 500) {
         $('#alertCarDescription').text("La saisie est trop longue");       
-    } else if ((regDescript.test($('#car_description').val()) == false) || (regMail.test($('#car_numero').val() == false))) {
+    } else if ((regDescript.test($('#car_description').val()) == false)) {
         $('#alertCarDescription').text("La saisie est incorrecte");
     } else {
         $('#alertCarDescription').html('&nbsp');
@@ -133,6 +133,55 @@ $("#form_ajoutCarte").submit(function (event) {
         event.preventDefault();
     } else {
         $('#alertCarDescription').html('&nbsp');
-    }      
+    }
     
 });
+    
+
+    //Valid le formulaire avant envoi
+    $("#form_modifCarte").submit(function (event) {
+
+        // champs numéro carte
+        if ($('#car_numero').val().length === 0) {
+            $('#alertCarNum').text("Le champs n'est pas rempli");
+            event.preventDefault();
+        } else if ($('#car_numero').val().length > 10) {
+            $('#alertCarNum').text("La saisie est trop longue");
+            event.preventDefault();
+        } else if ((regNum.test($('#car_numero').val()) == false)) {
+            $('#alertCarNum').text("La saisie est incorrecte");
+            event.preventDefault();
+        } else {
+            $('#alertCarNum').html('&nbsp');
+        }
+
+        // select métier
+        if ($('#car_met_id').val().length === 0) {
+            $('#alertCarMet').text("Selectionner une option");
+            event.preventDefault();
+        } else {
+            $('#alertCarMet').html('&nbsp');
+        }
+
+        // select type
+        if ($('#car_type').val().length === 0) {
+            $('#alertCarType').text("Selectionner une option");
+            event.preventDefault();
+        } else {
+            $('#alertCarType').html('&nbsp');
+        }
+
+        // textaera description
+        if ($('#car_description').val().length === 0) {
+            $('#alertCarDescription').text("Le champs n'est pas rempli");
+            event.preventDefault();
+        } else if ($('#car_description').val().length > 500) {
+            $('#alertCarDescription').text("La saisie est trop longue");
+            event.preventDefault();
+        } else if ((regDescript.test($('#car_description').val()) == false)) {
+            $('#alertCarDescription').text("La saisie est incorrecte");
+            event.preventDefault();
+        } else {
+            $('#alertCarDescription').html('&nbsp');
+        }   
+    });

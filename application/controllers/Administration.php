@@ -20,8 +20,7 @@ class Administration extends CI_Controller {
 
 // Ajout adherent
     public function ajout_adherent(){
-
-        
+       
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('administration/adherent/ajout_adherent');
@@ -29,19 +28,19 @@ class Administration extends CI_Controller {
     }
 
 // modification adhérent
-    public function modif_adherent(){
+    public function modif_adherent($id){
 
         if($this->input->post()){
 
             // set les règles de validation
 
-            $this->form_validation->set_rules('adh_nom','adh_nom','required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
+            $this->form_validation->set_rules('adh_nom','adh_nom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('adh_prenom','adh_prenom','required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
+            $this->form_validation->set_rules('adh_prenom','adh_prenom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('adh_organisme','adh_rganisme','required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]',
+            $this->form_validation->set_rules('adh_organisme','adh_rganisme','required|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]',
                 array('required' => 'Le champ est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_email','adh_email','required|valid_email|max_length[150]',
@@ -51,9 +50,10 @@ class Administration extends CI_Controller {
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             // AJOUTE DES REGLES POUR LES DOUBLONS SI MODIFICATION DE L'EMAIL ET/OU DU LOGIN
-            // recup enregistrement fct id du post
-            $id = $this->input->post('adh_id');
-            $data = $this->Adherent_model->adherent($id);    
+            
+            // enregistrement row adherent modif
+            $data = $this->Adherent_model->adherent($id);  
+
             // pour email
             if($this->input->post('adh_email') != $data->adh_email ){
                 // ajoute regle is_unique mail modifié
@@ -71,9 +71,8 @@ class Administration extends CI_Controller {
                 // validation de formulaire OK
                     // html escape sur le post$thius->input->post(), 
                     $data = $this->input->post(null, true);
-                    // envoi au model pour mis a jour base
-                    $adh_id = $this->input->post('adh_id',true);
-                    $update=$this->Adherent_model->modif_adherent($adh_id, $data);
+                    // envoi au model pour mis a jour base                 
+                    $update=$this->Adherent_model->modif_adherent($id, $data);
 
                         // prepare les message de confirmation mail
                         if ($update && $this->input->post('adh_validation') === "1"){
@@ -117,8 +116,6 @@ class Administration extends CI_Controller {
                 }else{
                 // validation formulaire non ok    
                 // recharge le formulaire 
-                // recup id passé dans le post
-                $id = $this->input->post('adh_id');
                 // recup données pour affichage
                 $data = $this->Adherent_model->select_adherent($id);
                         
@@ -130,8 +127,7 @@ class Administration extends CI_Controller {
                 }
         }else{
             // pas depost premier affichage
-            // recup id passé dans url
-            $id = $this->uri->segment(3);
+           
             // recup données pour affichage
             $data = $this->Adherent_model->select_adherent($id);
 
@@ -145,10 +141,8 @@ class Administration extends CI_Controller {
 
 // supprimer adhérent
     public function suppr_adherent($id){
-
         $this->Adherent_model->suppr_adherent($id);
         redirect('Administration/adherent');
-
     }    
 
 
@@ -175,28 +169,25 @@ class Administration extends CI_Controller {
             // il y a un post
 
             // Règles de valkidation
-            $this->form_validation->set_rules('car_numero','car_numero','required|html_escape|regex_match[/^[A-Z][ ][0-9]{1,8}$/]|is_unique[carte.car_numero]|max_length[10]',
-                array('required' => 'Le champs est vide', 'reg_match' => 'La saisie est incorrecte','is_unique'=>'Déjà utilisé', 'max_length' => 'Saisie trop longue'));
+            $this->form_validation->set_rules('car_numero','car_numero','required|regex_match[/^[A-Z][ ][0-9]{1,8}$/]|is_unique[carte.car_numero]|max_length[10]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte','is_unique'=>'Déjà utilisé', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('car_met_id','car_met_id','required|html_escape|regex_match[/^[0-9]+$/]|max_length[10]',
-                array('required' => 'Sélectionner une option', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+            $this->form_validation->set_rules('car_met_id','car_met_id','required|regex_match[/^[0-9]+$/]|max_length[10]',
+                array('required' => 'Sélectionner une option', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('car_type','car_type','required|html_escape|reg_match[/^[a-z]+$/]|max_length[10]', 
-                array('required' => 'Sélectionner une option', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+            $this->form_validation->set_rules('car_type','car_type','required|regex_match[/^[a-z]+$/]|max_length[10]', 
+                array('required' => 'Sélectionner une option', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('car_description','car_description','required|html_escape|reg_match[/^[^<>\/]+[\w\W]{1,500}$/]|max_length[500]',
-                array('required' => 'Le champs est vide', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+            $this->form_validation->set_rules('car_description','car_description','required|regex_match[/^[^<>\/]+[\w\W]{1,500}$/]|max_length[500]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             if($this->form_validation->run() != false){
-                    // validation formulaire ok
-                    $data = $this->input->post(null,true); //filtre html
-                    $this->input->post($data);
+                // validation formulaire ok
+                $data = $this->input->post(null,true); //filtre html
+                // insertion DB
+                $this->Carte_model->ajout_carte($data);
 
-                    $liste = $this->Metier_model->liste_metier();
-                    $this->load->view('head');
-                    $this->load->view('header/header_loader');
-                    $this->load->view('administration/carte/ajout_carte', $liste);
-                    $this->load->view('script');
+                redirect('Administration/carte');
 
             }else{
                 // validation formulaire ok
@@ -222,55 +213,53 @@ class Administration extends CI_Controller {
     } 
     
 // Modification carte
-    public function modif_carte(){
+    public function modif_carte($id){
 
         if($this->input->post()){
             // post existant
 
             // Règles de validation
 
-            $this->form_validation->set_rules('car_numero','car_numero','required|html_escape|regex_match[/^[A-Z][ ][0-9]{1,8}$/]|max_length[10]',
+
+            $this->form_validation->set_rules('car_numero','car_numero','required|regex_match[/^[A-Z][ ][0-9]{1,8}$/]|max_length[10]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
-                // recup l'id de input post filtre html 
-                $id = $this->input->post('car_id', true);
+                
                 // une règle is_unique si on modifie le numéro de la carte
-                // evite les doublon et ereur DB colonne index unique 
+                // evite les doublons et une erreur DB colonne index unique 
                 $data = $this->Carte_model->carte($id);
                 if($this->input->post('car_numero') != $data->car_numero){
                     $this->form_validation ->set_rules('car_numero', 'car_numero','is_unique[carte.car_numero]',
                     array('is_unique'=>'Déjà utilisé'));
                 }
 
-            $this->form_validation->set_rules('car_met_id','car_met_id','required|html_escape|numeric|max_length[10]',
+            $this->form_validation->set_rules('car_met_id','car_met_id','required|numeric|max_length[10]',
                 array('required' => 'Sélectionner une option', 'numeric' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('car_type','car_type','required|html_escape|in_list[metier,parcours]|max_length[10]',
+            $this->form_validation->set_rules('car_type','car_type','required|in_list[metier,parcours]|max_length[10]',
                 array('required' => 'Sélectionner une option', 'in_list' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
-            $this->form_validation->set_rules('car_description','car_description','required|html_escape|reg_match[^[^<>\/]+[\w\W]{1,500}$]|max_length[500]',
-                array('required' => 'Le champs est vide', 'reg_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+            $this->form_validation->set_rules('car_description','car_description','required|regex_match[/^[^<>\/]+[\w\W]{1,500}$/]|max_length[500]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte','max_length' => 'Saisie trop longue'));    
 
+           
                 if($this->form_validation->run() != false){
 
                     // validation formulaire ok
+                    // recup l'id de input post filtre html 
+                    $data= $this->input->post(null, true);
+                    //$id = $this->input->post('car_id',true);
+
+                    $this->Carte_model->modif_carte($id,$data);
                     // Liste des cartes
-
-                    $aliste = $this->Carte_model->liste_carte();
-                    $aview['liste_carte'] = $aliste;
-
-                    $this->load->view('head');
-                    $this->load->view('header/header_loader');
-                    $this->load->view('administration/carte/liste_carte', $aview);
-                    $this->load->view('script');
+                    redirect('Administration/carte');
 
 
                 }else{
                     // validation formulaire non ok
-                    // recup l'id de input post filtre html 
-                    $id = $this->input->post('car_id', true);
-                    //données de la carte
+                  
+                    // données de la carte
                     $data = $this->Carte_model->select_carte($id);
-                    //liste des métiers
+                    // select liste des métiers
                     $liste = $this->Metier_model->liste_metier();
 
                     $this->load->view('head');
@@ -281,12 +270,11 @@ class Administration extends CI_Controller {
                 }
 
         }else{
-            // pas de post premier affichage
-            // recup id passé dans url
-            $id = $this->uri->segment(3);
-            //données de la carte
+            // pas de post / premier affichage
+           
+            // données de la carte
             $data = $this->Carte_model->select_carte($id);
-            //liste des métiers
+            // liste des métiers
             $liste = $this->Metier_model->liste_metier();
 
             $this->load->view('head');
@@ -300,8 +288,9 @@ class Administration extends CI_Controller {
     }
 
 // supprimer adherent
-    public function suppr_carte(){
-
+    public function suppr_carte($id){
+        $this->Carte_model->suppr_carte($id);
+        redirect('Administration/carte');
     }
 
 
@@ -322,25 +311,99 @@ class Administration extends CI_Controller {
 
 // Ajout métier
     public function ajout_metier(){
-        $this->load->view('head');
-        $this->load->view('header/header_loader');
-        $this->load->view('administration/metier/ajout_metier');
-        $this->load->view('script');
+
+        if($this->input->post()){
+            // il y a un post
+
+            $this->form_validation->set_rules('met_metier','met_metier','required|regex_match[/[A-Za-zéèçàäëï()]+([\s-][A-Za-zéèçàäëï()]+)*$/]|max_length[50]',array('required'=>'Le champs est vide','regex_match'=>'La saisie est incorrecte','max_length'=>'Saisie trop longue'));
+
+            $this->form_validation->set_rules('met_prenom','met_prenom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/]|max_length[50]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('met_age','met_age','required|regex_match[/^[0-9]{2,3}$/]|max_length[3]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+                if($this->form_validation->run() != false){
+                    // validation formulaire ok
+                   
+                    // insertion DB
+                    $data = $this->input->post(null,true);
+                    $this->Metier_model->ajout_metier($data);
+
+                    //retour a la liste
+                    $aliste = $this->Metier_model->liste_metier();
+
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('administration/metier/liste_metier', $aliste);
+                    $this->load->view('script');
+                }else{
+                    // validation formulaire non ok
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('administration/metier/ajout_metier');
+                    $this->load->view('script');
+                }
+        }else{
+            // pas de post premier affchage
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $this->load->view('administration/metier/ajout_metier');
+            $this->load->view('script');
+        }       
     }
 
 // modif métier
     public function modif_metier($id){
 
-        $this->load->view('head');
-        $this->load->view('header/header_loader');
-        $data = $this->Metier_model->select_metier($id);
-        $this->load->view('administration/metier/modif_metier', $data);
-        $this->load->view('script');
+        if($this->input->post()){
+            // li y a un post
+
+            $this->form_validation->set_rules('met_metier','met_metier','required|regex_match[/[A-Za-zéèçàäëï()]+([\s-][A-Za-zéèçàäëï()]+)*$/]|max_length[50]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('met_prenom','met_prenom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/]|max_length[50]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('met_age','met_age','required|regex_match[/^[0-9]{2,3}$/]|max_length[3]',
+                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
+
+
+            if($this->form_validation->run() != false){
+                // validation formulaire ok
+                //insertion DB filtre post html_escape
+                $data = $this->input->post(null,true);
+                $this->Metier_model->modif_metier($id,$data);
+                // retour liste
+                redirect('Administration/metier');
+
+            }else{
+                // validtion formulaire non ok
+                $data = $this->Metier_model->select_metier($id);
+
+                $this->load->view('head');
+                $this->load->view('header/header_loader');
+                $this->load->view('administration/metier/modif_metier', $data);
+                $this->load->view('script');
+
+            }
+        }else{
+            // il n'y a pas de post
+            
+            $data = $this->Metier_model->select_metier($id);
+
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $this->load->view('administration/metier/modif_metier', $data);
+            $this->load->view('script');
+            
+        }     
     }
 
 // supprimer metier
-    public function suppr_metier(){
-
+    public function suppr_metier($id){
+        $this->Metier_model->suppr_metier($id);
+        redirect('Administration/metier');
     }
 
 

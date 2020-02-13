@@ -33,31 +33,26 @@ class Carte_model extends CI_Model
         return $requete;
     }
 
-    // select carte par id pour affichage vue
+    // select carte par id
     function carte($id)
     {
-        $this->db->from('carte');
         $this->db->where('car_id', $id);
-        $requete =  $this->db->get()->row();
+        $requete =  $this->db->get('carte')->row();
         return $requete;
     }
 
-
-
 // modificatioin carte par id
     function modif_carte($id, $data){
-        $this->db->from('adherent');
         $this->db->where('car_id', $id);
-        $this->db->update($data);
+        $this->db->update('carte',$data);
         return;
 
     }
 
 // suppression carte par id
     function suppr_carte($id){
-        $this->db->from('adherent');
         $this->db->where('car_id', $id);
-        $this->db->delete();
+        $this->db->delete('carte');
         return;
     }
 

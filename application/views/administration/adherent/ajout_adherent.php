@@ -80,7 +80,7 @@
                 <label for="" class="col-sm-1 col-form-label"></label>
                 <div class="col-5">
                     <input type="submit" id="formAjoutAdh" value="Enregistrer" class="btn">
-
+                    <a href="<?= site_url("Accueil") ?>" class="btn">Retour</a>
                     <span class="messerreur" id="">&nbsp</span>
                 </div>
             </div>

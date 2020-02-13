@@ -25,13 +25,13 @@
         </div>
 
         <div class="col">
-            <?= form_open('Administration/modif_carte', 'id="form_modifCarte"'); ?>
+            <?= form_open('Administration/modif_carte/'.$carte->car_id, 'id="form_modifCarte"'); ?>
 
             <div class="form-group row">
                 <label for="car_id" class="col-sm-2 col-form-label">Index</label>
                 <div class="col-sm-4">
                     <input type="text" name="" id="" class="form-control" value="<?= $carte->car_id; ?>" disabled>
-                    <input type="text" name="car_id" id="" class="form-control" value="<?= $carte->car_id; ?>" hidden>
+                    <input type="text" name="car_id" id="car_id" class="form-control" value="<?= $carte->car_id; ?>" hidden>
                     <span class="messerreur" id="alertCarId">&nbsp</span>
                 </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="form-group row">
                 <label for="car_numero" class="col-sm-2 col-form-label">N° carte</label>
                 <div class="col-sm-5">
-                    <input type="text" name="car_numero" id="car_numero" class="form-control" value="<?= (set_value('car_numero')) ? set_value('car_numero') : $carte->car_numero; ?>">
+                    <input type="text" name="car_numero" id="car_numero" class="form-control" value="<?= set_value('car_numero', $carte->car_numero); ?>">
                     <span class="messerreur" id="alertCarNum">&nbsp<?= form_error('car_numero', '<span>', '</span>'); ?></span>
                 </div>
             </div>
@@ -73,7 +73,7 @@
             <div class="form-group row">
                 <label for="car_description" class="col-sm-2 col-form-label">Description</label>
                 <div class="col-sm-9">
-                    <textarea rows="10" cols="50" type="text" maxlength="500" name="car_description" id="car_description" class="form-control"><?= $carte->car_description; ?></textarea>
+                    <textarea rows="10" cols="50" type="text" maxlength="500" name="car_description" id="car_description" class="form-control"><?= set_value('car_description',$carte->car_description); ?></textarea>
                     <span class="messerreur" id="alertCarDescription">&nbsp<?= form_error('car_description', '<span>', '</span>'); ?></span>
                 </div>
             </div>
@@ -82,6 +82,7 @@
                 <label for="" class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-9">
                     <input type="submit" id="btn_submit" value="Modication" class="btn">
+                    <a href="<?= site_url("Administration/carte") ?>" class="btn">Retour</a>
                 </div>
             </div>
             </form>

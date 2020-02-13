@@ -31,17 +31,15 @@ class Metier_model extends CI_Model
 
 // update metier
     function modif_metier($id, $data){
-        $this->db->from('metier');
         $this->db->where('met_id', $id);
-        $this->db->update($data);
+        $this->db->update('metier',$data);
         return ;
     }
 
 // suppr metier
     public function suppr_metier($id){
-        $this->db->from('metier');
         $this->db->where('met_id', $id);
-        $this->db->delete();
+        $this->db->delete('metier');
         return;
     }
 
