@@ -12,7 +12,7 @@ class Adherent_model extends CI_Model
 
 
 //ajout adherent
-    function insert_adherents($data) 
+    function insert_adherent($data) 
     {
         //ajout de la date inscritpion
         $today = date("Y-m-d");

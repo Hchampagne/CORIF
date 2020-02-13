@@ -43,7 +43,7 @@
         <div class="form-group row justify-content-center">
           <label for="" class="col-sm-1 col-form-label"></label>
           <div class="col-sm-5">
-            <input type="submit" id="mc_signup_submit" value="Modifier" class="btn">
+            <input type="submit"  value="Modifier" class="btn">
             <a href="<?= site_url("Administration/metier") ?>" class="btn">Retour</a>
             <span id="">&nbsp</span>
           </div>

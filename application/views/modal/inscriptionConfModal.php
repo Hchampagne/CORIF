@@ -11,9 +11,7 @@
         </h4>
       </div>
       <hr>
-
       <div class="modal-body">
-
         <div>
           <p><?= isset($mess) ? $mess : ""; ?></p>
         </div>

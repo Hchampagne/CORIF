@@ -53,7 +53,7 @@ $("#form_metier").submit(function (event) {
     if ($('#met_metier').val().length === 0) {
         $('#alertMetMetier').text("Le champs n'est pas rempli");
         event.preventDefault();
-    } else if ($('#met_metier').val().length > 10) {
+    } else if ($('#met_metier').val().length > 50) {
         $('#alertMetMetier').text("La saisie est trop longue");
         event.preventDefault();
     } else if ((regNum.test($('#met_metier').val()) == false)) {
@@ -67,7 +67,7 @@ $("#form_metier").submit(function (event) {
     if ($('#met_prenom').val().length === 0) {
         $('#alertMetPrenom').text("Le champs n'est pas rempli");
         event.preventDefault();
-    } else if ($('#met_prenom').val().length > 500) {
+    } else if ($('#met_prenom').val().length > 50) {
         $('#alertMetPrenom').text("La saisie est trop longue");
         event.preventDefault();
     } else if ((regPrenom.test($('#met_prenom').val()) == false)) {
@@ -84,7 +84,7 @@ $("#form_metier").submit(function (event) {
     } else if ($('#met_age').val().length > 3) {
         $('#alertMetAge').text("La saisie est trop longue");
         event.preventDefault();
-    } else if ((regPrenom.test($('#met_age').val()) == false)) {
+    } else if ((regççage.test($('#met_age').val()) == false)) {
         $('#alertMetAge').text("La saisie est incorrecte");
         event.preventDefault();
     } else {

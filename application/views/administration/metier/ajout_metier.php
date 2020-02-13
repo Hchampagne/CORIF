@@ -20,7 +20,7 @@
         <label for="met_prenom" class="col-sm-1 col-form-label">Prénom</label>
         <div class="col-sm-5">
           <input type="text" name="met_prenom" id="met_prenom" class="form-control" value="<?= set_value('met_prenom') ?>">
-          <span class="messerreur" id="alertMetMetier">&nbsp<?= form_error('met_prenom', '<span>', '</span>'); ?></span>
+          <span class="messerreur" id="alertMetPrenom">&nbsp<?= form_error('met_prenom', '<span>', '</span>'); ?></span>
         </div>
       </div>
 
@@ -28,15 +28,16 @@
         <label for="met_age" class="col-sm-1 col-form-label">Age</label>
         <div class="col-sm-5">
           <input type="text" name="met_age" id="met_age" class="form-control" value="<?= set_value('met_age') ?>">
-          <span class="messerreur" id="alertMetMetier">&nbsp<?= form_error('met_age', '<span>', '</span>'); ?></span>
+          <span class="messerreur" id="alertMetAge">&nbsp<?= form_error('met_age', '<span>', '</span>'); ?></span>
         </div>
       </div>
 
       <div class="form-group row justify-content-center">
         <label for="" class="col-sm-1 col-form-label"></label>
         <div class="col-sm-5">
-          <input type="submit" id="mc_signup_submit" value="Modifier" class="btn">
+          <input type="submit"  value="Modifier" class="btn">
           <a href="<?= site_url("Accueil") ?>" class="btn">Retour</a>
+          <a href="<?= site_url("Administration/metier/") ?>" class="btn">Liste</a>
         </div>
       </div>
       </form>
