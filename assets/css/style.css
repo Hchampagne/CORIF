@@ -100,7 +100,7 @@ ajout bande de couleur*/
 
 
 /*input formulaire session*/
-    #ses_time{
+    .ses_time{
         border: none;
         background-color: #eeeded;
     }

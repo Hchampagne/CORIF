@@ -101,12 +101,15 @@ $('#adh_login').blur(function () {
 $('#adh_email').change(function () {
     $.post({
         url: "../../Ajax/doublon" ,
+        
         data: {
             verifRef: $("#adh_email").val(),
             verifChamps: "adh_email",
             verifTable: "adherent",
+            
         },
         success: function (data) {
+
             if (data == 1) {
                 $("#alertAdhEmail").text("Dèjà utilisé");
             } else {

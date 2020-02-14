@@ -222,35 +222,6 @@ class Jeu extends CI_Controller {
     }
 
 
-    public function email_part(){
-
-        $this->output->enable_profiler(FALSE);
-        $liste['email']= $this->Corif_model->latest_id_part();
-        $data['participant'] = $this->Corif_model->participant();
-        $mess=$this->load->view('email/email_part',$data,true);
-        $this->email->from('noreply@jerem1formatic.fr', 'Corif');
-        $mail=array();
-        foreach($liste as $email){
-                array_push($mail, $email->email);
-        }
-        $maile = join(",",$mail);       
-        
-        $this->email->to($maile);        
-        $this->email->subject('Inscription sur Corif "Des métiers, des vies?"');
-        $this->email->message( $mess  );
-
-        if ( ! $this->email->send(false))
-        {
-               echo "envoie ko";
-        }
-        else {
-                message('Votre inscription est en cours de validation.');
-                redirect('administration/email_val');
-        }
-        $this->email->print_debugger();
-
-
-}
 
 
     function session($id)

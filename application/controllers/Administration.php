@@ -142,25 +142,25 @@ class Administration extends CI_Controller {
                                         "Vorte inscription n'est pas validé." . "\r\n\n" .
                                         "L'équipe CORIF";
                         }
-                    // def paramètres pour envoi mail   
+                    // définition paramètres pour envoi email   
                     $sendMail = $this->input->post('adh_email');
                     $action = "validation";
-
+                    // envoi du email de confirmation
                     $envoi = $this->Mail_model->sendMail($sendMail, $action, $message);
                     
                         if($envoi){
                             // envoie mail réussi
                             $messModal['mess'] = "L'émail de modification a été envoyé ." ;                                                      
                         }else{
-                    // envoie mail échoué
+                            // envoie mail échoué
                             $messModal['mess'] = "L'émail de modification n'a pas été envoyé !";                                                      
                         }
-                    // chargement modal   
+
+                    // chargement modal confirmation envoi mail  
                     $reload['reload'] = "<script> $('#mailConfModal').modal('show') </script>";    
 
                     // retour à la liste gestion adherent
                     $data = $this->Adherent_model->liste_adherents();                    
-
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('modal/mailConfModal', $messModal);                   
@@ -193,8 +193,7 @@ class Administration extends CI_Controller {
     public function carte(){
         // liste des cartes
         $aliste = $this->Carte_model->liste_carte();
-        $aview['liste_carte'] = $aliste;     
-     
+        $aview['liste_carte'] = $aliste;         
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('administration/carte/liste_carte', $aview);
@@ -227,29 +226,26 @@ class Administration extends CI_Controller {
                 $this->Carte_model->ajout_carte($data);
 
                 // recharge le formulaire
-                //select liste des métiers
+                // select liste des métiers
                 $liste = $this->Metier_model->liste_metier();
-
-                 $this->load->view('head');
+                $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('administration/carte/ajout_carte', $liste);
                 $this->load->view('script');
 
             }else{
                 // validation formulaire non ok
-                //select liste des métiers
+                // select liste des métiers
                 $liste = $this->Metier_model->liste_metier();
-
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('administration/carte/ajout_carte', $liste);
                  $this->load->view('script');              
             }
         }else{
-            /// pas de post chargement premier démarrage
-            //select liste des métiers
+            // pas de post chargement premier démarrage
+            // select liste des métiers
             $liste = $this->Metier_model->liste_metier();
-
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/carte/ajout_carte', $liste);
@@ -338,7 +334,6 @@ class Administration extends CI_Controller {
 // Liste metier
     public function metier(){
         $aliste = $this->Metier_model->liste_metier();       
-
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('administration/metier/liste_metier', $aliste);
@@ -352,6 +347,7 @@ class Administration extends CI_Controller {
         if($this->input->post()){
             // il y a un post
 
+            // règles de validation formulaire
             $this->form_validation->set_rules('met_metier','met_metier','required|regex_match[/[A-Za-zéèçàäëï()]+([\s-][A-Za-zéèçàäëï()]+)*$/]|max_length[50]',array('required'=>'Le champs est vide','regex_match'=>'La saisie est incorrecte','max_length'=>'Saisie trop longue'));
 
             $this->form_validation->set_rules('met_prenom','met_prenom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/]|max_length[50]',
@@ -367,7 +363,7 @@ class Administration extends CI_Controller {
                     $data = $this->input->post(null,true);
                     $this->Metier_model->ajout_metier($data);
 
-                    //retour formulaire nouvelle ent
+                    //retour formulaire pour une nouvelle entrée
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('administration/metier/ajout_metier');
@@ -375,6 +371,7 @@ class Administration extends CI_Controller {
 
                 }else{
                     // validation formulaire non ok
+                    // re affichage du formulaire
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('administration/metier/ajout_metier');
@@ -382,7 +379,7 @@ class Administration extends CI_Controller {
                 }
         }else{
             // pas de post 
-            // premier affchage
+            // premier affichage
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/metier/ajout_metier');
@@ -397,6 +394,7 @@ class Administration extends CI_Controller {
         if($this->input->post()){
             // li y a un post
 
+            // règles de validation formulaire
             $this->form_validation->set_rules('met_metier','met_metier','required|regex_match[/[A-Za-zéèçàäëï()]+([\s-][A-Za-zéèçàäëï()]+)*$/]|max_length[50]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
