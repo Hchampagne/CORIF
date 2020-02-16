@@ -12,6 +12,7 @@ class Administration extends CI_Controller {
     public function adherent(){
        
         $data = $this->Adherent_model->liste_adherents();
+        var_dump($data);
         $this->load->view('head');
         $this->load->view('header/header_loader');     
         $this->load->view('Administration/adherent/liste_adherent', $data);    

@@ -3,49 +3,101 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 
-class Jeu extends CI_Controller {
+class Espace_jeu extends CI_Controller {
+
+
+    public function liste_partipants(){
+
+    }
    
-    public function index($idsession)
-	{
+
+
+
+
+    public function creation_session(){
+
+        //$this->session->liste_participant = array();
+       
+   
+        if($this->input->post('inv_email') && $this->input->post('inv_nom') && $this->input->post('inv_prenom')){ 
+            // il y a un post pour les invité
         
-            
+            if($this->session->liste_partcipant === NULL){
+
+              
+              
+                // si la liste des participant n'existe pas 
+                // création de la liste participant en session
+               
+                $liste = $this->session->liste_participant;
+
+                // ajout données invités ds tableau
+                $email = $this->input->post('inv_email',TRUE);
+                $nom = $this->input->post('inv_nom',TRUE);
+                $prenom = $this->input->post('inv_prenom',TRUE);
+
+                $invite = array('inv_email'=>$email,'inv_nom'=>$nom,'inv_prenom'=>$prenom);             
+                array_push($liste,$invite);               
+                $this->session->liste_participant = $liste;
+
+
+                // regles de validation formulaire
+
+                $this->load->view('head');
+   
+                $this->load->view('header/header_loader');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('adherent/create_session');
+   
+                $this->load->view('script');
+
+
+            }else{
+
+                $liste = $this->session->liste_participant;
+
+                // ajout données invités ds tableau
+                $email = $this->input->post('inv_email',TRUE);
+                $nom = $this->input->post('inv_nom',TRUE);
+                $prenom = $this->input->post('inv_prenom',TRUE);
+
+                $invite = array('inv_email'=>$email,'inv_nom'=>$nom,'inv_prenom'=>$prenom);             
+                array_push($liste,$invite);               
+                $this->session->liste_participant = $liste;
+
+                var_dump($liste);
+
+                $this->load->view('head');
+   
+                $this->load->view('header/header_loader');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('adherent/create_session');
+   
+                $this->load->view('script');
+
+
+            }
+
+           
+
+               
         
-            $jeu=mktime($minute=15);
-
-        if($this->auth->is_logged() == TRUE){ 
-
-            // charge les head et header
-            $this->load->view('head');
-            $this->load->view('header');
-
-            // requete select les cartes pour un metier dans une session 
-            $cartes = $this->db->query("
-                select * from carte where type = 'metier' and id_metier in (
-                    select id_metier from contient where id_session=?
-                )
-                order by description asc
-                ", $idsession)->result();
-            
-            $data['cartes'] = $cartes;
-
-            $metiers = $this->db->query("
-                select * from metier where id in (
-                    select id_metier from contient where id_session=?
-                )
-                ", $idsession)->result();
-            
-                $data['metiers'] = $metiers;
-                $data['id_session'] = $idsession;
-            
+        }else{
+        // pas de post
         
-            $this->load->view('jeu/index', $data);
-            $this->load->view('footer');        
-        }
-        else{
-            redirect(site_url("jeu/login"));
-    
+        $this->load->view('head');
+   
+        $this->load->view('header/header_loader');
+        $this->load->view('modal/connexionModal');
+        $this->load->view('modal/espacejeuModal');
+        $this->load->view('adherent/create_session');  
+        $this->load->view('script');
         }      
-}
+    }        
+        
+  
 
 // CREATION DES SESSIONS
     public function create_session()
