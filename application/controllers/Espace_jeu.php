@@ -16,110 +16,73 @@ class Espace_jeu extends CI_Controller {
 
     public function creation_session(){
 
-        //$this->session->liste_participant = array();
-       
-   
-        if($this->input->post('inv_email') && $this->input->post('inv_nom') && $this->input->post('inv_prenom')){ 
-            // il y a un post pour les invité
-        
-            if($this->session->liste_partcipant === NULL){
+        if($this->input->post()){
+            // il y a un post
 
-              
-              
-                // si la liste des participant n'existe pas 
-                // création de la liste participant en session
-               
-                $liste = $this->session->liste_participant;
+            var_dump($this->input->post());
 
-                // ajout données invités ds tableau
-                $email = $this->input->post('inv_email',TRUE);
-                $nom = $this->input->post('inv_nom',TRUE);
-                $prenom = $this->input->post('inv_prenom',TRUE);
+            // Valeur session
+            $date = $this->input->post('ses_date', TRUE);
+            $heure = $this->input->post('ses_h_debut', TRUE);
+            // valeurs praticipant
+            $email = $this->input->post('inv_email', TRUE);
+            $nom = $this->input->post('inv_email', TRUE);
+            $prenom = $this->input->post('inv_prenom', TRUE);
+            // valeurs métier
+            $metier1 = $this->input->post('metier1', TRUE);
+            $metier2 = $this->input->post('metier2', TRUE);
+            $metier3 = $this->input->post('metier3', TRUE);
 
-                $invite = array('inv_email'=>$email,'inv_nom'=>$nom,'inv_prenom'=>$prenom);             
-                array_push($liste,$invite);               
-                $this->session->liste_participant = $liste;
+            $liste = array();
 
 
-                // regles de validation formulaire
-
-                $this->load->view('head');
-   
-                $this->load->view('header/header_loader');
-                $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
-                $this->load->view('adherent/create_session');
-   
-                $this->load->view('script');
+                if($email != "" && $nom != "" && $prenom != ""){
+                    $invite = array('inv_email' => $email, 'inv_nom' => $nom, 'inv_prenom' => $prenom); 
+                    $liste = array($liste,$invite);
+                    $liste_participant['liste'] = $liste;
 
 
-            }else{
 
-                $liste = $this->session->liste_participant;
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('modal/connexionModal');
+                    $this->load->view('modal/espacejeuModal');
+                    $this->load->view('adherent/create_session', $liste_participant);
+                    $this->load->view('script');
 
-                // ajout données invités ds tableau
-                $email = $this->input->post('inv_email',TRUE);
-                $nom = $this->input->post('inv_nom',TRUE);
-                $prenom = $this->input->post('inv_prenom',TRUE);
-
-                $invite = array('inv_email'=>$email,'inv_nom'=>$nom,'inv_prenom'=>$prenom);             
-                array_push($liste,$invite);               
-                $this->session->liste_participant = $liste;
-
-                var_dump($liste);
-
-                $this->load->view('head');
-   
-                $this->load->view('header/header_loader');
-                $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
-                $this->load->view('adherent/create_session');
-   
-                $this->load->view('script');
+                }else{
 
 
-            }
+                    $liste_participant['liste'] = array();
 
-           
+                    $this->load->view('head');
+                    $this->load->view('header/header_loader');
+                    $this->load->view('modal/connexionModal');
+                    $this->load->view('modal/espacejeuModal');
+                    $this->load->view('adherent/create_session', $liste_participant);
+                    $this->load->view('script');
 
-               
-        
+                }
+
+
+
+
+
+
         }else{
-        // pas de post
-        
-        $this->load->view('head');
-   
-        $this->load->view('header/header_loader');
-        $this->load->view('modal/connexionModal');
-        $this->load->view('modal/espacejeuModal');
-        $this->load->view('adherent/create_session');  
-        $this->load->view('script');
-        }      
-    }        
-        
-  
+            // pas de post
 
-// CREATION DES SESSIONS
-    public function create_session()
-    {       
-        if($this->input->post()){  //si exist un post          
-                // attribut les variables du post dans $data
-                $data = $this->input->post();
-                // attribut id de la session a $formateur
-                $formateur = $_SESSION['id'];
-                // ajout a $data  id_formateur => $formateur = $_SESSION['id']
-                $data += array("id_formateur" => $formateur);
-                //insert du post dans la base table session
-                $this->Corif_model->create_session($data);
-                //requete recup le dernier id en fait non l'id max
-                //defaut en cas de requete simultanée
-                $id = $this->db->query('select max(id) as id from session')->row()->id;
-                // redirect vers choix metier
-                redirect(site_url("jeu/choix_metier/") . $id );
-            }else{
-                // pas de connexion redirection
-                redirect(site_url("jeu/login"));
-            }
+
+            $liste_participant['liste'] = array();
+
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $this->load->view('modal/connexionModal');
+            $this->load->view('modal/espacejeuModal');
+            $this->load->view('adherent/create_session', $liste_participant);
+            $this->load->view('script');
+        }  
+
              
     }
 

@@ -24,7 +24,7 @@
                     <td><?= $adherent->adh_organisme ?> </td>
                     <td><?= $adherent->adh_role ?> </td>
                     <td><?= $adherent->adh_login ?> </td>
-                    <td><?= ($adherent->adh_validation ==1) ? "oui" : "non" ;?> </td>           
+                    <td><?= ($adherent->adh_validation == 1) ? "oui" : "non" ;?> </td>           
                     <td><a class="btn" href="<?=site_url("administration/modif_adherent/$adherent->adh_id")?>">Modifier</a></td>
                     <td> <a class="btn "href="<?=site_url("administration/suppr_adherent/$adherent->adh_id")?>"  Onclick='return confirm("Etes-vous sûr?")'>Suppression</a></td>
                 </tr>
