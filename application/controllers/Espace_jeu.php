@@ -13,7 +13,6 @@ class Espace_jeu extends CI_Controller {
               
               // form_validation 
 
-
             if($this->session->liste === NULL){ // test si variable liste en session
 
                 // def tableau liste en session
@@ -43,17 +42,14 @@ class Espace_jeu extends CI_Controller {
                 //Test si email déjà présent
                 $tab = $this->session->liste;
                 $email = $this->input->post('inv_email');
-                $test = false;
+                $test = true;
                 //boucle test
 
                    for ($x=0;$x < count($tab);$x++){               
-                        if ($tab[$x]['inv_email'] != $email) {
-                            $test = true;
-                        }else{
+                        if ($tab[$x]['inv_email'] == $email) {
                             $test = false;
-                        }
-                   }
-                   
+                        }                       
+                   }                  
 
                     if($test === true){ // email différent
 
@@ -95,8 +91,16 @@ class Espace_jeu extends CI_Controller {
             }
 
       }else{ //pas de post
-            // set une liste vide pour affichage
+
+        // si p s de post premier affichage
+        // sinon affichage des valeurs tableau en session
+        if($this->session->liste === NULL){
             $liste_participant['liste'] = array();
+        }else{
+            $liste = $this->session->liste;       
+            $liste_participant['liste'] = $liste;
+        }  
+                 
             //affichage de la vue
             $this->load->view('head');
             $this->load->view('header/header_loader');
@@ -109,12 +113,12 @@ class Espace_jeu extends CI_Controller {
     }
 
     public function deleteParticipantListe(){
-        echo "coucou";
 
 
 
+   
 
-
+        redirect('Espace_jeu/creation_session'); 
 
     }
 

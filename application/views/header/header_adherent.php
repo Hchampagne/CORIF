@@ -17,7 +17,7 @@
                     <a class="nav-link" href="<?= site_url("jeu/dashboad") ?>">GESTION</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("Espace_jeu/creation_session") ?>">SESSION</a>
+                    <a class="nav-link" href="<?= site_url("Invite/creation_invite") ?>">CEATION INVITE(S)</a>
                 </li>
 
 
