@@ -37,29 +37,31 @@
                     <span class="messerreur" id="alertInvPreom">&nbsp<?= form_error('inv_prenom', '<span>', '</span>'); ?></span>
                 </div>
                 <div class="col-sm-1">
-                    <button class="btn"  id="par_ajout">Ajouter</button>
+                    <button class="btn" id="par_ajout">Ajouter</button>
                 </div>
             </div>
+            <hr>
             <div class="table-responsive">
                 <table class="table table-hover">
-                    <thead class="thead-light text-center">
+                    <thead class="thead-light">
                         <tr>
-                            <th class="col-sm-4 justify-text-left">Email</th>
+                            <th class="col-sm-4">index</th>
+                            <th class="col-sm-4">Email</th>
                             <th class="col-sm-4">Nom</th>
                             <th class="col-sm-3">Prénom</th>
                             <th class="col-sm-1"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        var_dump($liste);
+                        <?php             
                         foreach ($liste as $participant) {
                         ?>
                             <tr>
+                                <td class=""><?= "#" ?></td>
                                 <td class=""><?= $participant['inv_email'] ?></td>
-                                <td class=""><?= $participant['inv_prenom']?></td>
-                                <td class=""><?= $participant['inv_prenom']?></td>
-                                <td class=""> <a class="btn" href="" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
+                                <td class=""><?= $participant['inv_prenom'] ?></td>
+                                <td class=""><?= $participant['inv_prenom'] ?></td>
+                                <td class=""> <a class="btn" href="<?= site_url("Espace_jeu/deleteParticipantListe") ?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
                             </tr>
                         <?php } ?>
                     </tbody>

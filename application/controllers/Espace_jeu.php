@@ -4,87 +4,121 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class Espace_jeu extends CI_Controller {
-
-
-    public function liste_partipants(){
-
-    }
-   
-
-
-
-
+  
     public function creation_session(){
+    
+      if($this->input->post()){ // si bouton 
 
-        if($this->input->post()){
-            // il y a un post
-
-            var_dump($this->input->post());
-
-            // Valeur session
-            $date = $this->input->post('ses_date', TRUE);
-            $heure = $this->input->post('ses_h_debut', TRUE);
-            // valeurs praticipant
-            $email = $this->input->post('inv_email', TRUE);
-            $nom = $this->input->post('inv_email', TRUE);
-            $prenom = $this->input->post('inv_prenom', TRUE);
-            // valeurs métier
-            $metier1 = $this->input->post('metier1', TRUE);
-            $metier2 = $this->input->post('metier2', TRUE);
-            $metier3 = $this->input->post('metier3', TRUE);
-
-            $liste = array();
+              // regle de validation formulaire
+              
+              // form_validation 
 
 
-                if($email != "" && $nom != "" && $prenom != ""){
-                    $invite = array('inv_email' => $email, 'inv_nom' => $nom, 'inv_prenom' => $prenom); 
-                    $liste = array($liste,$invite);
-                    $liste_participant['liste'] = $liste;
+            if($this->session->liste === NULL){ // test si variable liste en session
+
+                // def tableau liste en session
+                $this->session->liste = array();
+                $liste = $this->session->liste;
+                // recup valeurs post pour affichage
+                $email = $this->input->post('inv_email',TRUE);
+                $nom = $this->input->post('inv_nom', TRUE);
+                $prenom = $this->input->post('inv_prenom', TRUE);
+                // cré un tableau avec valeur du post
+                $invite = array('inv_email'=>$email, 'inv_nom'=>$nom, 'inv_prenom'=>$prenom);
+                array_push($liste,$invite);
+                // met la liste en session
+                $this->session->liste = $liste;
+                // prepare affiche vue <=> on pourrait utiliser la session pour affichage
+                $liste_participant['liste'] = $liste;
+                //affichage de la vue
+                $this->load->view('head');
+                $this->load->view('header/header_loader');
+                $this->load->view('modal/connexionModal');
+                $this->load->view('modal/espacejeuModal');
+                $this->load->view('adherent/create_session', $liste_participant);
+                $this->load->view('script'); 
+
+            }else{ // variable liste en session
+
+                //Test si email déjà présent
+                $tab = $this->session->liste;
+                $email = $this->input->post('inv_email');
+                $test = false;
+                //boucle test
+
+                   for ($x=0;$x < count($tab);$x++){               
+                        if ($tab[$x]['inv_email'] != $email) {
+                            $test = true;
+                        }else{
+                            $test = false;
+                        }
+                   }
+                   
+
+                    if($test === true){ // email différent
+
+                        // recup valeurs post pour affichage
+                        $email = $this->input->post('inv_email', TRUE);
+                        $nom = $this->input->post('inv_nom', TRUE);
+                        $prenom = $this->input->post('inv_prenom', TRUE);
+                        // recupération de la list een session
+                        $liste = $this->session->liste;
+                        // ajoute nouvelles valeurs du post
+                        $invite = array('inv_email' => $email, 'inv_nom' => $nom, 'inv_prenom' => $prenom);
+                        array_push($liste, $invite);
+                        // la liste en session
+                        $this->session->liste = $liste;
+                        // prepare affiche vue <=> on pourrait utiliser la session pour affichage
+                        $liste_participant['liste'] = $liste;
+                        //affichage de la vue
+                        $this->load->view('head');
+                        $this->load->view('header/header_loader');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('adherent/create_session', $liste_participant);
+                        $this->load->view('script'); 
+
+                    }else{ // email déjà présent
 
 
+                        $liste = $this->session->liste;
+                         // prepare affiche vue <=> on pourrait utiliser la session pour affichage
+                        $liste_participant['liste'] = $liste;
+                        //affichage de la vue
+                        $this->load->view('head');
+                        $this->load->view('header/header_loader');
+                        $this->load->view('modal/connexionModal');
+                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('adherent/create_session', $liste_participant);
+                        $this->load->view('script');              
+                    }
+            }
 
-                    $this->load->view('head');
-                    $this->load->view('header/header_loader');
-                    $this->load->view('modal/connexionModal');
-                    $this->load->view('modal/espacejeuModal');
-                    $this->load->view('adherent/create_session', $liste_participant);
-                    $this->load->view('script');
-
-                }else{
-
-
-                    $liste_participant['liste'] = array();
-
-                    $this->load->view('head');
-                    $this->load->view('header/header_loader');
-                    $this->load->view('modal/connexionModal');
-                    $this->load->view('modal/espacejeuModal');
-                    $this->load->view('adherent/create_session', $liste_participant);
-                    $this->load->view('script');
-
-                }
-
-
-
-
-
-
-        }else{
-            // pas de post
-
-
+      }else{ //pas de post
+            // set une liste vide pour affichage
             $liste_participant['liste'] = array();
-
+            //affichage de la vue
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('modal/connexionModal');
             $this->load->view('modal/espacejeuModal');
             $this->load->view('adherent/create_session', $liste_participant);
-            $this->load->view('script');
-        }  
-
-             
+            $this->load->view('script'); 
+      }
+            
     }
+
+    public function deleteParticipantListe(){
+        echo "coucou";
+
+
+
+
+
+
+    }
+
+
 
 
 /*******************************************************************************************************************/
