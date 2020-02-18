@@ -5,7 +5,7 @@
     <hr>
     <div class="row">
         <div class="col">
-            <?= form_open('Invite/creation_invite', 'id="form_creatInvite"'); ?>           
+            <?= form_open('Invite/creation_invite', 'id="form_creatInvite"'); ?>
             <div>
                 <h5>Participant-e(s)</h5>
             </div>
@@ -23,7 +23,7 @@
                     <span class="messerreur" id="alertParPrenom">&nbsp<?= form_error('inv_prenom', '<span>', '</span>'); ?></span>
                 </div>
                 <div class="col-sm-1">
-                    <button class="btn" >Ajouter</button>
+                    <button type="submit" class="btn">Ajouter</button>
                 </div>
             </div>
             </form>
@@ -41,25 +41,26 @@
                     </thead>
                     <tbody>
                         <?php
-                        $index = 0;      
-                        foreach ($liste as $participant) { 
+                        $index = 0;
+                        foreach ($liste as $participant) {
                         ?>
                             <tr>
                                 <td class=""><?= $index ?></td>
                                 <td class=""><?= $participant['inv_email'] ?></td>
                                 <td class=""><?= $participant['inv_prenom'] ?></td>
                                 <td class=""><?= $participant['inv_prenom'] ?></td>
-                                <td class=""> <a class="btn" href="<?= site_url("Invite/deleteParticipantListe/").$index ?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
+                                <td class=""> <a class="btn" href="<?= site_url("Invite/deleteParticipantListe/") . $index ?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
                             </tr>
-                        <?php $index ++ ;} ?>
+                        <?php $index++;
+                        } ?>
                     </tbody>
                 </table>
             </div>
-            <hr>          
+            <hr>
             <div class="form-group row ">
 
                 <div class="col">
-                    <input type="submit" id="formAjoutAdh" value="Enregistrer" class="btn">
+                    <a href="<?= site_url("Invite/ajout_invite/") ?>" class="btn">Enregistrer</a>
                     <a href="<?= site_url("Accueil") ?>" class="btn">Retour</a>
                     <span class="messerreur" id="">&nbsp</span>
                 </div>

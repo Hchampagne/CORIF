@@ -112,15 +112,6 @@ class Espace_jeu extends CI_Controller {
             
     }
 
-    public function deleteParticipantListe(){
-
-
-
-   
-
-        redirect('Espace_jeu/creation_session'); 
-
-    }
 
 
 

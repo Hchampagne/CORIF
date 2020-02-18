@@ -10,28 +10,23 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("accueil") ?>">ACCUEIL</a>
+                    <a class="nav-link" href="<?= site_url("accueil/") ?>">ACCUEIL</a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("jeu/dashboad") ?>">GESTION</a>
+                    <a class="nav-link" href="<?= site_url("jeu/dashboad/") ?>">GESTION</a>
                 </li>
+
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("Invite/creation_invite") ?>">CEATION INVITE(S)</a>
+                    <a class="nav-link" href="<?= site_url("Invite/creation_invite/") ?>">INVITE(S)</a>
                 </li>
 
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">SESSION</a>
-                    <!-- bloc menu déroulant -->
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url("sessionModal") ?>" data-toggle="modal" data-target="#sessionModal">Creation session</a>
-                        <a class="dropdown-item" href="<?= site_url("participantModal") ?>" data-toggle="modal" data-target="#participantModal">Ajout participant</a>
-                    </div>
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= site_url("Session_jeu/creation_session/") ?>">SESSION</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url("connexion/deconnexion") ?>">DECONNEXION</a>
+                    <a class="nav-link" href="<?= site_url("connexion/deconnexion/") ?>">DECONNEXION</a>
                 </li>
 
             </ul>

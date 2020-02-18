@@ -261,6 +261,7 @@ class Connexion extends CI_Controller{
                         $this->Connexion_model->conn_date($detail->adh_email);
 
                         // création des valeur de session
+                        $this->session->set_userdata('id',$detail->adh_id);
                         $this->session->set_userdata('role', $detail->adh_role);
                         $this->session->set_userdata('nom', $detail->adh_nom);
                         $this->session->set_userdata('prenom', $detail->adh_prenom);
