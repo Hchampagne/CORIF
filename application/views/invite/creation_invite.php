@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <h1>CREATION INVITE-E(s)</h1>
+        <h1>Ajout invité-e(s) à une session</h1>
     </div>
     <hr>
     <div class="row">

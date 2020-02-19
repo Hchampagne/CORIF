@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="listeParticipantModal" role="dialog">
+<div class="modal fade" id="listeMetierModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -16,22 +16,22 @@
                     <table class="table table-hover">
                         <thead class="thead-light">
                             <tr>
-                                <th class="">Metier1</th>
-                                <th class="">Metier2</th>
-                                <th class="">métier3</th>
+                                <th class="">Email</th>
+                                <th class="">Nom</th>
+                                <th class="">Prénom</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php                      
-                        foreach ($liste as $metiert) {
-                        ?>
+                                             
+                        
+                        
                             <tr>
-                                <td class=""><?= $metier->jeu_metier1 ?></td>
-                                <td class=""><?= $metier->jeu_metier2 ?></td>
-                                <td class=""><?= $metier->jeu_metier3 ?></td>                               
+                                <td class=""></td>
+                                <td class=""></td>
+                                <td class=""></td>                               
                             </tr>
-                        <?php 
-                        } ?>
+                        
+                        
                         </tbody>
                     </table>
                 </div>

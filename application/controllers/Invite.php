@@ -46,7 +46,7 @@ class Invite extends CI_Controller {
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
                         $this->load->view('modal/espacejeuModal');
-                        $this->load->view('invite/creation_session', $liste_participant);
+                        $this->load->view('invite/creation_invite', $liste_participant);
                         $this->load->view('script'); 
   
                     }else{ // variable liste en session
@@ -90,7 +90,7 @@ class Invite extends CI_Controller {
                             $this->load->view('header/header_loader');
                             $this->load->view('modal/connexionModal');
                             $this->load->view('modal/espacejeuModal');
-                            $this->load->view('invite/creation_session', $liste_participant);
+                            $this->load->view('invite/creation_invite', $liste_participant);
                             $this->load->view('script');              
                         }
                     }
@@ -108,11 +108,11 @@ class Invite extends CI_Controller {
                     $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal');
                     $this->load->view('modal/espacejeuModal');
-                    $this->load->view('invite/creation_session', $liste_participant);
+                    $this->load->view('invite/creation_invite', $liste_participant);
                     $this->load->view('script');  
                 }                     
             }else{ //pas de post  
-                // si p s de post premier affichage
+                // si pas de post premier affichage
                 // sinon affichage des valeurs tableau en session
                 if($this->session->liste === NULL){
                     $liste_participant['liste'] = array();
@@ -123,7 +123,7 @@ class Invite extends CI_Controller {
                 //affichage de la vue
                 $this->load->view('head');
                 $this->load->view('header/header_loader');             
-                $this->load->view('invite/creation_session', $liste_participant);
+                $this->load->view('invite/creation_invite', $liste_participant);
                 $this->load->view('script'); 
             }            
         }
@@ -143,7 +143,7 @@ class Invite extends CI_Controller {
 
             }else{
                 //insertion DB échouée retour liste
-                redirect('Invite/creation_session/');
+                redirect('Invite/creation_invite/');
             }                      
         }
 
@@ -156,7 +156,7 @@ class Invite extends CI_Controller {
         // replace la liste dans la sssion
         $this->session->liste = $liste;
         // redirection controller Invite/creation _session pour affichage       
-        redirect('Invite/creation_session');  
+        redirect('Invite/creation_invite');  
       }
 
 

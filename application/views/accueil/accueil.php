@@ -1,15 +1,7 @@
-<div id="pa">
+<div id="">
   <h1>Commencer à jouer avec CORIF</h1>
   <p style="text-align: center;font-size: 22px; color:#343538 ">Espace de jeu dédié à la formation. Des métiers, des
-    vies?</p>
-  <p style="text-align: center; font-size: 26px; color:#343538">
-    <a href="<?= site_url("connexion/inscription") ?>">
-      Inscription
-    </a> -
-
-    <a href="<?= site_url("connexion/login") ?>">
-      Connexion (déjà inscrit)
-    </a>
+    vies?
   </p>
 </div>
 <div class="card-deck" style="color:#343538">

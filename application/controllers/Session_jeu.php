@@ -37,24 +37,57 @@ class Session_jeu extends CI_Controller {
 
 // liste métier
    public function liste_metier($id){
-        $data_s =  $this->Session_model->liste_session();
-        $liste_session['liste'] =  $data_s;
 
-        $data_p = $this->Session_model->liste_participant($id);
-        $liste_participant['liste'] =  $data_p;
+ 
+     $data_s =  $this->Session_model->liste_session();              
+     $liste_session['liste'] =  $data_s;
 
-        $data_m = $this->Session_model->liste_metier($id);
-        $liste_metier['liste'] =  $data_m;
-
+      // interoge DB pour liste metier
+      
         $load['reload'] = "<script> $('#listeMetierModal').modal('show') </script>";
 
 
         $this->load->view('head');
         $this->load->view('header/header_loader');
-        $this->load->view('session/listeParticipantModal', $liste_metier);
+        $this->load->view('session/listeMetierModal');
         $this->load->view('session/liste_session', $liste_session);
         $this->load->view('script', $load);
 
+   }
+
+// ajout session
+   public function ajout_session(){
+
+
+
+
+
+
+
+
+
+      
+   }
+
+
+
+
+
+// Suppression de session
+   public function suppr_session($id){
+
+      $this->Session_model->supprime_session($id);
+
+      // liste des sessions 
+      $data =  $this->Session_model->liste_session();              
+      $liste_session['liste'] =  $data;
+          
+      //affichage de la vue
+      $this->load->view('head');
+      $this->load->view('header/header_loader');
+      $this->load->view('session/listeParticipantModal');
+      $this->load->view('session/liste_session', $liste_session);
+      $this->load->view('script');
    }
     
 } 
