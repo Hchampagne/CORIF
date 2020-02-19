@@ -34,5 +34,27 @@ class Session_jeu extends CI_Controller {
         $this->load->view('session/liste_session', $liste_session);
         $this->load->view('script',$load);
    }
+
+// liste métier
+   public function liste_metier($id){
+        $data_s =  $this->Session_model->liste_session();
+        $liste_session['liste'] =  $data_s;
+
+        $data_p = $this->Session_model->liste_participant($id);
+        $liste_participant['liste'] =  $data_p;
+
+        $data_m = $this->Session_model->liste_metier($id);
+        $liste_metier['liste'] =  $data_m;
+
+        $load['reload'] = "<script> $('#listeMetierModal').modal('show') </script>";
+
+
+        $this->load->view('head');
+        $this->load->view('header/header_loader');
+        $this->load->view('session/listeParticipantModal', $liste_metier);
+        $this->load->view('session/liste_session', $liste_session);
+        $this->load->view('script', $load);
+
+   }
     
 } 

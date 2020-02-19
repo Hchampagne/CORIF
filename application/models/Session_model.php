@@ -29,7 +29,7 @@ class Session_model extends CI_Model {
 
 
 // liste choix par id session
-    function choix_metier(){
+    function liste_metier($id){
         
     }
     

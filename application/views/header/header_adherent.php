@@ -11,12 +11,13 @@
 
                 <li class="nav-item active">
                     <a class="nav-link" href="<?= site_url("accueil/") ?>">ACCUEIL</a>
-                </li>               
-
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="<?= site_url("Session_jeu/liste_session/") ?>">SESSION</a>
                 </li>
-
+                <li class="nav-item active">
+                    <a class="nav-link" href="<?= site_url("accueil/animation") ?>">REGLES</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url("connexion/deconnexion/") ?>">DECONNEXION</a>
                 </li>

@@ -17,10 +17,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="<?= site_url("modal/espacejeuModal") ?>" data-toggle="modal" data-target="#espacejeuModal">ESPACE JEU</a>
                 </li>
-
-                <li class="nav-item active">
-                        <a class="nav-link" href="<?= site_url("accueil/animation") ?>">REGLES</a>
-                </li>
               
                 <li class="nav-item active dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">INFORMATIONS</a>
