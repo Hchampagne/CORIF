@@ -11,8 +11,7 @@
             </div> <?= form_open('Session_jeu/creation_session', 'id="form_creat_session"'); ?>
             <div class="form-group row">
                 <div class="col-sm-2">
-                    <input type="text" name="ses_id" id="ses_id" class="form-control text-center" value="<?= isset($ses_id)? $ses_id : "pas de session" ;?>" disabled>
-                    <input type="hidden" name="ses_id" id="ses_id" class="form-control" value="<?= isset($ses_id)? $ses_id : "" ;?>">
+                    <input type="text" name="ses_id" id="ses_id" class="form-control text-center" value="<?= isset($session->ses_id) ? $session->ses_id : set_value('ses_id');?>" disabled>
                     <span class="messerreur" id="alertSesDate">&nbsp</span>
                 </div>
                 <div class="col-sm-2">

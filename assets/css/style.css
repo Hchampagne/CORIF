@@ -16,7 +16,7 @@ ajout bande de couleur*/
 /* LIENS */
     /* tout les liens en blanc*/
     a {
-    color: #fff;
+    color: rgb(34, 31, 31);
     }
 
     /* fond lien quand selection*/
