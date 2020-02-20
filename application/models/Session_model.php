@@ -38,6 +38,13 @@ class Session_model extends CI_Model {
         $this->db->delete('session');
         return;
     }
-    
+
+// creation de session retourne id insertion db
+    function creation_session($data){
+        $this->db->set('ses_adh_id', $this->session->adherent_id);
+        $this->db->insert('session',$data);
+        $id =$this->db->insert_id();
+        return $id;
+    }
 
 }

@@ -36,9 +36,8 @@ class Session_jeu extends CI_Controller {
    }
 
 // liste métier
-   public function liste_metier($id){
+   public function liste_metier(){
 
- 
      $data_s =  $this->Session_model->liste_session();              
      $liste_session['liste'] =  $data_s;
 
@@ -56,16 +55,29 @@ class Session_jeu extends CI_Controller {
    }
 
 // ajout session
-   public function ajout_session(){
+   public function creation_session(){
 
+      if($this->input->post()){
 
+         // formulaire validation
 
+         $data = $this->input->post(NULL,true);
 
+         $session_id = $this->Session_model->creation_session($data);
+         $this->session->session_id = $session_id;
+      
+         redirect('Invite/creation_invite/');
 
+      }else{
+         // pas de post / premier affichage
 
+         $this->load->view('head');
+         $this->load->view('header/header_loader');
+         $this->load->view('session/creation_session');
+         $this->load->view('script');
+      }
 
-
-
+    
       
    }
 

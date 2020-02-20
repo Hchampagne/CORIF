@@ -5,9 +5,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Invite extends CI_Controller {
 
+//liste des invité-e(s)
+    public function liste_invite(){
+
+       $data = $this->Invite_model->liste_invite();
+
+       $liste_invite['liste'] = $data;
+
+        $this->load->view('head');
+        $this->load->view('header/header_loader');
+        $this->load->view('invite/liste_invite', $liste_invite);
+        $this->load->view('script');
+    }
+
+
 // Création invité-e(s)
     public function creation_invite(){
-    
+
+        $session_id = $this->session->session_id ;
+        $session['session'] = $session_id ;
+        
         if($this->input->post()){ // si bouton 
   
                 // regle de validation formulaire
@@ -27,7 +44,7 @@ class Invite extends CI_Controller {
                   
                     if($this->session->liste === NULL){ // test si variable liste en session
   
-                        // def tableau liste en session
+                        // creation tableau liste en session
                         $this->session->liste = array();
                         $liste = $this->session->liste;
                         // recup valeurs post pour affichage
@@ -37,26 +54,19 @@ class Invite extends CI_Controller {
                         // cré un tableau avec valeur du post
                         $invite = array('inv_email'=>$email, 'inv_nom'=>$nom, 'inv_prenom'=>$prenom);
                         array_push($liste,$invite);
-                        // met la liste en session
+                        // stock tableau la liste en session
                         $this->session->liste = $liste;
-                        // prepare affiche vue <=> on pourrait utiliser la session pour affichage
-                        $liste_participant['liste'] = $liste;
-                        //affichage de la vue
-                        $this->load->view('head');
-                        $this->load->view('header/header_loader');
-                        $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
-                        $this->load->view('invite/creation_invite', $liste_participant);
-                        $this->load->view('script'); 
+
+                        redirect('Invite/creation_invite/');
+                        // prepare affiche vue                    
   
-                    }else{ // variable liste en session
+                    }else{ // variable liste en session existante
   
                         //Test si email déjà présent
                         $tab = $this->session->liste;
                         $email = $this->input->post('inv_email');
                         $test = true;
-                        //boucle test
-  
+                        //boucle test  
                         for ($x=0;$x < count($tab);$x++){               
                           if ($tab[$x]['inv_email'] == $email) {
                               $test = false;
@@ -69,28 +79,28 @@ class Invite extends CI_Controller {
                             $email = $this->input->post('inv_email', TRUE);
                             $nom = $this->input->post('inv_nom', TRUE);
                             $prenom = $this->input->post('inv_prenom', TRUE);
-                            // recupération de la list een session
+                            // recupération de la list en session
                             $liste = $this->session->liste;
-                            // ajoute nouvelles valeurs du post
+                            // ajoute nouvelles valeurs du post au tableau
                             $invite = array('inv_email' => $email, 'inv_nom' => $nom, 'inv_prenom' => $prenom);
                             array_push($liste, $invite);
-                            // la liste en session
-                             $this->session->liste = $liste; 
-                                                    
+                            // stock la liste en session
+                             $this->session->liste = $liste;                          
+                            // prepare affiche vue 
+                            $liste_participant['liste'] = $liste;
                             //affichage de la vue
-                            redirect('Invite/creation_invite');                            
+                                                       
+                            redirect('Invite/creation_invite/');                            
   
                         }else{ // email déjà présent
    
                             $liste = $this->session->liste;
-                            // prepare affiche vue <=> on pourrait utiliser la session pour affichage
+                            // prepare affiche vue 
                             $liste_participant['liste'] = $liste;
                             //affichage de la vue
                             $this->load->view('head');
                             $this->load->view('header/header_loader');
-                            $this->load->view('modal/connexionModal');
-                            $this->load->view('modal/espacejeuModal');
-                            $this->load->view('invite/creation_invite', $liste_participant);
+                            $this->load->view('invite/creation_invite', $liste_participant+$session);
                             $this->load->view('script');              
                         }
                     }
@@ -106,9 +116,7 @@ class Invite extends CI_Controller {
                     //affichage de la vue
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
-                    $this->load->view('modal/connexionModal');
-                    $this->load->view('modal/espacejeuModal');
-                    $this->load->view('invite/creation_invite', $liste_participant);
+                    $this->load->view('invite/creation_invite', $liste_participant+$session);
                     $this->load->view('script');  
                 }                     
             }else{ //pas de post  
@@ -123,23 +131,28 @@ class Invite extends CI_Controller {
                 //affichage de la vue
                 $this->load->view('head');
                 $this->load->view('header/header_loader');             
-                $this->load->view('invite/creation_invite', $liste_participant);
+                $this->load->view('invite/creation_invite', $liste_participant+$session);
                 $this->load->view('script'); 
             }            
         }
 
-// insertion dans la base de donnée
-        public function ajout_invite(){
 
+
+
+
+// insertion dans la base de donnée click enregitrer
+        public function ajout_invite($session_id){           
+
+            //$adh_id = $this->session->adherent_id;
             $liste = $this->session->liste;
-            $data = $this->Invite_model->ajout_invite($liste);
+            $data = $this->Invite_model->ajout_invite($liste, $session_id);
 
             if($data == count($liste)){
                 // insertion DB réussie
                 // supprime le tableau en session
                 // retour a l'accueil
                 $this->session->unset_userdata('liste');
-                redirect('Accueil');
+                redirect('session_jeu/liste_session/');
 
             }else{
                 //insertion DB échouée retour liste
@@ -147,7 +160,7 @@ class Invite extends CI_Controller {
             }                      
         }
 
-// fonction suppression dans liste invité-e(s)  
+//  suppression dans la liste invité-e(s) formulaire ajout pour session
       public function deleteParticipantListe($index){
         // place la liste de la session dans $liste
         $liste = $this->session->liste;
@@ -159,5 +172,47 @@ class Invite extends CI_Controller {
         redirect('Invite/creation_invite');  
       }
 
+
+//  modification d'un invite
+      public function modification_invite(){
+
+            if($this->input->post()){ // il y a un post
+
+                // regle de validation formulaire
+
+
+
+                if($this->form_validation->run() != false){ // validation formulaire ok
+
+
+
+                }else{ // validation formulaire non ok
+
+
+
+                }
+
+            }else { // il n'y a pas de post
+
+                //affichage de la vue
+                $this->load->view('head');
+                $this->load->view('header/header_loader');
+                $this->load->view('invite/modif_invite');
+                $this->load->view('script');
+            }
+
+
+
+      }
+
+// suppression d'un invité-e
+      public function suppression_invite($inv_id){
+          
+        $this->Invite_model->suppression_invite($inv_id);
+
+        redirect('Invite/liste_invite');
+
+
+      }
 
 }    

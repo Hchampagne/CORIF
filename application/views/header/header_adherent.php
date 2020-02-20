@@ -13,7 +13,7 @@
                     <a class="nav-link" href="<?= site_url("accueil/") ?>">ACCUEIL</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("Invite/creation_invite/") ?>">INVITE-E(S)</a>
+                    <a class="nav-link" href="<?= site_url("Invite/liste_invite/") ?>">INVITE-E(S)</a>
                 </li>
 
                 <li class="nav-item active">
