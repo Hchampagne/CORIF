@@ -23,18 +23,11 @@ class Invite_model extends CI_Model {
         return $insert ;
     }
 
-    // liste invite fct adherent-e
+    // liste invité-e(s) fct adherent-e
     function liste_invite(){
         $this->db->where('inv_adh_id', $this->session->adherent_id);
         $result = $this->db->get('invite')->result();
         return $result ;
-    }
-
-    // modifcation d'un invite
-    function modification_invite($inv_id, $data){
-        $this->db->where('inv', $inv_id);
-        $this->db->update('inv', $data);
-        return ;
     }
 
     // suppression d'un invité-e

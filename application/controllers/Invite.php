@@ -20,11 +20,8 @@ class Invite extends CI_Controller {
 
 
 // Création invité-e(s)
-    public function creation_invite(){
-
-        $session_id = $this->session->session_id ;
-        $session['session'] = $session_id ;
-        
+    public function creation_invite($session_id){
+    
         if($this->input->post()){ // si bouton 
   
                 // regle de validation formulaire
@@ -57,7 +54,7 @@ class Invite extends CI_Controller {
                         // stock tableau la liste en session
                         $this->session->liste = $liste;
 
-                        redirect('Invite/creation_invite/');
+                        redirect('Invite/creation_invite/'.$session_id);
                         // prepare affiche vue                    
   
                     }else{ // variable liste en session existante
@@ -90,7 +87,7 @@ class Invite extends CI_Controller {
                             $liste_participant['liste'] = $liste;
                             //affichage de la vue
                                                        
-                            redirect('Invite/creation_invite/');                            
+                            redirect('Invite/creation_invite/'.$session_id);                            
   
                         }else{ // email déjà présent
    
@@ -98,6 +95,7 @@ class Invite extends CI_Controller {
                             // prepare affiche vue 
                             $liste_participant['liste'] = $liste;
                             //affichage de la vue
+                            $session['session'] = $session_id;
                             $this->load->view('head');
                             $this->load->view('header/header_loader');
                             $this->load->view('invite/creation_invite', $liste_participant+$session);
@@ -114,6 +112,7 @@ class Invite extends CI_Controller {
                         $liste_participant['liste'] = $liste;
                     }  
                     //affichage de la vue
+                    $session['session'] = $session_id;
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('invite/creation_invite', $liste_participant+$session);
@@ -125,19 +124,17 @@ class Invite extends CI_Controller {
                 if($this->session->liste === NULL){
                     $liste_participant['liste'] = array();
                 }else{
-                    $liste = $this->session->liste;       
+                    $liste = $this->session->liste;                  
                     $liste_participant['liste'] = $liste;
                 }  
                 //affichage de la vue
+                $session['session'] = $session_id;
                 $this->load->view('head');
                 $this->load->view('header/header_loader');             
                 $this->load->view('invite/creation_invite', $liste_participant+$session);
                 $this->load->view('script'); 
             }            
         }
-
-
-
 
 
 // insertion dans la base de donnée click enregitrer
@@ -173,46 +170,11 @@ class Invite extends CI_Controller {
       }
 
 
-//  modification d'un invite
-      public function modification_invite(){
-
-            if($this->input->post()){ // il y a un post
-
-                // regle de validation formulaire
-
-
-
-                if($this->form_validation->run() != false){ // validation formulaire ok
-
-
-
-                }else{ // validation formulaire non ok
-
-
-
-                }
-
-            }else { // il n'y a pas de post
-
-                //affichage de la vue
-                $this->load->view('head');
-                $this->load->view('header/header_loader');
-                $this->load->view('invite/modif_invite');
-                $this->load->view('script');
-            }
-
-
-
-      }
-
 // suppression d'un invité-e
-      public function suppression_invite($inv_id){
-          
+      public function suppression_invite($inv_id){  
+        // appel model pour suppression db et retour la liste           
         $this->Invite_model->suppression_invite($inv_id);
-
         redirect('Invite/liste_invite');
-
-
       }
 
 }    

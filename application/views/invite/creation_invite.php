@@ -5,7 +5,7 @@
     <hr>
     <div class="row">
         <div class="col">
-            <?= form_open('Invite/creation_invite', 'id="form_creatInvite"'); ?>
+            <?= form_open('Invite/creation_invite/'.$session, 'id="form_creatInvite"'); ?>
             <div>
                 <h5>Participant-e(s)</h5>
             </div>

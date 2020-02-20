@@ -62,11 +62,10 @@ class Session_jeu extends CI_Controller {
          // formulaire validation
 
          $data = $this->input->post(NULL,true);
-
          $session_id = $this->Session_model->creation_session($data);
-         $this->session->session_id = $session_id;
-      
-         redirect('Invite/creation_invite/');
+         
+    
+         redirect('Invite/creation_invite/'.$session_id);
 
       }else{
          // pas de post / premier affichage
@@ -75,13 +74,37 @@ class Session_jeu extends CI_Controller {
          $this->load->view('header/header_loader');
          $this->load->view('session/creation_session');
          $this->load->view('script');
-      }
-
-    
-      
+      }        
    }
 
+// modification de session
+   public function modification_session($ses_id){
 
+      $session['session'] = $this->Session_model->session($ses_id);
+      
+
+      if($this->input->post()){
+
+         $data = $this->input->post(NULL, TRUE);
+
+         $this->Session_model->modification_session($ses_id, $data);
+
+
+
+         redirect('session_jeu/liste_session/');
+
+      }else{
+
+
+
+         $this->load->view('head');
+         $this->load->view('header/header_loader');
+         $this->load->view('session/modification _session', $session);
+         $this->load->view('script');
+      }
+
+
+   }
 
 
 

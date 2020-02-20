@@ -8,12 +8,7 @@
             <div>
                 <h5>Horaire de la session</h5>
             </div> <?= form_open('Session_jeu/creation_session', 'id="form_creat_session"'); ?>
-            <div class="form-group row">
-                <div class="col-sm-2">
-                    <label for="ses_id">Session</label>
-                    <input type="text" name="ses_id" id="ses_id" class="form-control text-center" value="<?= isset($session->ses_id) ? $session->ses_id : set_value('ses_id'); ?>" disabled>
-                    <span class="messerreur" id="alertSesDate">&nbsp</span>
-                </div>
+            <div class="form-group row">               
                 <div class="col-sm-2">
                     <label for="ses_d_session">Date</label>
                     <input type="date" name="ses_d_session" id="ses_d_session" class="form-control text-center" value="<?= set_value('') ?>">

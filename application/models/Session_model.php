@@ -16,6 +16,20 @@ class Session_model extends CI_Model {
         return $result ;       
     }
 
+// retourne une session par son index  
+    function session($ses_id){
+        $this->db->where('ses_id', $ses_id);
+        $session = $this->db->get('session')->row();    
+        return $session;
+    }
+
+// modification de session
+    function modification_session($id, $data){
+        $this->db->where('ses_id',$id);
+        $this->db->update('session', $data);
+        return;
+    }
+
 // liste participant par id session
     function liste_participant($id){    
         $this->db->from('invite'); 
