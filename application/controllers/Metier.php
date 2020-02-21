@@ -10,7 +10,7 @@ class Metier extends CI_Controller {
 
     public function ajoutMetier_session(){
         
-        $liste_metier['liste'] = $this->Metier_model->liste_metier();
+        $liste_metier = $this->Metier_model->liste_metier();
 
 
 
@@ -31,8 +31,8 @@ class Metier extends CI_Controller {
 
     public function modificationMetier_session($session_id){
        
-        $data = $this->Metier_model->liste_metier();
-        $liste_metier['liste'] = $data;
+        
+        $liste_metier = $this->Metier_model->liste_metier();
         $session['session'] = $session_id;
 
 
