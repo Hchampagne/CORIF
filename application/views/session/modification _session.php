@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-sm-2">
                     <label for="ses_d_session">Date</label>
-                    <input type="text" name="ses_d_session" id="ses_d_session" class="form-control text-center" value="<?= ($session->ses_d_session) ? date('d-m-Y',strtotime($session->ses_d_session)) : set_value('ses_id'); ?>">
+                    <input type="text" name="ses_d_session" id="ses_d_session" class="form-control text-center" value="<?= ($session->ses_d_session) ?  $session->ses_d_session : set_value('ses_id'); ?>">
                     <span class="messerreur" id="alertSesDate">&nbsp<?= form_error('ses_date', '<span>', '</span>'); ?></span>
                 </div>
                 <div class="col-sm-2">
