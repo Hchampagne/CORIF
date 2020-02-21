@@ -8,10 +8,11 @@ class Session_model extends CI_Model {
         parent::__construct();
     }
 
-// liste des sessions
+// liste des sessions filtre par adherent
     function liste_session(){
         $this->db->select('*');
-        $this->db->from('session');    
+        $this->db->from('session');
+        $this->db->where('ses_adh_id', $this->session->adherent_id);    
         $result = $this->db->get()->result();
         return $result ;       
     }

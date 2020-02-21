@@ -1,11 +1,11 @@
 <div class="container">
     <div>
-        <h1>Ajout invité-e(s) à une session</h1>
+        <h1>Modification liste invité-e(s) à une session</h1>
     </div>
     <hr>
     <div class="row">
         <div class="col">
-            <?= form_open('Invite/creation_invite/' . $session, 'id="form_creatInvite"'); ?>
+            <?= form_open('Invite/modificationListe_invite/'. $session, 'id="form_creatInvite"'); ?>
             <div>
                 <h5>Participant-e(s)</h5>
             </div>
@@ -50,7 +50,7 @@
                     </thead>
                     <tbody>
                         <?php
-                   
+
                         foreach ($liste as $participant) {
                         ?>
                             <tr>
@@ -58,7 +58,7 @@
                                 <td class=""><?= $participant->inv_email ?></td>
                                 <td class=""><?= $participant->inv_nom ?></td>
                                 <td class=""><?= $participant->inv_prenom ?></td>
-                                <td class=""> <a class="btn" href="<?= site_url("Invite/suppressionListeAjout_invite/").$participant->inv_id ."/".$session?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
+                                <td class=""> <a class="btn" href="<?= site_url("Invite/suppressionListeAjout_invite/") . $participant->inv_id . "/" . $session ?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
                             </tr>
                         <?php
                         } ?>
@@ -69,6 +69,7 @@
             <div class="form-group row ">
 
                 <div class="col">
+                    <a href="<?= site_url("Metier/modificationMetier_session/").$session ?>" class="btn">Modification métier(s)</a>
                     <a href="<?= site_url("Accueil") ?>" class="btn">Retour</a>
                     <span class="messerreur" id="">&nbsp</span>
                 </div>

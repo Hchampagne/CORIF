@@ -442,36 +442,8 @@ class Administration extends CI_Controller {
         redirect('Administration/metier');
     }
 
+}
 
-/***************/
-/*** SESSION ***/  
-/***************/ 
-
-// liste  session / formateur à venir 
-    public function dashboad()
-    {
-   
-        if($this->auth->is_admin()){
-            $this->load->view('head');
-            $this->load->view('header');
-            $data['formateur'] = $this->Corif_model->formateurs();
-            $sessions = $this->db->query("select * from session where date_session >= ?", mdate())->result();
-            foreach ($sessions as $session) {
-                $session->nb_participant = $this->db->query("select count(*) as compteur from invite where id_session=?", $session->id)->row()->compteur;
-                $session->metiers = $this->db->query("select * from metier join contient on metier.id=contient.id_metier where contient.id_session=?", $session->id)->result();
-            }
-            $data["sessions"] = $sessions;
-            $this->load->view('administration/dashboad', $data);
-            $this->load->view('footer'); 
-        }
-        else{
-            message("Vous n'êtes pas autorisé à visualiser cette page !");
-            redirect(site_url("connexion/login"));
-        }
-            }
-
-
-    }
 
 
 

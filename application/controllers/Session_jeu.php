@@ -91,7 +91,7 @@ class Session_jeu extends CI_Controller {
 
 
 
-         redirect('session_jeu/liste_session/');
+         redirect('Invite/modificationListe_invite/'.$ses_id);
 
       }else{
 
