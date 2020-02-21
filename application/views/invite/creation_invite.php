@@ -52,9 +52,9 @@
                         foreach ($liste as $participant) {
                         ?>
                             <tr>
-                                <td class=""><?= $participant['inv_email'] ?></td>
-                                <td class=""><?= $participant['inv_prenom'] ?></td>
-                                <td class=""><?= $participant['inv_prenom'] ?></td>
+                                <td class=""><?= $participant->inv_email ?></td>
+                                <td class=""><?= $participant->inv_nom ?></td>
+                                <td class=""><?= $participant->inv_prenom ?></td>
                                 <td class=""> <a class="btn" href="<?= site_url("Invite/deleteParticipantListe/").$index?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
                             </tr>
                         <?php $index++;
