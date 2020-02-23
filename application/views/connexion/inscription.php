@@ -1,22 +1,11 @@
 <div class="container">
     <div>
-        <div id="titre">
+        <div>
             <h1>Inscription</h1>
             <hr>
         </div>
 
-
         <?= form_open('connexion/inscription', 'id="form_inscription"'); ?>
-
-    <!-- csrf protection
-        <?php
-        $csrf = array(
-            'name' => $this->security->get_csrf_token_name(),
-            'hash' => $this->security->get_csrf_hash()
-        );
-        ?>
-        <input type="hidden" id="csrf" name="<?= $csrf['name']; ?>" value="<?= $csrf['hash']; ?>" />
-    fin csrf -->
 
         <div class="form-group row justify-content-md-center">
             <label for="adh_nom" class="col-sm-2 col-form-label">Nom</label>

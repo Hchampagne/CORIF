@@ -26,15 +26,10 @@ class Invite_model extends CI_Model {
         return $result;      
     }
 
-    // liste invité-e(s) fct adherent-e et session
-    // jointure table session et invite 
-    function liste_inviteAjout($session_id){
-        $adh_id = $this->session->adherent_id;
-        $this->db->from('session');
-        $this->db->join('invite', 'inv_ses_id = ses_id ');
-        $this->db->where('ses_adh_id', $adh_id);
-        $this->db->where('ses_id',$session_id);
-        $result = $this->db->get()->result();
+    // liste invité-e(s) fct  session 
+    function listeAjout_invite($session_id){
+        $this->db->where('inv_ses_id',$session_id);
+        $result = $this->db->get('invite')->result();
         return $result;
     }
 
@@ -45,9 +40,9 @@ class Invite_model extends CI_Model {
         return ;
     }
 
-    // modification de laliste invité par session
+    // modification de la liste invité fct session
     function modification_liste($inv_id, $data){
-        $this->db->where($inv_id);
+        $this->db->where('inv_ses_id',$inv_id);
         $this->db->update('invite', $data);
         return;
     }

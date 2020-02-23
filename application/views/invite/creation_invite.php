@@ -69,7 +69,7 @@
             <div class="form-group row ">
 
                 <div class="col">
-                    <a href="<?= site_url("Accueil") ?>" class="btn">Retour</a>
+                    <a href="<?= site_url("") ?>" class="btn">Retour</a>
                     <span class="messerreur" id="">&nbsp</span>
                 </div>
             </div>

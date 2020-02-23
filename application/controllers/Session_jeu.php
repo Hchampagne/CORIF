@@ -35,7 +35,7 @@ class Session_jeu extends CI_Controller {
         $this->load->view('script',$load);
    }
 
-// liste métier
+// liste métier modal pour liste session
    public function liste_metier(){
 
      $data_s =  $this->Session_model->liste_session();              
@@ -77,6 +77,8 @@ class Session_jeu extends CI_Controller {
       }        
    }
 
+
+   
 // modification de session
    public function modification_session($ses_id){
 

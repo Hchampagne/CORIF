@@ -23,7 +23,7 @@ class Invite extends CI_Controller {
     public function creation_invite($session_id){
 
         $session['session'] = $session_id;
-        $liste_invite['liste'] = $this->Invite_model->liste_invite($session_id);
+        $liste_invite['liste'] = $this->Invite_model->listeAjout_invite($session_id);
     
         if($this->input->post()){ // si bouton 
   
