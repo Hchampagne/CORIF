@@ -30,7 +30,7 @@
                     </tbody>
                 </table>
                 <div>
-                    <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Fermer</a>
+                    <a href="<?= site_url("Session_jeu/liste_session/") ?>" type="button" class="btn btn-default" >Fermer</a>
                 </div>
             </div>
         </div>
