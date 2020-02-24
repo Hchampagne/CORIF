@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <h1>Modification liste invité-e(s) à une session</h1>
+        <h1>Ajout/modification liste invité-e(s) à une session</h1>
     </div>
     <hr>
     <div class="row">
@@ -61,16 +61,17 @@
                                 <td class=""> <a class="btn" href="<?= site_url("Invite/suppressionListeAjout_invite/") . $participant->inv_id . "/" . $session ?>" Onclick='return confirm("Confirmez la suppression ?")'>Suppression </a> </td>
                             </tr>
                         <?php
-                        } ?>
+
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
             <hr>
             <div class="form-group row ">
-
                 <div class="col">
                     <a href="<?= site_url("Metier/modificationMetier_session/").$session ?>" class="btn">Modification métier(s)</a>
-                    <a href="<?= site_url("Accueil") ?>" class="btn">Retour</a>
+                    <a href="<?= site_url("Session_jeu/modification_session/").$session ?>" class="btn">Retour</a>
                     <span class="messerreur" id="">&nbsp</span>
                 </div>
             </div>

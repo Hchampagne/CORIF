@@ -4,40 +4,34 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-
             <div class="modal-header">
                 <h4 class="modal-title">
-                   Liste métier(s)
+                    Liste métier(s)
                 </h4>
             </div>
-
             <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="thead-light">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="">Index</th>
+                            <th class="">Métier</th>                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($liste as $metier) {
+                        ?>
                             <tr>
-                                <th class="">Email</th>
-                                <th class="">Nom</th>
-                                <th class="">Prénom</th>
+                                <td class=""><?= $metier->met_id ?></td>
+                                <td class=""><?= $metier->met_metier ?></td>                             
                             </tr>
-                        </thead>
-                        <tbody>
-                                             
-                        
-                        
-                            <tr>
-                                <td class=""></td>
-                                <td class=""></td>
-                                <td class=""></td>                               
-                            </tr>
-                        
-                        
-                        </tbody>
-                    </table>
-                </div>
-                <div>                                                       
+                        <?php
+                        } ?>
+                    </tbody>
+                </table>
+                <div>
                     <a href="#" type="button" class="btn btn-default" data-dismiss="modal">Fermer</a>
-                </div>               
+                </div>
             </div>
         </div>
     </div>

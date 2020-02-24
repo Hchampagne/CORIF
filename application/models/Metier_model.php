@@ -11,7 +11,7 @@ class Metier_model extends CI_Model
 
 // Ajout metier
     function ajout_metier($data,$session){
-        $this->db->set('set_ses_id')
+        $this->db->set('set_ses_id',$session);
         $this->db->insert('metier', $data);
         return;
     }
@@ -29,7 +29,6 @@ class Metier_model extends CI_Model
         return $requete;
     }
 
-
 // update metier
     function modif_metier($id, $data){
         $this->db->where('met_id', $id);
@@ -37,10 +36,34 @@ class Metier_model extends CI_Model
         return ;
     }
 
-// suppr metier
+// suppr metier ans la liste metier admin
     public function suppr_metier($id){
         $this->db->where('met_id', $id);
         $this->db->delete('metier');
+        return;
+    }
+
+// Ajout de metier pour la creation/modification de session
+    public function metierAjout_session($session_id, $metier_id){
+        $this->db->set('id_session', $session_id );
+        $this->db->insert('contient', $metier_id);
+        return;
+    }
+
+// liste métier(s) en fct session pour liste creation session
+    public function listeMetier_session($session_id){
+        $this->db->from('contient');
+        $this->db->join('metier','met_id = id_metier');
+        $this->db->where('id_session',$session_id);
+        $data = $this->db->get()->result();
+        return $data;
+    }
+
+// suppression metier dans la liste de la session
+    public function suppressionMetier_session($session_id, $metier_id){
+        $this->db->where('id_session',$session_id);
+        $this->db->where('id_metier', $metier_id);
+        $this->db->delete('contient');
         return;
     }
 

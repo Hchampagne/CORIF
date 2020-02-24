@@ -17,6 +17,7 @@ class Session_jeu extends CI_Controller {
         $this->load->view('script');          
     }
 
+// liste participant pour modal
    public function liste_participant($id)
    {
         $data_s =  $this->Session_model->liste_session();              
@@ -36,19 +37,20 @@ class Session_jeu extends CI_Controller {
    }
 
 // liste métier modal pour liste session
-   public function liste_metier(){
+   public function liste_metier($session_id){
 
      $data_s =  $this->Session_model->liste_session();              
      $liste_session['liste'] =  $data_s;
+
+     $liste_metier['liste'] = $this->Metier_model->listeMetier_session($session_id);
 
       // interoge DB pour liste metier
       
         $load['reload'] = "<script> $('#listeMetierModal').modal('show') </script>";
 
-
         $this->load->view('head');
         $this->load->view('header/header_loader');
-        $this->load->view('session/listeMetierModal');
+        $this->load->view('session/listeMetierModal', $liste_metier);
         $this->load->view('session/liste_session', $liste_session);
         $this->load->view('script', $load);
 
@@ -57,7 +59,9 @@ class Session_jeu extends CI_Controller {
 // ajout session
    public function creation_session(){
 
-      if($this->input->post()){
+         $session['session'] = "SESSION";
+
+         if($this->input->post()){
 
          // formulaire validation
 
@@ -72,7 +76,7 @@ class Session_jeu extends CI_Controller {
 
          $this->load->view('head');
          $this->load->view('header/header_loader');
-         $this->load->view('session/creation_session');
+         $this->load->view('session/creation_session', $session);
          $this->load->view('script');
       }        
    }

@@ -1,18 +1,16 @@
 <div class="container">
     <div>
-        <h1>Modication de session </h1>
+        <h1>ajout session de session </h1>
     </div>
     <hr>
     <div class="row">
-        <div class="col">
-            
-            
+        <div class="col">          
             <?= form_open('Session_jeu/creation_session/', 'id="form_creat_session"'); ?>
             <div class="form-group row  justify-content-sm-center">
                 
                 <div class="col-sm-2 ">
-                    <label for="ses_id">Session</label>
-                    <input type="text" name="ses_id" id="ses_id" class="form-control text-center" value="NC" disabled>
+                    <label for="ses_id"></label>
+                <input type="text" name="ses_id" id="ses_id" class="form-control text-center" value="<?= ($session) ? $session : "" ; ?> " disabled>
                     <span class="messerreur" id="alertSesDate">&nbsp</span>
                 </div>
                 <div class="col-sm-5 ">
