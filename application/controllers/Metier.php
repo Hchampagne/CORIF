@@ -8,26 +8,6 @@ class Metier extends CI_Controller {
 
     }
 
-    public function ajoutMetier_session(){
-        
-        $liste_metier = $this->Metier_model->liste_metier();
-
-
-
-        if($this->input->post()){
-
-
-
-
-        }else{
-            $this->load->view('head');
-            $this->load->view('header/header_loader');
-            $this->load->view('metier/ajout_metier', $liste_metier);
-            $this->load->view('script');
-        }
-
-
-    }
 
     public function modificationMetier_session($session_id){
        
@@ -38,7 +18,15 @@ class Metier extends CI_Controller {
 
 
 
+
+
         if ($this->input->post()) {
+
+            $data = $this->input->post(NULL,TRUE);
+
+
+
+
         } else {
             $this->load->view('head');
             $this->load->view('header/header_loader');

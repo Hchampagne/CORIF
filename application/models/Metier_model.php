@@ -10,7 +10,8 @@ class Metier_model extends CI_Model
     }
 
 // Ajout metier
-    function ajout_metier($data){
+    function ajout_metier($data,$session){
+        $this->db->set('set_ses_id')
         $this->db->insert('metier', $data);
         return;
     }

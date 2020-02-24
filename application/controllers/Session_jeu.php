@@ -65,7 +65,7 @@ class Session_jeu extends CI_Controller {
          $session_id = $this->Session_model->creation_session($data);
          
     
-         redirect('Invite/creation_invite/'.$session_id);
+         redirect('Invite/modificationListe_invite/'.$session_id);
 
       }else{
          // pas de post / premier affichage
