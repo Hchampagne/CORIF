@@ -40,8 +40,14 @@ class Mail_model extends CI_Model
             case "resetMdp" :  // reset mot de passe
                 $to = $sendMail;
                 $from = "noreply@jerem1formatic.fr";
-                $from = "noreply@jerem1formatic.fr";
                 $subject = "Réinitialisation de mots de passe";
+                $message = $message;
+                break;
+
+            case "invitation" : // mail invitation pour une session 
+                $to = $sendMail;
+                $from = "noreply@jerem1formatic.fr";
+                $subject = "Invitation à une session jeu sur  CORIF: Des métiers, des vies ";
                 $message = $message;
                 break;
 

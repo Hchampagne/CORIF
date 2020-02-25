@@ -28,7 +28,6 @@ class Session_jeu extends CI_Controller {
 
         $load['reload'] = "<script> $('#listeParticipantModal').modal('show') </script>";
 
-
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('session/listeParticipantModal',$liste_participant);
@@ -84,20 +83,20 @@ class Session_jeu extends CI_Controller {
 
    
 // modification de session
-   public function modification_session($ses_id){
-
-      $session['session'] = $this->Session_model->session($ses_id);
+   public function modification_session($session_id){
+      // set validation à o modification 
+      $this->Session_model->validationSession_session($session_id, '0');
+      // recuop paramètrage de la session
+      $session['session'] = $this->Session_model->session($session_id);
       
 
       if($this->input->post()){
 
          $data = $this->input->post(NULL, TRUE);
 
-         $this->Session_model->modification_session($ses_id, $data);
+         $this->Session_model->modification_session($session_id, $data);
 
-
-
-         redirect('Invite/modificationListe_invite/'.$ses_id);
+         redirect('Invite/modificationListe_invite/'.$session_id);
 
       }else{
 
@@ -113,9 +112,52 @@ class Session_jeu extends CI_Controller {
    }
 
 
+// Validation d'une session
+   public function validation_session($session_id){
+      // paramètres de la session
+      $data =$this->Session_model->session($session_id);
+
+      if($data->ses_validation == '1'){ 
+         // session valider les mail ont été envoyés
+         // redirection vue liste session
+         Redirect('Session_jeu/liste_session/');
+
+      }else{
+         // liste des invité-e(s)
+         $invite = $this->Session_model->liste_participant($session_id);
+         $envoi = 0;
+         $compteur = 0;
+
+         //envoi mail invitation
+         foreach($invite as $invite){
+            $sendmail = $invite->inv_email;
+            $action = "invitation";
+            $message = "Bonjour ". $invite->inv_nom." ". $invite->inv_prenom."\r\n\n"
+                        ."Vous êtes invité-e le : ".$data->ses_d_session." à ".$data->ses_h_debut."\r\n"
+                        ."Cliquez sur le lien pour jouez : ".site_url('Espace_jeu/connexion_jeu/'.$session_id)."\r\n\n"
+                        ."Cordialement"         ;
+
+            $retour =  $this->Mail_model->sendmail($sendmail, $action, $message);
+            $envoi = $envoi + $retour; 
+            $compteur = $compteur + 1 ;                                                               
+         }
+
+         if($envoi !== $compteur){ 
+            // problème envoi mail
+            Redirect('Session_jeu/liste_session/');
+
+         }else{
+            // tous les emails ont été enoyés
+            $this->Session_model->validationSession_session($session_id, '1');
+            Redirect('Session_jeu/liste_session/');
+         }        
+      }
+   }
+
+
 
 // Suppression de session
-   public function suppr_session($id){
+   public function supprime_session($id){
 
       $this->Session_model->supprime_session($id);
 

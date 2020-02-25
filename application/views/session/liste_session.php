@@ -31,9 +31,9 @@
                                 <td class="text-center"><?= $session->ses_h_debut ?></td>
                                 <td class="text-center"><a href="<?= site_url("Session_jeu/liste_participant/" . $session->ses_id) ?>">Partipant-e(s)</a></td>
                                 <td class="text-center"><a href="<?= site_url("Session_jeu/liste_metier/" . $session->ses_id) ?>">Métier(s)</a></td>
-                                <td class="text-center"> <a class="btn" href="#">Valider</a> </td>
-                                <td class=" text-center"> <a class="btn" href="<?= site_url("Session_jeu/modification_session/" . $session->ses_id) ?>" >Modifier </a> </td>
-                                <td class=" text-center"> <a class="btn" href="<?= site_url("Session_jeu/suppr_session/" . $session->ses_id) ?>" Onclick='return confirm("Confirmez la suppression ?")'>Supprimer </a> </td>
+                                <td class="text-center"> <a class="btn" href="<?= site_url("Session_jeu/validation_session/" . $session->ses_id) ?>">Valider</a> </td>
+                                <td class=" text-center"> <a class="btn" href="<?= site_url("Session_jeu/modification_session/" . $session->ses_id) ?>">Modifier </a> </td>
+                                <td class=" text-center"> <a class="btn" href="<?= site_url("Session_jeu/supprime_session/" . $session->ses_id) ?>" Onclick='return confirm("Confirmez la suppression ?")'>Supprimer </a> </td>
                             </tr>
                         <?php } ?>
                     </tbody>

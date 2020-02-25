@@ -62,4 +62,12 @@ class Session_model extends CI_Model {
         return $id;
     }
 
+// validation session set à 1
+    function validationSession_session($session_id, $val){
+        $this->db->set('ses_validation', $val );
+        $this->db->where('ses_id',$session_id);
+        $this->db->update('session');
+        return;
+    }
+
 }

@@ -283,7 +283,7 @@ class Connexion extends CI_Controller{
                         $this->session->sess_destroy();
                         // mot de passe vérifié et compte non validé 
                         // message compte non validé                 
-                        $message['message'] = "Vous êtes enregitré mais votre compte n'est pas validé.";
+                        $message['message'] = "Vous êtes enregistré mais votre compte n'est pas validé.";
 
                         //reload modal
                         $reload['reload'] = "<script> $('#connexionModal').modal('show') </script>";
