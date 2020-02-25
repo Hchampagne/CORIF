@@ -5,31 +5,61 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Espace_jeu extends CI_Controller {
 
-    function connexion_jeu($session_id)
+    function connexion_jeu()
     {
 
         if ($this->input->post()) {  //si post
 
+
+            // MANQUE VERIF FORMULAIRE
+
             $inv_email = $this->input->post('invConn_email',TRUE);
-            $inv_nom = $this->input->post('invConn_nom', TRUE);
-            $inv_nom = $this->input->post('invConn_nom', TRUE);
+            $inv_nom = $this->input->post('invConn_nom', TRUE);         
+            $invite = $this->Invite_model->invite_jeu($inv_email);
 
-            $invite = $this->Invite_model->invite_jeu($session_id, $inv_email);
-
-            if( isset($invite)){
+            if( isset($invite->inv_email) == $inv_email && isset($invite->inv_nom) == $inv_nom){ // condition email et nom si
                 // un resultat
+                $session = $this->Session_model->session($invite->inv_ses_id);
+                $date= $session->ses_d_session;
+                $debut = $session->ses_h_debut;
+                $fin = $session->ses_h_fin;
 
-                
+                date_default_timezone_set('Europe/Paris');
+                $Jour = date('Y-m-d');
+                $heure =date('H:i:s');
 
 
+                if( $Jour == $date && $debut < $heure && $fin > $heure){ // condition crénaux horaire connexion
+                    // dans creneau
+                    $this->session->set_userdata('inv_nom', $invite->inv_nom);
+                    $this->session->set_userdata('inv_prenoom', $invite->inv_prenom);
 
+                    redirect('Espace_jeu/invite_jeu');
+
+
+                }else{
+                    // hors creneau
+                    $message['message'] = "Le créneau horaire ne semble pas correcte vérifier votre email !";
+
+                    // pas de resultat
+                    $this->load->view('head');
+                    $this->load->view('banner');
+                    $this->load->view('header/header_invite');
+                    $this->load->view('espace_jeu/connexion_invite', $session);
+                    $this->load->view('footer');
+                    $this->load->view('script');
+                }
             }else{
-                // pas de resultat
-
-
-            }
-
+                $message['message'] = "Votre mail ou votre nom ne semble pas correcte !";
             
+                // pas de resultat
+                $this->load->view('head');
+                $this->load->view('banner');
+                $this->load->view('header/header_invite');
+                $this->load->view('espace_jeu/connexion_invite', $session);
+                $this->load->view('footer');
+                $this->load->view('script');
+            }           
         } else { // pas de post
 
             $this->load->view('head');
@@ -41,9 +71,27 @@ class Espace_jeu extends CI_Controller {
         }
     }
   
-   
+// page espace de jeu invite
+    public function invite_jeu(){
+
+        $this->load->view('head');
+        $this->load->view('banner');
+        $this->load->view('header/header_invite');           
+        $this->load->view('espace_jeu/espace_invite');
+        $this->load->view('footer');
+        $this->load->view('script');
+
+
+    }
+
     
-      
+  
+    
+
+
+
+
+
 
 
 

@@ -15,7 +15,8 @@
                             <th class="text-center">Session</th>
                             <th class="text-center">Validation </th>
                             <th class="text-center">Date</th>
-                            <th class="text-center">Heure</th>
+                            <th class="text-center">Début</th>
+                            <th class="text-center">Fin</th>
                             <th class="text-center">Participant-e(s)</th>
                             <th class="text-center">Métier</th>
                             <th class="text-center"></th>
@@ -27,8 +28,9 @@
                             <tr>
                                 <td class="text-center"><?= $session->ses_id ?></td>
                                 <td class="text-center"><?= ($session->ses_validation) ? 'oui' : 'non'; ?></td>
-                                <td class="text-center"><?= $session->ses_d_session ?></td>
+                                <td class="text-center"><?= date("d-m-Y", strtotime($session->ses_d_session))  ?></td>
                                 <td class="text-center"><?= $session->ses_h_debut ?></td>
+                                <td class="text-center"><?= $session->ses_h_fin ?></td>
                                 <td class="text-center"><a href="<?= site_url("Session_jeu/liste_participant/" . $session->ses_id) ?>">Partipant-e(s)</a></td>
                                 <td class="text-center"><a href="<?= site_url("Session_jeu/liste_metier/" . $session->ses_id) ?>">Métier(s)</a></td>
                                 <td class="text-center"> <a class="btn" href="<?= site_url("Session_jeu/validation_session/" . $session->ses_id) ?>">Valider</a> </td>

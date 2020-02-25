@@ -17,7 +17,7 @@ class Metier extends CI_Controller {
         $liste['liste'] = $data;
         $session['session'] = $session_id;
 
-        var_dump($data);
+
 
         if ($this->input->post()) {
 

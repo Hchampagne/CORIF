@@ -29,8 +29,8 @@
                 </div>
                 <div class="col-sm-2">
                     <label for="ses_h_fin">Heure fin</label>
-                    <input type="time" name="ses_h_debut" id="ses_h_fin" class="form-control text-center" value="<?= set_value('ses_h_fin') ?>">
-                    <span class="messerreur" id="alertSesHD">&nbsp<?= form_error('ses_h_debut', '<span>', '</span>'); ?></span>
+                    <input type="time" name="ses_h_fin" id="ses_h_fin" class="form-control text-center" value="<?= set_value('ses_h_fin') ?>">
+                    <span class="messerreur" id="alertSesHD">&nbsp<?= form_error('ses_h_fin', '<span>', '</span>'); ?></span>
                 </div>
                 <div class="col-sm-1">
                     <label>&nbsp</label>

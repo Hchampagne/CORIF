@@ -29,7 +29,7 @@
                 <div class="col-5">
                     <Button type="submit" id="formAjoutAdh" value="Enregistrer" class="btn">Valider</Button>
                     
-                    <span class="messerreur" id="">&nbsp</span>
+                    <span class="messerreur" id="">&nbsp<?= isset($message) ? $message : "" ?></span>
                 </div>
             </div>
             </form>

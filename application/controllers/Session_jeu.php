@@ -65,6 +65,11 @@ class Session_jeu extends CI_Controller {
          // formulaire validation
 
          $data = $this->input->post(NULL,true);
+         $date = date("Y-m-d", strtotime($this->input->post('ses_d_session', TRUE)));
+         $data['ses_d_session'] = $date;
+
+
+
          $session_id = $this->Session_model->creation_session($data);
          
     
@@ -93,6 +98,15 @@ class Session_jeu extends CI_Controller {
       if($this->input->post()){
 
          $data = $this->input->post(NULL, TRUE);
+
+         $date = date("Y-m-d",strtotime($this->input->post('ses_d_session',TRUE)));
+         $data['ses_d_session'] = $date;
+
+         var_dump($data);
+
+
+     
+         
 
          $this->Session_model->modification_session($session_id, $data);
 
