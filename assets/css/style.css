@@ -110,93 +110,93 @@ ajout bande de couleur*/
 
 
     body{   
-    background-color: #eeeded;
-    margin-left: 10px;
-    font-family: "Open sans";
-}
+        background-color: #eeeded;
+        margin-left: 10px;
+        font-family: "Open sans";
+    }
 
-#cards{
-    margin-bottom: 5rem;
-    margin-top: 5rem;
-}
-.btn{
-    color:#343538;
-    background-color:#F18F1F;
-    margin-bottom:1rem;
-}
-
-
+    #cards{
+        margin-bottom: 5rem;
+        margin-top: 5rem;
+    }
+    .btn{
+        color:#343538;
+        background-color:#F18F1F;
+        margin-bottom:1rem;
+    }
 
 
 
 
 
 
-a:hover{
-    color:#343538;
-    background-color:#F18F1F; 
-}
 
-#bp{
-    background-color:#343538;
+
+    a:hover{
+        color:#343538;
+        background-color:#F18F1F; 
+    }
+
+    #bp{
+        background-color:#343538;
     margin-left: -10px;
-}
+    }
 
 
-#bp a:hover{
-    color:#343538;
-    background-color:#F18F1F;
-}
+    #bp a:hover{
+        color:#343538;
+        background-color:#F18F1F;
+    }
 
-.bg-info{
-    border:solid #fff;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-
-
+    .bg-info{
+        border:solid #fff;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
 
 
 
 
 
-#hp input{
-    background-color:#F18F1F;
-    opacity: 0.5;  
-}
 
-#hp .btn{
-    background-color:#343538; 
-    color: #fff;
-}
 
-hr{
-    background-color:#fff;
-}
 
-h1{
-    color:black;
-    text-align: center;
-    font-size: 30px;
-    margin-top:1rem;
-}
+    #hp input{
+        background-color:#F18F1F;
+        opacity: 0.5;  
+    }
 
-h2{
-    color: #343538;
-    margin-top:1rem;
-}
+    #hp .btn{
+        background-color:#343538; 
+        color: #fff;
+    }
 
-h5{
-    color: #343538;
-    margin-top:1rem;
-}
+    hr{
+        background-color:#fff;
+    }
 
-h6{
-    color: #F18F1F;
-    margin-top:1rem;
-    margin-left:1rem;
-}
+    h1{
+        color:black;
+        text-align: center;
+        font-size: 30px;
+        margin-top:1rem;
+    }
+
+    h2{
+        color: #343538;
+        margin-top:1rem;
+    }
+
+    h5{
+        color: #343538;
+        margin-top:1rem;
+    }
+
+    h6{
+        color: #F18F1F;
+        margin-top:1rem;
+     margin-left:1rem;
+    }
 
 
 
