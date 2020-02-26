@@ -49,7 +49,11 @@ class Session_model extends CI_Model {
 
 //supprime une session par id session
     function supprime_session($id){
-        $this->db->where('ses_id',$id);
+        $this->db->where('id_session',$id);
+        $this->db->delete('contient');
+        $this->db->where('inv_ses_id',$id);
+        $this->db->delete('invite');
+        $this->db->where('ses_id', $id);
         $this->db->delete('session');
         return;
     }

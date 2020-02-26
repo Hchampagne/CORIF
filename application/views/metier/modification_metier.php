@@ -8,12 +8,12 @@
         <div class="form-group row ">
             <label for="id_metier" class="col-sm-1 col-form-label">Metier 1</label>
             <div class="col-sm-5">
-                <select type="text" name="id_metier" id="id_metier" class="form-control">
+                <select type="text" name="id_metier" id="metMetier" class="form-control">                   
                     <?php foreach ($liste_metier as $metier) { ?>
                         <option value="<?= $metier->met_id ?>"> <?= $metier->met_metier ?> </option>
                     <?php } ?>
                 </select>
-                <span class="messerreur" id="alertNom">&nbsp<?= form_error('nom', '<span>', '</span>') ?></span>
+                <span class="messerreur" id="alertMetier">&nbsp<?= form_error('id_metier', '<span>', '</span>') ?></span>
             </div>
             <div class="col-sm-5">
                 <button type="submit" class="btn" id="submit_Meitier">Ajouter</button>
@@ -26,7 +26,6 @@
                 <thead class="thead-light">
 
                     <tr>
-                        <th class="col-sm-1">Index</th>
                         <th class="col-sm-3">Metier</th>
                         <th class="col-sm-3">Prénom</th>
                         <th class="col-sm-2">Age</th>
@@ -39,7 +38,6 @@
                     foreach ($liste as $metier) {
                     ?>
                         <tr>
-                            <td class=""><?= $metier->met_id ?></td>
                             <td class=""><?= $metier->met_metier ?></td>
                             <td class=""><?= $metier->met_prenom ?></td>
                             <td class=""><?= $metier->met_age ?></td>

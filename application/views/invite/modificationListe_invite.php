@@ -40,8 +40,7 @@
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="thead-light">
-                        <tr>
-                            <th class="col-sm-1">index</th>
+                        <tr>                           
                             <th class="col-sm-3">Email</th>
                             <th class="col-sm-3">Nom</th>
                             <th class="col-sm-3">Prénom</th>
@@ -54,7 +53,6 @@
                         foreach ($liste as $participant) {
                         ?>
                             <tr>
-                                <td class=""><?= $participant->inv_id ?></td>
                                 <td class=""><?= $participant->inv_email ?></td>
                                 <td class=""><?= $participant->inv_nom ?></td>
                                 <td class=""><?= $participant->inv_prenom ?></td>

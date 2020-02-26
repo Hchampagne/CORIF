@@ -9,7 +9,6 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="<?= site_url("accueil") ?>">ACCUEIL</a>
                 </li>
-
                 <li class="nav-item active">
                     <a class="nav-link" href="<?= site_url("modal/connexionModal") ?>" data-toggle="modal" data-target="#connexionModal">CONNEXION</a>
                 </li>            

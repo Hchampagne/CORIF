@@ -60,6 +60,25 @@ $('#invPrenom').blur(function () {
     }
 });
 
+//controle doublons email (ajax) inscription
+$('#invEmail').blur(function () {
+    $.post({
+        url: "../../Ajax/doublon",
+        data: {
+            verifRef: $("#invEmail").val(),
+            verifChamps: "inv_email",
+            verifTable: "invite",
+        },
+        success: function (data) {
+            if (data == 1) {
+                $("#alertParEmail").text("Déjà présent dans une session");
+            } else {
+                $("#alertParEmail").html('&nbsp');
+            }
+        }
+    });
+});
+
 
 // Controle sur envoi du formulaire
 $("#form_creatInvite").submit(function(event){
@@ -80,6 +99,7 @@ $("#form_creatInvite").submit(function(event){
     else {
         $('#alertParEmail').html('&nbsp');
     }
+
 // champs nom
     if ($('#invNom').val().length === 0) {
         event.preventDefault();

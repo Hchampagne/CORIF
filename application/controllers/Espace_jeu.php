@@ -12,6 +12,11 @@ class Espace_jeu extends CI_Controller {
 
 
             // MANQUE VERIF FORMULAIRE
+            $this-> form_validation->set_rules('invConn_nom', 'invConn_nom','required', 
+                array('required'=>'Champs vide'));
+
+            $this->form_validation->set_rules('invConn_email','invConn_email','required',
+                array('required' => 'Champs vide'));
 
             $inv_email = $this->input->post('invConn_email',TRUE);
             $inv_nom = $this->input->post('invConn_nom', TRUE);         
@@ -21,18 +26,17 @@ class Espace_jeu extends CI_Controller {
                 // un resultat
                 $session = $this->Session_model->session($invite->inv_ses_id);
                 $date= $session->ses_d_session;
-                $debut = $session->ses_h_debut;
-                $fin = $session->ses_h_fin;
+                $debut = date("H:i", strtotime($session->ses_h_debut));
+                $fin = date("H:i", strtotime($session->ses_h_fin));
 
                 date_default_timezone_set('Europe/Paris');
-                $Jour = date('Y-m-d');
-                $heure =date('H:i:s');
+                $jour = date('Y-m-d');
+                $heure =date('H:i');
 
-
-                if( $Jour == $date && $debut < $heure && $fin > $heure){ // condition crénaux horaire connexion
+                if( $jour == $date && $debut < $heure && $fin > $heure){ // condition crénaux horaire connexion
                     // dans creneau
                     $this->session->set_userdata('inv_nom', $invite->inv_nom);
-                    $this->session->set_userdata('inv_prenoom', $invite->inv_prenom);
+                    $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
 
                     redirect('Espace_jeu/invite_jeu');
 
@@ -45,7 +49,7 @@ class Espace_jeu extends CI_Controller {
                     $this->load->view('head');
                     $this->load->view('banner');
                     $this->load->view('header/header_invite');
-                    $this->load->view('espace_jeu/connexion_invite', $session);
+                    $this->load->view('espace_jeu/connexion_invite', $message);
                     $this->load->view('footer');
                     $this->load->view('script');
                 }
@@ -56,7 +60,7 @@ class Espace_jeu extends CI_Controller {
                 $this->load->view('head');
                 $this->load->view('banner');
                 $this->load->view('header/header_invite');
-                $this->load->view('espace_jeu/connexion_invite', $session);
+                $this->load->view('espace_jeu/connexion_invite', $message);
                 $this->load->view('footer');
                 $this->load->view('script');
             }           

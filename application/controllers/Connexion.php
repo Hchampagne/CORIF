@@ -23,15 +23,15 @@ class Connexion extends CI_Controller{
             // messages d'erreurs en fonction des tests
 
             $this->form_validation->set_rules('adh_nom','Nom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',     
+                'required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',     
                 array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte','max_length'=>'Saisie trop longue')); 
 
             $this->form_validation->set_rules('adh_prenom', 'Prenom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]', 
+                'required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]', 
                 array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_organisme', 'Organisme',
-                'required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]', 
+                'required|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]', 
                 array('required'=>'Le champ est vide', 'regex_match'=>'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_email', 'Email', 'required|is_unique[adherent.adh_email]|valid_email|max_length[150]',   
@@ -42,7 +42,7 @@ class Connexion extends CI_Controller{
                 array('required'=>'Le champs est vide', 'is_unique'=>'Déjà utilisé', 'regex_match'=>'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
 
             $this->form_validation->set_rules('adh_mdp', 'MDP',
-                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]|min_length[8]', 
+                'required|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]|min_length[8]', 
                 array('required'=>'Le champs est vide', 'regex_match'=>'La saisie est incorrecte', 'min_length' => 'Huit caractètres minimum'));
 
             $this->form_validation->set_rules('verifmdp','Verifmdp','required|matches[adh_mdp]',             
@@ -185,12 +185,12 @@ class Connexion extends CI_Controller{
             }else{ 
                 // form email non valide => peut etre login
                 $this->form_validation->set_rules('con_login', 'con_login',
-                    'required|html_escape|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',
+                    'required|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',
                     array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
             }
 
             $this->form_validation->set_rules('con_password','con_password', 
-                'required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
+                'required|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
                 ,array('required' => 'Le champs est vide','regex_match' => 'La saisie est incorrecte'));
 
             
@@ -329,7 +329,7 @@ class Connexion extends CI_Controller{
             
             //Défénit les règles du controle du formulaire
             $this->form_validation->set_rules('inv_nom','inv_nom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
+                'required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
                 array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte')); 
 
             $this->form_validation->set_rules('inv_mail', 'inv_mail', 'required|valid_email',   
@@ -420,7 +420,7 @@ class Connexion extends CI_Controller{
         if($this->input->post()){  //si il y a un post
 
             // regle de validation email    
-            $this->form_validation->set_rules('res_mail', 'res_mail', 'required|html_escape|valid_email',
+            $this->form_validation->set_rules('res_mail', 'res_mail', 'required|valid_email',
                 array("required"=>"Le champs est vide","valid_email"=>"L'email saisie n'est pas correcte"));
 
             if($this->form_validation->run() != false){
@@ -560,13 +560,13 @@ class Connexion extends CI_Controller{
             if($this->input->post()){
             //il y a un post
 
-                $this->form_validation->set_rules('cleUrl','cleUrl','required|html_escape|numeric|min_length[11]|max_length[20]',
+                $this->form_validation->set_rules('cleUrl','cleUrl','required|numeric|min_length[11]|max_length[20]',
                     array());
 
-                $this->form_validation->set_rules ('cleConf','cleConf','required|html_escape|numeric|exact_length[6]',
+                $this->form_validation->set_rules ('cleConf','cleConf','required|numeric|exact_length[6]',
                      array('required' => 'Le champs est vide', 'numeric'=>'Saisie incorrecte','exact_length' => 'Six chiffres !'));
 
-                $this->form_validation->set_rules('newMdp','newMdp','required|html_escape|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]',
+                $this->form_validation->set_rules('newMdp','newMdp','required|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]',
                     array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
 
                 $this->form_validation->set_rules('verifNewMdp','erifNewMdp','required|matches[newMdp]',

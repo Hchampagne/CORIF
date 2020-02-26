@@ -2,26 +2,26 @@
 $(document).ready(function () { 
 // initialise JQUERY au chargement du document
 
-//FORMULAIRE invite
+//FORMULAIRE Session
 
 //REGEX
-var regDate = /^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/;
-var regHeure = /^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/;
+var regDate = /^([0-2][0-9]|(3)[0-1])-(((0)[0-9])|((1)[0-2]))-\d{4}$/;
+    var regHeure = /^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/;
 // Messages erreurs
 var vide = "Le champs est vide";
 var long = "La saisie est trop longue";
 var saisie = "La saisie est incorrecte";
 
-// Contrôle sur le change de l'input
+// Contrôle sur le blur de l'input
 // champs date
 $('#ses_d_session').blur(function () {
     if ($('#ses_d_session').val().length === 0) {      
         $('#alertDate').text(vide);
     } 
-    else if($('#ses_d_session').val().length > 8){
+    else if($('#ses_d_session').val().length > 10){
         $('#alertDate').text(long);     
     }
-    else if (regMail.test($('#ses_d_session').val()) == false) {
+    else if (regDate.test($('#ses_d_session').val()) == false) {
         $('#alertDate').text(saisie);
     }     
     else {
@@ -36,7 +36,7 @@ $('#heureDebut').blur(function () {
     else if($('#heureDebut').val().length > 5){
         $('#alertDebut').text(long);     
     }
-    else if (regPrenom.test($('#heureDebut').val()) == false) {
+    else if (regHeure.test($('#heureDebut').val()) == false) {
         $('#alertDebut').text(saisie);
     }     
     else {
@@ -49,10 +49,10 @@ $('#heureFin').blur(function () {
     if ($('#heureFin').val().length === 0) {      
         $('#alertFin').text(vide);
     } 
-    else if($('#heurefin').val().length > 5){
+    else if($('#heureFin').val().length > 8){
         $('#alertFin').text(long);     
     }
-    else if (regPrenom.test($('#HeureFin').val()) == false) {
+    else if (regHeure.test($('#HeureFin').val()) == false) {
         $('#alertFin').text(saisie);
     }     
     else {
@@ -61,22 +61,19 @@ $('#heureFin').blur(function () {
 });
 
 
-
-
 // Controle sur envoi du formulaire
 $("#form_session").submit(function(event){
 
 // Champs email
-    if ($('#ses_d_session').val().length === 0) {
-      
+    if ($('#ses_d_session').val().length === 0) {     
         $('#alertDate').text(vide);
         event.preventDefault();
     }
-    else if ($('#ses_d_session').val().length > 60) {
+    else if ($('#ses_d_session').val().length > 10) {
         event.preventDefault();
         $('#alertDate').text(long);
     }
-    else if (regMail.test($('#ses_d_session').val()) == false) {
+    else if (regDate.test($('#ses_d_session').val()) == false) {
         event.preventDefault();
         $('#alertDate').text(saisie);
     }
@@ -92,7 +89,7 @@ $("#form_session").submit(function(event){
         event.preventDefault();
         $('#alertDebut').text(long);
     }
-    else if (regNom.test($('#heureDebut').val()) == false) {
+    else if (regHeure.test($('#heureDebut').val()) == false) {
         event.preventDefault();
         $('#alertDebut').text(saisie);
     }
@@ -108,7 +105,7 @@ $("#form_session").submit(function(event){
         event.preventDefault();
         $('#alertFin').text(long);
     }
-    else if (regPrenom.test($('#heureFin').val()) == false) {
+    else if (regHeure.test($('#heureFin').val()) == false) {
         event.preventDefault();
         $('#alertFin').text(saisie);
     }
@@ -117,6 +114,7 @@ $("#form_session").submit(function(event){
     }
       
 });
+
 
 
 });

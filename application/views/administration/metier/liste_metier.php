@@ -5,7 +5,6 @@
                 <table class="table table-hover" >
                     <thead  class="thead-light text-center">
                         <tr>
-                            <th class="align-middle">numero</th>
                             <th class="align-middle">Métier</th>
                             <th class="align-middle">Prénom</th>
                             <th class="align-middle">Age</th>
@@ -16,7 +15,6 @@
                     <tbody>
                         <?php foreach ($liste_metier as $data){ ?>
                         <tr>                           
-                            <td class="align-middle"><?= $data->met_id?> </td>
                             <td class="align-middle"><?= $data->met_metier ?> </td>
                             <td class="align-middle"><?= $data->met_prenom ?> </td>
                             <td class="align-middle"><?= $data->met_age ?> </td>               

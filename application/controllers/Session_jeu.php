@@ -63,18 +63,35 @@ class Session_jeu extends CI_Controller {
          if($this->input->post()){
 
          // formulaire validation
+            $this->form_validation->set_rules('ses_d_session','ses_d_session',
+            'required|max_length[10]|regex_match[/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/]', 
+               array('required' => 'Champs vide','regex_match'=>'Saisie incorrecte','max_length'=> 'Saisie trop longue'));
 
-         $data = $this->input->post(NULL,true);
-         $date = date("Y-m-d", strtotime($this->input->post('ses_d_session', TRUE)));
-         $data['ses_d_session'] = $date;
+            $this->form_validation->set_rules('ses_h_debut','ses_h_debut','required|max_length[5]|regex_match[/^[0-9]{2}:[0-9]{2}$/]',
+               array('required'=>'Champs vide','regex_match' => 'Saisie incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            $this->form_validation->set_rules('ses_h_fin','ses_h_fin','required|max_length[5]|regex_match[/^[0-9]{2}:[0-9]{2}$/]',
+               array('required' => 'Champs vide','regex_match' => 'Saisie incorrecte', 'max_length' => 'Saisie trop longue'));
+
+            if($this->form_validation->run() != false){
+
+               $data = $this->input->post(NULL, true);
+               $date = date("Y-m-d", strtotime($this->input->post('ses_d_session', TRUE)));
+               $data['ses_d_session'] = $date;
+
+               $session_id = $this->Session_model->creation_session($data);
+
+               redirect('Invite/modificationListe_invite/' . $session_id);
 
 
+            }else{
+            $session['session'] = "coucou";
 
-         $session_id = $this->Session_model->creation_session($data);
-         
-    
-         redirect('Invite/modificationListe_invite/'.$session_id);
-
+               $this->load->view('head');
+               $this->load->view('header/header_loader');
+               $this->load->view('session/creation_session', $session);
+               $this->load->view('script');
+            }
       }else{
          // pas de post / premier affichage
 
@@ -96,33 +113,38 @@ class Session_jeu extends CI_Controller {
       
 
       if($this->input->post()){
+         // formulaire validation
+         $this->form_validation->set_rules('ses_d_session','ses_d_session','required|max_length[10]|regex_match[/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/]',
+            array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Saisie trop longue'));
 
-         $data = $this->input->post(NULL, TRUE);
+         $this->form_validation->set_rules('ses_h_debut','ses_h_debut','required|max_length[5]|regex_match[/^[0-9]{2}:[0-9]{2}$/]',
+            array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Saisie trop longue'));
 
-         $date = date("Y-m-d",strtotime($this->input->post('ses_d_session',TRUE)));
-         $data['ses_d_session'] = $date;
+         $this->form_validation->set_rules('ses_h_fin','ses_h_fin','required|max_length[5]|regex_match[/^[0-9]{2}:[0-9]{2}$/]',
+            array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Saisie trop longue'));
 
-         var_dump($data);
+            if($this->form_validation->run() != false){
+               // validation formulaire ok
+               $data = $this->input->post(NULL, TRUE);
 
-
-     
-         
-
-         $this->Session_model->modification_session($session_id, $data);
-
-         redirect('Invite/modificationListe_invite/'.$session_id);
-
+               $date = date("Y-m-d", strtotime($this->input->post('ses_d_session', TRUE)));
+               $data['ses_d_session'] = $date;
+               $this->Session_model->modification_session($session_id, $data);
+               redirect('Invite/modificationListe_invite/' . $session_id);
+            }else{
+               // validation formulaire non ok
+               $this->load->view('head');
+               $this->load->view('header/header_loader');
+               $this->load->view('session/modification _session', $session);
+               $this->load->view('script');           
+            }
       }else{
-
-
-
+         // pas de post premier affichage
          $this->load->view('head');
          $this->load->view('header/header_loader');
          $this->load->view('session/modification _session', $session);
          $this->load->view('script');
       }
-
-
    }
 
 
@@ -176,15 +198,8 @@ class Session_jeu extends CI_Controller {
       $this->Session_model->supprime_session($id);
 
       // liste des sessions 
-      $data =  $this->Session_model->liste_session();              
-      $liste_session['liste'] =  $data;
-          
-      //affichage de la vue
-      $this->load->view('head');
-      $this->load->view('header/header_loader');
-      $this->load->view('session/listeParticipantModal');
-      $this->load->view('session/liste_session', $liste_session);
-      $this->load->view('script');
+     redirect('Session_jeu/liste_session');
+      
    }
     
 } 

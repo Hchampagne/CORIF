@@ -34,7 +34,7 @@ class Invite extends CI_Controller {
                 'inv_email',
                 'inv_mail',
                 'required|valid_email|max_length[150]|is_unique[invite.inv_email]',
-                array('required' => 'Le champs est vide', 'is_unique' => 'Déjà utilisé', 'valid_email' => 'Votre email est incorrecte', 'max_length' => 'Saisie trop longue')
+                array('required' => 'Le champs est vide', 'is_unique' => 'Déjà participé-e', 'valid_email' => 'Votre email est incorrecte', 'max_length' => 'Saisie trop longue')
             );
 
             $this->form_validation->set_rules(
