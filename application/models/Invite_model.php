@@ -9,8 +9,10 @@ class Invite_model extends CI_Model {
     }
 
     // liste participant
-    function adminListe_invite(){
+    function invite(){
         $this->db->from('invite');
+        $this->db->join('session', 'ses_id = inv_ses_id');
+        $this->db->join('adherent','adh_id = ses_adh_id');
         $result = $this->db->get()->result();
         return $result;
     }

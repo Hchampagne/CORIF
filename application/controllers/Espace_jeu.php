@@ -12,40 +12,52 @@ class Espace_jeu extends CI_Controller {
 
 
             // MANQUE VERIF FORMULAIRE
-            $this-> form_validation->set_rules('invConn_nom', 'invConn_nom','required', 
-                array('required'=>'Champs vide'));
+            $this->form_validation->set_rules('invConn_nom', 'invConn_nom',
+                'required|regex_match[/^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/]', 
+                array('required'=>'Champs vide','regex_match'=>'Saisie incorrecte'));
 
-            $this->form_validation->set_rules('invConn_email','invConn_email','required',
-                array('required' => 'Champs vide'));
+            $this->form_validation->set_rules('invConn_email','invConn_email',
+                'required|regex_match[/^[^\W][a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\@[a-zA-Z0-9_]+(\.[a-zA-Z0-9_]+)*\.[a-zA-Z]{2,4}$/]',
+                array('required' => 'Champs vide','regex_match'=>'Saisie incorecte'));
 
-            $inv_email = $this->input->post('invConn_email',TRUE);
-            $inv_nom = $this->input->post('invConn_nom', TRUE);         
-            $invite = $this->Invite_model->invite_jeu($inv_email);
+            if($this->form_validation->run() != false){
 
-            if( isset($invite->inv_email) == $inv_email && isset($invite->inv_nom) == $inv_nom){ // condition email et nom si
-                // un resultat
-                $session = $this->Session_model->session($invite->inv_ses_id);
-                $date= $session->ses_d_session;
-                $debut = date("H:i", strtotime($session->ses_h_debut));
-                $fin = date("H:i", strtotime($session->ses_h_fin));
+                $inv_email = $this->input->post('invConn_email',TRUE);
+                $inv_nom = $this->input->post('invConn_nom', TRUE);         
+                $invite = $this->Invite_model->invite_jeu($inv_email);
 
-                date_default_timezone_set('Europe/Paris');
-                $jour = date('Y-m-d');
-                $heure =date('H:i');
+                if( isset($invite->inv_email) == $inv_email && isset($invite->inv_nom) == $inv_nom){ // condition email et nom si
+                    // un resultat
+                    $session = $this->Session_model->session($invite->inv_ses_id);
+                    $date= $session->ses_d_session;
+                    $debut = date("H:i", strtotime($session->ses_h_debut));
+                    $fin = date("H:i", strtotime($session->ses_h_fin));
 
-                if( $jour == $date && $debut < $heure && $fin > $heure){ // condition crénaux horaire connexion
-                    // dans creneau
-                    $this->session->set_userdata('inv_nom', $invite->inv_nom);
-                    $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
+                    date_default_timezone_set('Europe/Paris');
+                    $jour = date('Y-m-d');
+                    $heure =date('H:i');
 
-                    redirect('Espace_jeu/invite_jeu');
+                    if( $jour == $date && $debut < $heure && $fin > $heure){ // condition crénaux horaire connexion
+                        // dans creneau
+                        $this->session->set_userdata('inv_nom', $invite->inv_nom);
+                        $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
 
-
+                        redirect('Espace_jeu/invite_jeu');
+                    }else{
+                        // hors creneau horaire
+                        $message['message'] = "Le créneau horaire ne semble pas correcte vérifier votre email !";
+                      
+                        $this->load->view('head');
+                        $this->load->view('banner');
+                        $this->load->view('header/header_invite');
+                        $this->load->view('espace_jeu/connexion_invite', $message);
+                        $this->load->view('footer');
+                        $this->load->view('script');
+                    }
                 }else{
-                    // hors creneau
-                    $message['message'] = "Le créneau horaire ne semble pas correcte vérifier votre email !";
-
-                    // pas de resultat
+                    // erreur mail et/ou nom
+                    $message['message'] = "Votre mail ou votre nom ne semble pas correcte !";
+                              
                     $this->load->view('head');
                     $this->load->view('banner');
                     $this->load->view('header/header_invite');
@@ -54,17 +66,16 @@ class Espace_jeu extends CI_Controller {
                     $this->load->view('script');
                 }
             }else{
-                $message['message'] = "Votre mail ou votre nom ne semble pas correcte !";
-            
-                // pas de resultat
+                // form validation false
                 $this->load->view('head');
                 $this->load->view('banner');
-                $this->load->view('header/header_invite');
-                $this->load->view('espace_jeu/connexion_invite', $message);
+                $this->load->view('header/header_invite');           
+                $this->load->view('espace_jeu/connexion_invite');
                 $this->load->view('footer');
                 $this->load->view('script');
-            }           
-        } else { // pas de post
+
+            }          
+        } else { // pas de post premier affichage
 
             $this->load->view('head');
             $this->load->view('banner');
