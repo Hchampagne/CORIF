@@ -1,4 +1,6 @@
 <div>
+    
+
 
     <script src="<?= base_url("assets/JS/ctrl_inscription.js") ?>"></script>
     <script src="<?= base_url("assets/JS/ctrl_connexion.js") ?>"></script>
@@ -10,18 +12,16 @@
     <script src="<?= base_url("assets/JS/ctrl_metier.js") ?>"></script>
 
     <script src="<?= base_url("assets/JS/ctrl_metierSession.js") ?>"></script>
-    <script src="<?= base_url("assets/JS/ctrl_inviteSession.js") ?>"></script>  
+    <script src="<?= base_url("assets/JS/ctrl_inviteSession.js") ?>"></script>
     <script src="<?= base_url("assets/JS/ctrl_sessionSession.js") ?>"></script>
 
     <script src="<?= base_url("assets/JS/ctrl_connexionInvite.js") ?>"></script>
-   
 
-    <!-- load modal -->
-    <?= isset($reload) ? $reload : ""; ?>
+    <script src="<?= base_url("assets/JS/script_jeu.js") ?>"></script>
+
 </div>
 
-
-</script>
+<?= isset($reload) ? $reload : ""; ?>
 
 </body>
 

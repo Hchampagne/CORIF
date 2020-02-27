@@ -62,9 +62,11 @@ class Session_jeu extends CI_Controller {
 
          if($this->input->post()){
 
+            var_dump($this->input->post());
+
          // formulaire validation
             $this->form_validation->set_rules('ses_d_session','ses_d_session',
-            'required|max_length[10]|regex_match[/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/]', 
+            'required|max_length[10]|regex_match[/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/]', 
                array('required' => 'Champs vide','regex_match'=>'Saisie incorrecte','max_length'=> 'Saisie trop longue'));
 
             $this->form_validation->set_rules('ses_h_debut','ses_h_debut','required|max_length[5]|regex_match[/^[0-9]{2}:[0-9]{2}$/]',
@@ -114,7 +116,8 @@ class Session_jeu extends CI_Controller {
 
       if($this->input->post()){
          // formulaire validation
-         $this->form_validation->set_rules('ses_d_session','ses_d_session','required|max_length[10]|regex_match[/^[0-9]{2}-[0-9]{2}-[0-9]{4}$/]',
+         $this->form_validation->set_rules('ses_d_session','ses_d_session',
+            'required|max_length[10]|regex_match[/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/]',
             array('required' => 'Champs vide', 'regex_match' => 'Saisie incorrecte', 'max_length' => 'Saisie trop longue'));
 
          $this->form_validation->set_rules('ses_h_debut','ses_h_debut','required|max_length[5]|regex_match[/^[0-9]{2}:[0-9]{2}$/]',

@@ -5,8 +5,8 @@ $(document).ready(function () {
 //FORMULAIRE Session
 
 //REGEX
-var regDate = /^([0-2][0-9]|(3)[0-1])-(((0)[0-9])|((1)[0-2]))-\d{4}$/;
-    var regHeure = /^([0-1][0-9]|[2][0-3]):([0-5][0-9])$/;
+var regDate = /^[0-9]{4}-[0-9][0-9]-[0-9][0-9]$/;
+var regHeure = /^[0-9]{2}:[0-9]{2}$/;
 // Messages erreurs
 var vide = "Le champs est vide";
 var long = "La saisie est trop longue";
@@ -52,7 +52,7 @@ $('#heureFin').blur(function () {
     else if($('#heureFin').val().length > 8){
         $('#alertFin').text(long);     
     }
-    else if (regHeure.test($('#HeureFin').val()) == false) {
+    else if (regHeure.test($('#heureFin').val()) == false) {
         $('#alertFin').text(saisie);
     }     
     else {

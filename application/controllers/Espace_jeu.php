@@ -5,13 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Espace_jeu extends CI_Controller {
 
-    function connexion_jeu()
-    {
+    public function connexion_jeu(){
 
         if ($this->input->post()) {  //si post
-
-
-            // MANQUE VERIF FORMULAIRE
+          
             $this->form_validation->set_rules('invConn_nom', 'invConn_nom',
                 'required|regex_match[/^[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*$/]', 
                 array('required'=>'Champs vide','regex_match'=>'Saisie incorrecte'));
@@ -42,7 +39,10 @@ class Espace_jeu extends CI_Controller {
                         $this->session->set_userdata('inv_nom', $invite->inv_nom);
                         $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
 
-                        redirect('Espace_jeu/invite_jeu');
+
+                        /*****  mis ajour invite connexion  ******/
+
+                        redirect('Espace_jeu/invite_jeu/'.$session->ses_id);
                     }else{
                         // hors creneau horaire
                         $message['message'] = "Le créneau horaire ne semble pas correcte vérifier votre email !";
@@ -87,19 +87,41 @@ class Espace_jeu extends CI_Controller {
     }
   
 // page espace de jeu invite
-    public function invite_jeu(){
+    public function invite_jeu($session_id){
+
+
+        
+
+        $cartes = $this->db->query("
+                select * from carte where car_type = 'metier' and car_met_id in (
+                    select id_metier from contient where id_session=?
+                )
+                order by car_description asc
+                ", $session_id)->result();
+
+        $data['cartes'] = $cartes;
+                    
+        $metiers = $this->db->query("
+                select * from metier where met_id in (
+                    select id_metier from contient where id_session=?
+                )
+                ", $session_id)->result();
+
+        $data['metiers'] = $metiers;
+                    
+
+        $data['id_session'] = $session_id;
+                    
 
         $this->load->view('head');
-        $this->load->view('banner');
+
         $this->load->view('header/header_invite');           
-        $this->load->view('espace_jeu/espace_invite');
-        $this->load->view('footer');
+        $this->load->view('espace_jeu/espace_invite',$data);
+ 
         $this->load->view('script');
-
-
     }
 
-    
+
   
     
 

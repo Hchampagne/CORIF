@@ -19,12 +19,6 @@
     <script src="<?= base_url("assets/download/popper.min.js") ?>"></script>
     <script src="<?= base_url("assets/download/bootstrap.min.js") ?>"></script>
 
-    
-
-
-
-    <!-- menu mobile  -->
-
 </head>
 
 <body>
