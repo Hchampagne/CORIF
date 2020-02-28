@@ -49,7 +49,8 @@ ajout bande de couleur*/
         color: white;
     }
     .navbar{
-        padding-left: 30%;
+        padding-left: 10%;
+        margin-bottom: 1 em;
     }
 
 /*FOOTER*/

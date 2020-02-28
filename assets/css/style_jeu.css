@@ -1,0 +1,112 @@
+
+
+
+/* background banner
+ajout bande de couleur*/
+    .banner{
+    background-color: #F18F1F;
+    }
+
+/*navbar*/
+    .bg-custom { 
+    background-color: #2c3e50; 
+    } 
+
+
+/* LIENS */
+    /* tout les liens en blanc*/
+    a {
+    color: rgb(34, 31, 31);
+    }
+
+    /* fond lien quand selection*/
+    #bp a {
+    color: #F18F1F;
+    }
+
+    /* lien mdp 24h*/
+    #lienMdp {
+        color: red;
+    }
+
+/* MODAL */
+    /* couleur mdp oublié */
+    #mdpo {
+    color: blue
+    }
+    /* couleur entête */
+    .modal-header{
+        background-color: #F18F1F;
+    }
+
+/*BARRE MENU*/
+    /*background color pour la barre de menu*/
+    #menu .bg-menu {
+    background-color: #2c3e50;
+    }
+    /* couleur texte connexion admin/formateur/invité navbar*/
+    #afLogin {
+        color: white;
+    }
+    .navbar{
+        padding-left: 10%;
+        margin-bottom: 1 em;
+    }
+
+/*FOOTER*/
+    /*couleur fond*/
+    #hp {
+        background-color: #1f2f3f; 
+    }
+
+    /* couleur texte*/
+    #textFoot {
+        color: white;       
+    }
+
+    #textFoot1 {
+        color: #F18F1F;
+
+    }
+
+/*DASHBOARD*/
+    /* entête*/
+    th {
+        color: #343538;
+    }
+    /*ligne*/
+    td {
+        color: black;
+    }
+
+    /* Message erreur*/
+    /* messages erreurs controle formulaire */
+    .messerreur {
+        color : red;
+        font-style : italic;
+    }
+
+ /* FOOTER */
+    /* liste ul sans puces */
+    ul{
+        list-style-type: none;
+    }
+    #footer{
+        color: #F18F1F;
+    }
+    .page-footer{
+        color: white;
+        background-color: #2c3e50 ;
+    }
+
+
+ #snaptarget {
+     height :250px;
+     width : 250px;
+
+}
+   
+
+
+
+

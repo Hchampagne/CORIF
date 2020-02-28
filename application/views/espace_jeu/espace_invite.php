@@ -1,38 +1,45 @@
- <div>
-    <h2 class="text-center">Dossier</h2>
-    <button class="btn btn-info" id="btn_add">+ Métier</button>
-    <div><br></div>
-    <!--Zone draggable -->
-    <div class="row" id="metiers">
+<div class="container-fluid">
+   <div class="row">
+      <div class="col">
+         <div class="row">
+            <div id="snaptarget" class="ui-widget-header">
+               <p>I'm a snap target</p>
+            </div>
+         </div>
+      </div>
+   </div>
 
-    </div>
 
- </div>
- <!--Fin de Dossier  -->
- <hr style="background-color:#FFFFFF">
- <div>
-    <h2 class="text-center">Carte (<span id="compteur"></span>)</h2>
 
-    <div id="cartes" class="row dossier">
-       <?php foreach ($cartes as $carte) : ?>
-          <div class="col-6 col-sm-4 col-md-3 col-lg-2 carte" id="drag<?= $carte->car_id ?>" draggable="true">
-             <div class="card text-white bg-primary mb-3" id="test" style="max-width: 18rem;">
-                <div class="card-header metier-<?= $carte->car_met_id ?> " title="<?= $carte->car_description; ?>">Carte <?= $carte->car_type ?>
-                   <span class="float-right"><?= $carte->car_numero; ?></span>
-                </div>
-                <div class="card-body">
-                   <textaera class="card-text" rows="3" cols="30"><?= $carte->car_description; ?></textaera>
-                   <!-- <p class="card-text"><?= $carte->car_description; ?></p> -->
-                </div>
-             </div>
-          </div>
-          <!--Fin carte 1  -->
-       <?php endforeach; ?>
-    </div>
-    <!--Fin de row  -->
- </div>
- <!--Fin de Carte  -->
- </div>
- <!--Fin de corp  -->
+   <div class="row">
+      <div class="col">
+         <div class="row">
+            <?php foreach ($cartes as $carte) { ?>
 
- 
+               <div class="card" id="<?= $carte->car_id; ?>" class="ui-widget-content" style="width: 18rem;">
+                  <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
+                  <div class="card-body">
+                     <h5 class="card-title"><?= $carte->car_numero; ?></h5>
+                     <p class="card-text"><?= $carte->car_description; ?></p>
+                  </div>
+
+               </div>
+            <?php } ?>
+         </div>
+      </div>
+   </div>
+
+</div>
+<script>
+   $(document).ready(function() {
+
+
+      $(".card").click(function() {
+         $(this).draggable({cursor:  "crosshair",cursorAt: {top: -5, left:-5}});
+      });
+
+
+
+
+   });
+</script>
