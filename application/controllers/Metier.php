@@ -27,7 +27,6 @@ class Metier extends CI_Controller {
         }
         $listeMetier=implode(",",$listeMetier);
           
-
         if ($this->input->post()) {
             // interroge db si la session contient déjà le metier
             $test = $this->Metier_model->contient($session_id,$this->input->post('id_metier'));
@@ -37,7 +36,6 @@ class Metier extends CI_Controller {
                 array('required'=>'Pas de selection','in_list'=>'Metier inconnu'));
 
             // test si metier unique pour la session    
-
                 if($this->form_validation->run() != false && $test < 1){
                     $id_metier = $this->input->post(NULL, TRUE);
                     $this->Metier_model->metierAjout_session($session_id, $id_metier);
