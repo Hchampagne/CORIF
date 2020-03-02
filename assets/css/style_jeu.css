@@ -6,10 +6,10 @@
     overflow: auto;  
 }
 
-.target, .start {
+.target,.target1,.start {
     background-color: rgb(0, 200, 0);
     width: 20rem;
-    min-height: 25rem;
+    min-height: 27rem;
 }
 
 .card {

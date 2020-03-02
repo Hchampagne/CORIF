@@ -15,7 +15,7 @@
    <div class="row">
       <div class="col">
          <div class="aireJeu row justify-content-center">
-            <div class="pile col-3 ">
+            <div class="pile col-sm-3 ">
                <div class="target ui-widget-header" id="target0">
                   <p>drop zone</p>
                </div>
@@ -63,25 +63,41 @@
 <script>
    $(document).ready(function() {
 
-      // Zone de drop
-      var ZD = "<div class=\"pile col-3 \">" +
-         "<div class=\"target ui-widget-header \" id=\"traget1\">" +
-         "<p>drop zone</p>" +
-         "</div>" +
-         "<input type=\"text\" name=\"reponseMetier\" id=\"reponseMetier\" placeholder=\"Réponse\">" +
-         "</div>";
+     
 
       // initialise le compteur carte
       var compte = 0;
+      // initialise un compteur por les piles
+      var nb = 0 ;
 
       // ajout drop zone
       $("#ajoutPile").on("click", function() {
-         $(ZD).appendTo(".aireJeu");
 
-         $(".target").droppable({
+         nb += 1;
+         var pile = "pile"+nb;
+         var target= "target"+nb;
+         var btn = "btn"+nb;
+
+         alert(target);
+
+         var ZD = "<div class=\"ajoutPile\ col-sm-3 \" id=\"\">" +
+         "<div class=\"target1 ui-widget-header \" id=\"coucou\">" +     
+         "<button class=\"btn\" id=\"\">supprimer la pile</button>"+
+         "</div>" +
+         "<input type=\"text\" name=\"reponseMetier\" id=\"reponseMetier\" placeholder=\"Réponse\">" +
+         "</div>";   
+
+         // ajout drop zone
+         $(ZD).appendTo(".aireJeu");
+            
+         
+              
+         // def zone target droppable
+         $(".target1").droppable({
 
             drop: function(event, ui) {
-               $(this).css('background', 'rgb(0,200,0)');
+               $(this).css('background', 'rgb(0,200,0)'); 
+                 alert($("#coucou").attr("id"));     
             },
 
             over: function(event, ui) {
@@ -93,7 +109,13 @@
                
             }
          });
-      })
+
+         $(".btnSuppr").on("click",function(){
+            
+         });
+
+
+      });
 
       // rend les cartes draggable
       $(".card").draggable();

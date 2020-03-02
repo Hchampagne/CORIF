@@ -13,8 +13,7 @@
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th class="">Métier</th> 
-                            <th class="">Type</th>                          
+                            <th class="">Métier</th>                          
                         </tr>
                     </thead>
                     <tbody>
@@ -22,8 +21,7 @@
                         foreach ($liste as $metier) {
                         ?>
                             <tr>
-                                <td class=""><?= $metier->met_metier ?></td>
-                                <td class=""><?= $metier->car_type ?></td>                             
+                                <td class=""><?= $metier->met_metier ?></td>                            
                             </tr>
                         <?php
                         } ?>
