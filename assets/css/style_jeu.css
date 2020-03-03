@@ -6,8 +6,8 @@
     overflow: auto;  
 }
 
-.target,.target1,.start {
-    background-color: rgb(0, 200, 0);
+.target,.start {
+    background-color: rgba(133, 141, 133, 0.856);
     width: 20rem;
     min-height: 27rem;
 }
