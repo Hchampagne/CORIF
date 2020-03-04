@@ -39,9 +39,7 @@ class Espace_jeu extends CI_Controller {
                         $this->session->set_userdata('inv_nom', $invite->inv_nom);
                         $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
                         $this->session->set_userdata('inv_id', $invite->inv_id);
-
-
-                        /*****  mis ajour invite connexion  ******/
+                        $this->session->yser_data('inv_role',$invite->inv_role);                   
 
                         redirect('Espace_jeu/invite_jeu/'.$session->ses_id);
                     }else{
@@ -90,28 +88,13 @@ class Espace_jeu extends CI_Controller {
 // page espace de jeu invite
     public function invite_jeu($session_id){
 
-        $cartes = $this->db->query("
-                select * from carte where car_type = 'metier' and car_met_id in (
-                    select id_metier from contient where id_session=?
-                )
-                order by car_description asc
-                ", $session_id)->result();
+        $data['cartes'] = $this->Jeu_model->cartes_jeu($session_id);
+        $data['metiers'] =$this->Jeu_model->metier_jeu($session_id);       
 
-        $data['cartes'] = $cartes;
-                    
-        $metiers = $this->db->query("
-                select * from metier where met_id in (
-                    select id_metier from contient where id_session=?
-                )
-                ", $session_id)->result();
-
-        $data['metiers'] = $metiers;
         $data['id_session'] = $session_id;
-
         $data['inv_nom'] = $this->session->inv_nom;
         $data['inv_prenom'] = $this->session->inv_prenom;            
         $data['inv_id'] = $this->session->inv_id;
-
 
         $this->load->view('head');
         $this->load->view('header/header_invite');           

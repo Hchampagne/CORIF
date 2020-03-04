@@ -12,7 +12,7 @@ class Mail_model extends CI_Model
     // envoi mail retourne true si envoi réussi
     // paramètres
 
-    public function sendMail($sendMail,$action,$message){
+    function sendMail($sendMail,$action,$message){
 
         switch ($action){
             case "adhConf": // mail inscription ahérent confirmation inscription

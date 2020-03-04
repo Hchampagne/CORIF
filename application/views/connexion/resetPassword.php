@@ -8,7 +8,7 @@
     <?= form_open('Connexion/resetPassword', 'id="form_resetPassword"'); ?>
 
     <div class="form-group row justify-content-md-center">
-      <label for="res_mail" class="col-sm-1 col-form-label">Login</label>
+      <label for="res_mail" class="col-sm-2 col-form-label">Votre Email</label>
       <div class="col-sm-6">
         <input type="text" name="res_mail" id="res_mail" class="form-control" value="<?php echo set_value('email') ?>" placeholder="Votre email">
         <span class="messerreur" id=alertResMail>&nbsp<?= form_error('res_mail', '<span>', '</span>') ?></span>
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="form-group row justify-content-md-center">
-      <div class="col-sm-1 col-form-label">
+      <div class="col-sm-2 col-form-label">
       </div>
       <div class="col-sm-6">
         <button type="submit" id="" value="" class="btn">Valider</button>
