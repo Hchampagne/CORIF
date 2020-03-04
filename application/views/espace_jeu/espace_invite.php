@@ -37,7 +37,7 @@
    <div class="row">
       <div class="col">
          <div class="row justify-content-center">
-            <div class="col-3">
+            <div class="col-sm-3">
                <div id="start" class="start ui-widget-header">
                   <?php foreach ($cartes as $carte) { ?>
                      <div id="<?= $carte->car_id; ?>" z-index="<?= $carte->car_id; ?>" class="card position-absolute ui-widget-content">

@@ -30,7 +30,7 @@ public function invite(){
 
         $this->load->view('head');
         $this->load->view('header/header_loader');     
-        $this->load->view('Administration/adherent/liste_adherent', $data);    
+        $this->load->view('administration/adherent/liste_adherent', $data);    
         $this->load->view('script');
       
     }
@@ -186,12 +186,22 @@ public function invite(){
                 }else{
                 // validation formulaire non ok    
                 // recharge le formulaire 
-                redirect('Adherent/modification/'.$id);  
+                $data = $this->Adherent_model->select_adherent($id);
+
+                $this->load->view('head');
+                $this->load->view('header/header_loader');
+                $this->load->view('administration/adherent/modif_adherent', $data);
+                $this->load->view('script');  
                 }
         }else{
             // pas depost 
             // premier affichage
-            redirect('Adherent/modification/'.$id);         
+            $data = $this->Adherent_model->select_adherent($id);
+
+            $this->load->view('head');
+            $this->load->view('header/header_loader');
+            $this->load->view('administration/adherent/modif_adherent', $data);
+            $this->load->view('script');        
         }
     }
 

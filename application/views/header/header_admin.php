@@ -11,18 +11,18 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("accueil") ?>">ACCUEIL</a>
+                    <a class="nav-link" href="<?= site_url("Accueil") ?>">ACCUEIL</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="<?= site_url("administration/invite") ?>">INVITE-E(S)</a>
+                    <a class="nav-link" href="<?= site_url("Administration/invite") ?>">INVITE-E(S)</a>
                 </li>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ADHERENTS</a>
                     <!-- bloc menu déroulant -->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url("administration/ajout_adherent") ?>">Ajout</a>
-                        <a class="dropdown-item" href="<?= site_url("administration/adherent") ?>">Modification/Liste</a>
+                        <a class="dropdown-item" href="<?= site_url("Administration/ajout_adherent") ?>">Ajout</a>
+                        <a class="dropdown-item" href="<?= site_url("Administration/adherent") ?>">Modification/Liste</a>
                         <a class="dropdown-item" href="#"></a>
                     </div>
                 </li>
@@ -31,8 +31,8 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CARTES</a>
                     <!-- bloc menu déroulant -->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url("administration/ajout_carte") ?>">Ajout</a>
-                        <a class="dropdown-item" href="<?= site_url("administration/carte") ?>">Modification/Liste</a>
+                        <a class="dropdown-item" href="<?= site_url("Administration/ajout_carte") ?>">Ajout</a>
+                        <a class="dropdown-item" href="<?= site_url("Administration/carte") ?>">Modification/Liste</a>
                         <a class="dropdown-item" href="#"></a>
                     </div>
                 </li>
@@ -41,13 +41,13 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">METIERS</a>
                     <!-- bloc menu déroulant -->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url("administration/ajout_metier") ?>">Ajout</a>
-                        <a class="dropdown-item" href="<?= site_url("administration/metier") ?>">Modification/Liste</a>                   
+                        <a class="dropdown-item" href="<?= site_url("Administration/ajout_metier") ?>">Ajout</a>
+                        <a class="dropdown-item" href="<?= site_url("Administration/metier") ?>">Modification/Liste</a>                   
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url("connexion/deconnexion") ?>">DECONNEXION</a>
+                    <a class="nav-link" href="<?= site_url("Connexion/deconnexion") ?>">DECONNEXION</a>
                 </li>
 
             </ul>

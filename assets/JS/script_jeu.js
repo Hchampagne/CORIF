@@ -33,7 +33,7 @@
                   url: "../../Ajax/ajout_pile",
                   data: {
                       pil_inv_id: $("#inv_id").val(),
-                      pil_nom: pile,
+                      pil_metier: $("#".reponseMetier).val(),
                       pil_target: target,
                   },
                   success: function (data) {
@@ -69,29 +69,19 @@
               $(".btnSuppr").on("click", function () {
                   var delId = $(this).closest(".ajoutPile").attr('id'); // recup id de div parentes .ajoutPile du bouton clicker
                   $("#" + delId).remove(); // suppression de div 
+
               });
 
           });
 
-           // bouton supprimer drop zone
-           $(".btnSuppr").on("click", function () {
-               var delId = $(this).closest(".ajoutPile").attr('id'); // recup id de div parentes .ajoutPile du bouton clicker
-               $("#" + delId).remove(); // suppression de div 
-           
-            });
-
-
-
-
-
-
-
-         
-
-
+          
 
           // rend les cartes draggable
           $(".card").draggable();
+
+         
+          
+          
 
           // zone de départ tas initial droppable
           $(".start").droppable({

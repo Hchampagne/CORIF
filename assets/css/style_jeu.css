@@ -1,18 +1,15 @@
 
-   
-.card .card-block {
-    width: 18rem;
-    max-height:20rempx;
-    overflow: auto;  
-}
-
-.target,.start {
-    background-color: rgba(133, 141, 133, 0.856);
-    width: 20rem;
-    min-height: 27rem;
-}
-
+ /* cartes */  
 .card {
     width: 18rem;
     height: 24rem;
 }
+
+/* zone drop */
+.target,.start {
+    background-color: rgba(133, 141, 133, 0.856);
+    width: 20rem;
+    min-height: 27rem; 
+    padding: 3%;
+}
+
