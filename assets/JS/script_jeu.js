@@ -1,6 +1,6 @@
   
     // SCRIPT JEU
-    $(document).ready(function () {
+    $(function () {
 
 
           // initialise le compteur pour les cartes / drop

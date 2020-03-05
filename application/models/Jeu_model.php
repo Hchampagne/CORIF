@@ -69,5 +69,23 @@ class Jeu_model extends CI_Model {
      }
 
 
+     //suppression jeu complet entrée(s) dans jeu/pile/contient_carte
+     function delete_jeu($id_jeu){
+          $this->db->select('pil_id');
+          $this->db->where('pil_jeu_id',$id_jeu);
+          $data = $this->db->get('pile')->result();
+
+          foreach($data as $row){
+               $this->db->where('pil_id', $row->pil_id);
+               $this->db->delete('contient_carte');
+          }
+
+          $this->db->where('pil_jeu_id',$id_jeu);
+          $this->db->delete('pile');
+
+          $this->db->where('jeu_id',$id_jeu);
+          $this->db->delete('jeu');
+
+     }
 
    }

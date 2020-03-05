@@ -88,7 +88,6 @@ class Espace_jeu extends CI_Controller {
 // page espace de jeu invite
     public function invite_jeu($session_id){
 
-
         // requete  cartes fct metiers sélectionnés
         $cartes = $this->Jeu_model->cartes_jeu($session_id);
         // requete metiers selectionnés
@@ -100,8 +99,10 @@ class Espace_jeu extends CI_Controller {
             // transmet id_invite pour insertion db
             $id_jeu = $this->Jeu_model->ajoutJeu_jeu($this->session->inv_id);
         }else{
+            // supprime le jeu
+            $this->Jeu_model->delete_jeu($jeu->jeu_id);
             // ré attribut la valeur de id en base
-            $id_jeu = $jeu->jeu_id;
+            $id_jeu = $this->Jeu_model->ajoutJeu_jeu($this->session->inv_id);
         }   
 
         // prépare les données à envoyer à la vue

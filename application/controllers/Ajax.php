@@ -18,7 +18,7 @@ class Ajax extends CI_Controller
     public function ajout_pile(){
         $jeu = $this->input->post('pil_jeu_id',true);      
         $pile = $this->input->post('pil_container', true);       
-        $data = $this->Jeu_model->ajoutTarget_jeu($jeu, $pile,);       
+        $data = $this->Jeu_model->ajoutTarget_jeu($jeu, $pile);       
         echo $data;
     }
 
