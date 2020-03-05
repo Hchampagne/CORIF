@@ -39,7 +39,7 @@ class Espace_jeu extends CI_Controller {
                         $this->session->set_userdata('inv_nom', $invite->inv_nom);
                         $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
                         $this->session->set_userdata('inv_id', $invite->inv_id);
-                        $this->session->yser_data('inv_role',$invite->inv_role);                   
+                        $this->session->set_userdata('inv_role',$invite->inv_role);                   
 
                         redirect('Espace_jeu/invite_jeu/'.$session->ses_id);
                     }else{
@@ -88,14 +88,32 @@ class Espace_jeu extends CI_Controller {
 // page espace de jeu invite
     public function invite_jeu($session_id){
 
-        $data['cartes'] = $this->Jeu_model->cartes_jeu($session_id);
-        $data['metiers'] =$this->Jeu_model->metier_jeu($session_id);       
 
+        // requete  cartes fct metiers sélectionnés
+        $cartes = $this->Jeu_model->cartes_jeu($session_id);
+        // requete metiers selectionnés
+        $metiers =$this->Jeu_model->metier_jeu($session_id); 
+        // un jeu enregistré ? si $jeu n'existe pas création jeu // cause refresh page
+        $jeu = $this->Jeu_model->jeu($this->session->inv_id);
+        if($jeu == false){
+            // requete enregistre le jeu et recup id du jeu
+            // transmet id_invite pour insertion db
+            $id_jeu = $this->Jeu_model->ajoutJeu_jeu($this->session->inv_id);
+        }else{
+            // ré attribut la valeur de id en base
+            $id_jeu = $jeu->jeu_id;
+        }   
+
+        // prépare les données à envoyer à la vue
+        $data['cartes'] = $cartes;
+        $data['metiers'] = $metiers;   
         $data['id_session'] = $session_id;
         $data['inv_nom'] = $this->session->inv_nom;
         $data['inv_prenom'] = $this->session->inv_prenom;            
         $data['inv_id'] = $this->session->inv_id;
+        $data['id_jeu'] = $id_jeu;
 
+        // charge la vue
         $this->load->view('head');
         $this->load->view('header/header_invite');           
         $this->load->view('espace_jeu/espace_invite',$data);

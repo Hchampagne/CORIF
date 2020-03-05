@@ -6,6 +6,7 @@
    <div>
       <input type="hidden" mane="inv_id" id="inv_id" value="<?= $inv_id ?>">
       <input type="hidden" mane="ses_id" id="ses_id" value="<?= $id_session ?>">
+      <input type="hidden" mane="jeu_id" id="jeu_id" value="<?= $id_jeu ?>">
       <p>
          <H4><?= "SESSION : " . $id_session ?></H4>
       </p>

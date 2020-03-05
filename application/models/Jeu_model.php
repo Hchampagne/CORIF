@@ -10,37 +10,64 @@ class Jeu_model extends CI_Model {
 
    // cartes en fonction du ou des métier(s) en session pour le jeu 
    function cartes_jeu($session_id){
-    $cartes = $this->db->query("
-    select * from carte where car_type = 'metier' and car_met_id in (
-        select id_metier from contient where id_session=?
-    )
-    order by car_description asc
-    ", $session_id)->result();
-
-        return $cartes; 
+          $cartes = $this->db->query("
+          select * from carte where car_type = 'metier' and car_met_id in (
+          select id_metier from contient where id_session=?
+          )
+          order by car_description asc
+          ", $session_id)->result();
+          return $cartes; 
    }
 
    // métier(s) paramtètré(s) en session pour le jeu
    function metier_jeu($session_id){
-    $metiers = $this->db->query("
-    select * from metier where met_id in (
-        select id_metier from contient where id_session=?
-    )
-    ", $session_id)->result();
-   }
+          $metiers = $this->db->query("
+          select * from metier where met_id in (
+          select id_metier from contient where id_session=?
+          )
+          ", $session_id)->result();
+          return $metiers;
+     }
 
-   //création id pour le jeu
-   function creationJeu_jeu(){
-       return;
-   }
 
-   //creation pile en fonction du jeu
-   function creationPile_jeu(){
-        return;
-   }
-   
-   //enregistrement des cartes dans les piles
-   function ajoutCartePile_jeu(){
-       return;
-   }
+     // recup id du jeu en fonction du de l'id due l'invite
+     function jeu($id_invite){
+          $this->db->where('jeu_inv_id', $id_invite);
+          $data = $this->db->get('jeu')->row();
+          return $data;
+     }
+
+     //création id pour le jeu et retourne id du jeu créé
+     function ajoutJeu_jeu($jeu_inv_id){
+          // date et du jour heure de Paris
+          date_default_timezone_set('Europe/Paris');
+          $date = date("Y-m-d H:i:s");
+
+           $this->db->set('jeu_date', $date);
+          $this->db->set('jeu_inv_id', $jeu_inv_id);
+          $this->db->insert('jeu');
+          $id = $this->db->insert_id();
+          return $id;
+     }
+
+     // ajout target drop zone 
+     function ajoutTarget_jeu($jeu, $target){
+          $this->db->set('pil_jeu_id', $jeu);
+          $this->db->set('pil_container', $target);
+          $this->db->insert('pile');
+          $data = $this->db->affected_rows();
+          return $data;
+     }
+
+     // suppression target
+     function suppressionTarget_jeu($jeu,$target){
+          $this->db->where('pil_jeu_id', $jeu);
+          $this->db->where('pil_container', $target);
+          $this->db->delete('pile');
+          $data = $this->db->affected_rows();
+          return $data;
+     }
+
+
+
    }

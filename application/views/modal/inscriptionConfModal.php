@@ -13,7 +13,7 @@
       <hr>
       <div class="modal-body">
         <div>
-          <p><?= isset($mess) ? $mess : ""; ?></p>
+          <p><?= isset($inscription) ? $inscription : ""; ?></p>
         </div>
         <hr>
         <div class="form-group row justify-content-md-center">
