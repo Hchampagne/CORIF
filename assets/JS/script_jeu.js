@@ -2,7 +2,6 @@
     // SCRIPT JEU
     $(function () {
 
-
           // initialise le compteur pour les cartes / drop
           var compte = 0;
           // initialise un compteur pour les piles /creation
@@ -26,7 +25,7 @@
 
             // ajout drop zone
               $(ZD).appendTo(".aireJeu");
-            // requet AJAX ajout en base de donnée
+            // requete AJAX ajout DZ en base de donnée
                $.post({
                            url: "../../Ajax/ajout_pile",
                            data: {
@@ -43,21 +42,25 @@
                            });
               
 
-              // def zone target droppable
-              $("#" + target).droppable({
+            // def zone target droppable
+            $("#" + target).droppable({
 
-                  drop: function (event, ui) {
-                      $(this).css('background', 'rgba(133, 141, 133, 0.856)');                    
-                  },
+                accept: ".card",
 
-                  over: function (event, ui) {
-                      $(this).css('background', 'orange');
-                  },
+                drop: function (event, ui) {
+                    $(this).css('background', 'rgba(133, 141, 133, 0.856)');
+                    var carte = $('.card').attr('.card-text');
+                    $("#" + target).append(carte);
+                },
 
-                  out: function (event, ui) {
-                      $(this).css('background', 'rgba(133, 141, 133, 0.856)');                    
-                  }
-              });
+                over: function (event, ui) {
+                    $(this).css('background', 'orange');
+                },
+
+                out: function (event, ui) {
+                    $(this).css('background', 'rgba(133, 141, 133, 0.856)');                    
+                }
+             });
 
                 $("#" + btn).on("click", function () {
                     var delId = $(this).closest(".ajoutPile").attr('id'); // recup id de div parentes .ajoutPile bouton 
@@ -78,18 +81,19 @@
                             }
                         }
                     });
-                });
-             
+                });            
           });
          
 
           // rend les cartes draggable
-          $(".card").draggable();
-
-                 
+          $(".card").draggable({
+              revert: "invalid"
+          });
 
           // zone de départ tas initial droppable
           $(".start").droppable({
+
+            accept : ".card",
 
               drop: function (event, ui) {
                   $(this).css('background', 'rgba(133, 141, 133, 0.856)');

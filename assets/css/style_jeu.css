@@ -1,9 +1,13 @@
 
  /* cartes */  
 .card {
-    width: 18rem;
-    height: 24rem;
+    width: 12rem;
+    height: 18rem;
 }
+.card-text {
+    font-size: x-small;
+}
+
 
 /* zone drop */
 .target,.start {
