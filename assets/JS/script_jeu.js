@@ -1,27 +1,31 @@
   
     // SCRIPT JEU
-    $(function () {
+    $(document).ready(function () {
 
-          // initialise le compteur pour les cartes / drop
-          var compte = 0;
+        // Nombre de crates
+        var nombreCartes = $(".donne >li").length;
+        $("#compteur").text("Cartes restantes : " + nombreCartes);
+
+          
           // initialise un compteur pour les piles /creation
           var nb = 0;
           
-          // ajout drop zone
+/***  ajout drop zone  ***/
           $("#ajoutPile").on("click", function () {
 
               nb += 1;
               var pile = "pile" + nb;
               var target = "target" + nb;
               var btn = "btn" + nb;
+              
               var reponseMetier = "reponseMetier"+nb
 
               var ZD = "<div class=\"ajoutPile\ col-sm-3 \" id=\"" + pile + "\">" +
-                  "<div class=\"target ui-widget-header \" id=\"" + target + "\">" +
-                  "<button class=\"btnSuppr\" id=\"" + btn + "\">supprimer la pile</button>" +
-                  "</div>" +
-                  "<input type=\"text\" name=\"reponseMetier\" id=\""+reponseMetier+"\" placeholder=\"Réponse\">" +
-                  "</div>";
+                    "<button class=\"btnSuppr\" id=\"" + btn + "\">supprimer la pile</button>" +
+                    "<ul class=\"target ui-widget-header \" id=\"" + target + "\">" +                
+                    "</ul>" +
+                    "<input type=\"text\" name=\"reponseMetier\" id=\""+reponseMetier+"\" placeholder=\"Réponse\">" +
+                    "</div>";
 
             // ajout drop zone
               $(ZD).appendTo(".aireJeu");
@@ -41,31 +45,36 @@
                            }
                            });
               
-
-            // def zone target droppable
+/*** def zone target droppable ***/
             $("#" + target).droppable({
 
-                accept: ".card",
-
+              
+              
                 drop: function (event, ui) {
-                    $(this).css('background', 'rgba(133, 141, 133, 0.856)');
-                    var carte = $('.card').attr('.card-text');
-                    $("#" + target).append(carte);
+                    $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
+                    //$(".card").appendTo("#"+taget);
+                    alert($(".target >li").length);
+                    $("#" + btn).hide();
+
                 },
 
                 over: function (event, ui) {
                     $(this).css('background', 'orange');
+
                 },
 
                 out: function (event, ui) {
-                    $(this).css('background', 'rgba(133, 141, 133, 0.856)');                    
+                    $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
+                    
+                     $("#" + btn).show();
+                  
                 }
              });
 
+/**** Suppression d'une zone dropable ***/
                 $("#" + btn).on("click", function () {
-                    var delId = $(this).closest(".ajoutPile").attr('id'); // recup id de div parentes .ajoutPile bouton 
-                    var delTarget = $(this).parent().attr('id'); // recup le id target de div parent .ajoutPile bouton 
-
+                    var delId = $("#"+pile).attr("id"); // recup id de div parentes .ajoutPile bouton 
+                    var delTarget = $("#"+target).attr("id"); // recup le id target de div parent .ajoutPile bouton 
                     $.post({
                         url: "../../Ajax/suppression_pile",
                         data: {
@@ -85,28 +94,35 @@
           });
          
 
-          // rend les cartes draggable
-          $(".card").draggable({
-              revert: "invalid"
-          });
+/*** rend les cartes draggable ***/
+        $(".card").draggable({
 
-          // zone de départ tas initial droppable
+            cursor: "move", cursorAt: {
+                top: 150,
+                left: 90
+            }
+        });
+
+  
+
+
+
+/*** zone de départ tas initial droppable ***/
           $(".start").droppable({
 
-            accept : ".card",
-
-              drop: function (event, ui) {
-                  $(this).css('background', 'rgba(133, 141, 133, 0.856)');
-
-                  $("#compteur").text("compteur: " + compte);
+            drop: function (event, ui) {
+                $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
+                nombreCartes += 1;
+                $("#compteur").text("Cartes restantes : " + nombreCartes);
+            },
+            over: function (event, ui) {
+                $(this).css('background', 'orange');
               },
-              over: function (event, ui) {
-                  $(this).css('background', 'orange');
-              },
-              out: function (event, ui) {
-                  $(this).css('background', 'rgba(133, 141, 133, 0.856)');
-
-                  $("#compteur").text("compteur: " + compte);
+            out: function (event, ui) {
+                $(this).css('background', 'rgba(133, 141, 133, 0.856)');  
+                
+                 nombreCartes -= 1;
+                 $("#compteur").text("Cartes restantes : " + nombreCartes);
               }
           });
 

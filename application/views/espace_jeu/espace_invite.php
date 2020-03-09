@@ -16,44 +16,35 @@
    </div>
    <hr>
    <div class="row">
-      <div class="col">
+      <div class="col-9">
          <div class="aireJeu row justify-content-center">
             <!-- insertion zone droppable -->
          </div>
       </div>
-   </div>
-
-   <div class="row">
-      <div class="col">
-         <div class="row">
-            <div class="col">
-               <hr>
-               <p id="compteur">Carte : </p>
-               <hr>
-            </div>
-         </div>
-      </div>
-   </div>
-
-   <div class="row">
-      <div class="col">
-         <div class="row justify-content-center">
+      <div class="col-3">
+         <p id="compteur"></p>
+         <div class="row ">
+           
             <div class="col-sm-3">
-               <div id="start" class="start ui-widget-header">
-                  <?php foreach ($cartes as $carte) { ?>
-                     <div id="<?= $carte->car_id; ?>" z-index="<?= $carte->car_id; ?>" class="card position-absolute ui-widget-content">
-                        <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
-                        <div class="card-body">
-                           <h5 class="card-title"><?= $carte->car_numero ?></h5>
-                           <p><?= $carte->car_type ?></p>
-                           <p class="card-text"><?= $carte->car_description ?></p>
-                        </div>
-                     </div>
-                  <?php } ?>
+               <div id="start" class="start ui-widget-header justify-content-center">
+
+                  <ul class="donne" id="donne">
+                     <?php foreach ($cartes as $carte) { ?>
+
+                        <li id="<?= $carte->car_id; ?>" class="card position-absolute ui-widget-content">
+                           <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
+                           <div class="card-body">
+                              <h5 class="card-title"><?= $carte->car_numero ?></h5>
+                              <p><?= $carte->car_type ?></p>
+                              <p class="card-text"><?= $carte->car_description ?></p>
+                           </div>
+                        </li>
+
+                     <?php } ?>
+                  </ul>
                </div>
             </div>
          </div>
       </div>
    </div>
-
 </div>
