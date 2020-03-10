@@ -1,23 +1,31 @@
 
  /* cartes */  
 .card {
-    width: 12rem;
-    height: 18rem;
+    width: 15rem;
+    height: 22rem;
 }
 .card-text {
-    font-size: x-small;
+    font-size: 12px;
 }
 
-
 /* zone drop */
-.target,.donne {
+.start {
     background-color: rgba(133, 141, 133, 0.856);
-    width: 20rem;
+    width: 17rem;
     min-height: 27rem; 
-    padding: 3%;
+    padding: 20%;
+}
+
+.target {
+    background-color: rgba(133, 141, 133, 0.856);
+    width: 17rem;
+    min-height: 27rem;
+    padding : 3%;
 }
 
 /*  element droppé */
 .objet-target {
     background-color: #F18F1F;
+    margin: 5px;
 }
+

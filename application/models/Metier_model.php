@@ -68,9 +68,6 @@ class Metier_model extends CI_Model
     }
 
 
-
-
-
 // si contenu dans table
     function contient($session_id, $metier_id)
     {

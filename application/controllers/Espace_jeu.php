@@ -39,7 +39,9 @@ class Espace_jeu extends CI_Controller {
                         $this->session->set_userdata('inv_nom', $invite->inv_nom);
                         $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
                         $this->session->set_userdata('inv_id', $invite->inv_id);
-                        $this->session->set_userdata('inv_role',$invite->inv_role);                   
+                        $this->session->set_userdata('inv_role',$invite->inv_role);    
+                        
+                        /*  MOIS  A JOUR DB CONNEXION BASE INVITE  */
 
                         redirect('Espace_jeu/invite_jeu/'.$session->ses_id);
                     }else{
