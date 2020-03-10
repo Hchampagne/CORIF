@@ -1,4 +1,8 @@
-  
+
+
+
+
+
     // SCRIPT JEU
     $(document).ready(function () {
 
@@ -20,7 +24,7 @@
               
               var reponseMetier = "reponseMetier"+nb
 
-              var ZD = "<div class=\"ajoutPile\ col-sm-3 \" id=\"" + pile + "\">" +
+              var ZD = '<div class="pile ui-widget-header col-sm-3 " id=' + pile + '>' +
                     "<button class=\"btnSuppr\" id=\"" + btn + "\">supprimer la pile</button>" +
                     "<ul class=\"target ui-widget-header \" id=\"" + target + "\">" +                
                     "</ul>" +
@@ -46,16 +50,21 @@
                            });
               
 /*** def zone target droppable ***/
-            $("#" + target).droppable({
-
-              
-              
+            $("#" + target).droppable({  
+                //accept :".target",
+                
                 drop: function (event, ui) {
                     $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
-                    //$(".card").appendTo("#"+taget);
-                    alert($(".target >li").length);
-                    $("#" + btn).hide();
 
+                    var current = ui.draggable;
+                    var resultat = $("#"+target);
+                    current.fadeOut();
+                    resultat.append('<li class="objet-target ui-widget-content">'+"Coucou"+'</li>');
+
+                    $(".object-target").draggable();
+                    
+                    alert($('#'+target +'> li').length);
+                    $("#" + btn).hide();
                 },
 
                 over: function (event, ui) {
@@ -96,24 +105,24 @@
 
 /*** rend les cartes draggable ***/
         $(".card").draggable({
-
+            revert: "invalid",
             cursor: "move", cursorAt: {
                 top: 150,
                 left: 90
             }
         });
 
-  
+         $(".object-target").draggable();
 
 
 
 /*** zone de départ tas initial droppable ***/
-          $(".start").droppable({
+          $(".donne").droppable({
 
             drop: function (event, ui) {
                 $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
-                nombreCartes += 1;
-                $("#compteur").text("Cartes restantes : " + nombreCartes);
+                //nombreCartes += 1;
+                //$("#compteur").text("Cartes restantes : " + nombreCartes);
             },
             over: function (event, ui) {
                 $(this).css('background', 'orange');
@@ -121,22 +130,10 @@
             out: function (event, ui) {
                 $(this).css('background', 'rgba(133, 141, 133, 0.856)');  
                 
-                 nombreCartes -= 1;
-                 $("#compteur").text("Cartes restantes : " + nombreCartes);
+                 //nombreCartes -= 1;
+                 //$("#compteur").text("Cartes restantes : " + nombreCartes);
               }
           });
-
-
-
-
-          
-
-
-
-
-
-    
-        
-
    
     });
+

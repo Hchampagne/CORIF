@@ -10,10 +10,14 @@
 
 
 /* zone drop */
-.target,.start {
+.target,.donne {
     background-color: rgba(133, 141, 133, 0.856);
     width: 20rem;
     min-height: 27rem; 
     padding: 3%;
 }
 
+/*  element droppé */
+.objet-target {
+    background-color: #F18F1F;
+}
