@@ -4,7 +4,7 @@
 $(document).ready(function () {
 
     // Nombre de crates
-    var nombreCartes = $(".card > li").length;
+    var nombreCartes = $(".liste > li").length;
     $("#compteur").text("Cartes restantes : " + nombreCartes);
 
     
@@ -55,18 +55,19 @@ $(document).ready(function () {
 
             // attribut à la variable objet deplacé courant
             var carte = ui.draggable;
+           
             // attribut à la variable 
             var dropZone = $("#"+target);
-
             // ajoute la carte dnas la drop zone
-            dropZone.append('<div class="objet-target ui-widget-content">' + carte.html() + '</div>'); 
+            dropZone.append('<li class="objet-target ui-widget-content">' + carte.html() + '</li>'); 
+
+            idCarte = $("li p:first-child").attr('id');
             
             // efface la carte de placée
             carte.fadeOut();
+           
 
-            var idCarte = $()
-
-            console.log(carte.html() + $("#" + target).attr('id') );
+            console.log(carte.html() +" / " + $("#" + target).attr('id') + " / " + idCarte);
 
 
             /* rend la carte deposée draggable 

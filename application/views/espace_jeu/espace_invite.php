@@ -23,29 +23,22 @@
       </div>
       <div class="col-3">
          <p id="compteur"></p>
-         <div class="row ">
-
-            <div class="col-sm-3">
+         <div class="row justify-content-center">           
                <div id="start" class="start ui-widget-header">
-
-                  
-                     <?php foreach ($cartes as $carte) { ?>
-
-                        
-                           <div id="<?= $carte->car_id; ?>" class="card position-absolute ui-widget-content">
-                              <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
-                              <div class="card-body">
-                                 <h5 class="card-title"><?= $carte->car_numero ?></h5>
-                                 <p><?= $carte->car_type ?></p>
-                                 <p class="card-text"><?= $carte->car_description ?></p>
-                              </div>
+                  <ul class="liste">
+                     <?php foreach ($cartes as $carte) { ?>                   
+                        <li class="ui-widget-content">
+                           <div class="card position-fixed" z_index="<?= $carte->car_id; ?>">                          
+                           <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
+                           <div class="card-body">
+                              <p class="card-title" id="<?= $carte->car_id; ?>"><?= $carte->car_numero ?></p>                             
+                              <p class="card-text"><?= $carte->car_description ?></p>
                            </div>
-                        
-
+                           <div>                          
+                        </li>                     
                      <?php } ?>
-                  
-               </div>
-            </div>
+                  </ul>
+               </div>            
          </div>
       </div>
    </div>
