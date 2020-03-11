@@ -178,7 +178,7 @@ class Connexion extends CI_Controller{
             $email = $this->input->post('con_login',true);
             $testEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-            //Règles devalidation
+            //Règles de validation
             if ($testEmail){ 
                 // form email valide
                 $this->form_validation->set_rules('con_login', 'con_login', 'required|html_escape');
@@ -320,99 +320,6 @@ class Connexion extends CI_Controller{
         }   
     }
  
-/********************/   
-/* connexion invite */
-/********************/
-    function loginInvite() {
-
-        if ($this->input->post()){  //si post  
-            
-            //Défénit les règles du controle du formulaire
-            $this->form_validation->set_rules('inv_nom','inv_nom',
-                'required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]',     
-                array('required'=>'Le champs est vide' , 'regex_match'=>'La saisie est incorrecte')); 
-
-            $this->form_validation->set_rules('inv_mail', 'inv_mail', 'required|valid_email',   
-            array('required'=>'Le champs est vide','valid_email'=>'Votre email est incorrecte'));
-
-            $valForm = $this->form_validation->run();
-           
-                if ($valForm != false ){
-
-                    //recup poste  + filtre html escape
-                    $nom = $this->input->post("inv_nom", true);
-                    $email = $this->input->post("inv_mail", true);
-
-                    //appel model pour lecture base de données table invité
-                    //filtre sur email et nom
-                    $model = $this->Connexion_model->loginjeu($email, $nom);
-                    $detail = $model->row();
-                    $retour = $model->num_rows();                                    
-
-                    if ($retour == 0){ 
-
-                        $this->session->sess_destroy();
-
-                        // Erreur dans la saisie 
-                        $message['message'] = "Le compte n'existe pas !";
-
-                        //reload modal
-                        $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
-
-                        $this->load->view('head');
-                        $this->load->view('header/header_loader');
-                        $this->load->view('banner');
-                        $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal', $message);
-                        $this->load->view('accueil/accueil');
-                        $this->load->view('footer');
-                        $this->load->view('script', $reload);
-                        
-
-                    }else{
-                        // invite enregistré dans la base
-
-                        // création des valeurs de session
-                        $this->session->set_userdata('role', $detail->inv_role);
-                        $this->session->set_userdata('nom', $detail->inv_nom);
-                        $this->session->set_userdata('prenom', $detail->inv_prenom);
-                        $this->session->set_userdata("date", $detail->ses_d_session);
-                        $this->session->set_userdata('idSession', $detail->ses_id);
-
-                        $this->load->view('head');
-                        $this->load->view('banner');
-                        $this->load->view('header/header_loader');
-                        $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
-                        $this->load->view('accueil/accueil');
-                        $this->load->view('footer');
-                        $this->load->view('script');
-                    }                                  
-                } else {
-
-                    $this->session->sess_destroy();
-
-                    // Erreur dans la saisie 
-                    $message['message'] = "Erreur dans la saisie !";
-
-                    //reload modal
-                    $reload['reload'] = "<script> $('#espacejeuModal').modal('show') </script>";
-
-                    $this->load->view('head');
-                    $this->load->view('banner');
-                    $this->load->view('header/header_loader');
-                    $this->load->view('modal/connexionModal');
-                    $this->load->view('modal/espacejeuModal', $message);
-                    $this->load->view('accueil/accueil');
-                    $this->load->view('footer');
-                    $this->load->view('script', $reload);
-                }
-        }else{
-            redirect("Accueil");
-        }         
-      
-    }
-
 
 // RESET MOT DE PASSE
     public function resetPassword() {          
