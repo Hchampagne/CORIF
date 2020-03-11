@@ -33,21 +33,21 @@ class Invite extends CI_Controller {
             $this->form_validation->set_rules(
                 'inv_email',
                 'inv_mail',
-                'required|valid_email|max_length[150]|is_unique[invite.inv_email]',
-                array('required' => 'Le champs est vide', 'is_unique' => 'Déjà participé-e', 'valid_email' => 'Votre email est incorrecte', 'max_length' => 'Saisie trop longue')
+                'required|valid_email|max_length[150]',
+                array('required' => 'Le champs est vide', 'valid_email' => 'Votre email est incorrecte', 'max_length' => 'Saisie trop longue')
             );
 
             $this->form_validation->set_rules(
                 'inv_nom',
                 'inv_nom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
+                'required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue')
             );
 
             $this->form_validation->set_rules(
                 'inv_prenom',
                 'inv_Prenom',
-                'required|html_escape|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
+                'required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue')
             );
 
@@ -77,15 +77,15 @@ class Invite extends CI_Controller {
     }
         
 
-//  suppression dans la liste invité-e(s) formulaire ajout pour session
-      public function suppressionListeAjout_invite($inv_id,$session_id){
+    //  suppression dans la liste invité-e(s) formulaire ajout pour session
+    public function suppressionListeAjout_invite($inv_id,$session_id){
         $this->Invite_model->suppression_invite($inv_id);           
-        redirect('Invite/creation_invite/'.$session_id);  
+        redirect('Invite/modificationListe_invite/'.$session_id);  
       }
 
 
-// suppression d'un invité-e
-      public function suppression_invite($inv_id){  
+    // suppression d'un invité-e
+    public function suppression_invite($inv_id){  
         // appel model pour suppression db et retour la liste           
         $this->Invite_model->suppression_invite($inv_id);
         redirect('Invite/liste_invite');

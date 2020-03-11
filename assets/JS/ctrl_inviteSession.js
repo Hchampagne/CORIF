@@ -61,6 +61,7 @@ $('#invPrenom').blur(function () {
 });
 
 //controle doublons email (ajax) inscription
+// averti seulement le formateur
 $('#invEmail').blur(function () {
     $.post({
         url: "../../Ajax/doublon",

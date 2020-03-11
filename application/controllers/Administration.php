@@ -433,7 +433,7 @@ public function invite(){
 
             if($this->form_validation->run() != false){
                 // validation formulaire ok
-                //insertion DB filtre post html_escape
+                // insertion DB filtre post html_escape
                 $data = $this->input->post(null,true);
                 $this->Metier_model->modif_metier($id,$data);
                 // retour à la liste

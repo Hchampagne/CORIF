@@ -61,10 +61,7 @@ class Session_jeu extends CI_Controller {
          $session['session'] = "SESSION";
 
          if($this->input->post()){
-
-            var_dump($this->input->post());
-
-         // formulaire validation
+               // formulaire validation
             $this->form_validation->set_rules('ses_d_session','ses_d_session',
             'required|max_length[10]|regex_match[/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/]', 
                array('required' => 'Champs vide','regex_match'=>'Saisie incorrecte','max_length'=> 'Saisie trop longue'));
@@ -84,7 +81,6 @@ class Session_jeu extends CI_Controller {
                $session_id = $this->Session_model->creation_session($data);
 
                redirect('Invite/modificationListe_invite/' . $session_id);
-
 
             }else{
             $session['session'] = "coucou";

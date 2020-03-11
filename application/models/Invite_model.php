@@ -57,10 +57,18 @@ class Invite_model extends CI_Model {
     }
 
     // retourne l'enregitrement en fonction du mail et la session
-    function invite_jeu($invMail){
-        $this->db->where('inv_email', $invMail);
+    function invite_jeu($id_session){
+        $this->db->where('inv_ses_id', $id_session);
         $data = $this->db->get('invite')->row();
         return $data;
+    }
+
+    //mis à jour connexion invité
+    function inviteConnexion_jeu($id_invite){
+        $this->db->where('inv_id',$id_invite);
+        $this->db->set('inv_conn', 1);
+        $this->db->update('invite');
+        return;
     }
   
 }
