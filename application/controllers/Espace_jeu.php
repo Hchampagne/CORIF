@@ -69,6 +69,7 @@ class Espace_jeu extends CI_Controller {
                 }
             }else{
                 // form validation false
+                // erreur de saisie
                 $this->load->view('head');
                 $this->load->view('banner');                         
                 $this->load->view('espace_jeu/connexion_invite',$session);

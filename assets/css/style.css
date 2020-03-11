@@ -92,7 +92,8 @@ ajout bande de couleur*/
         list-style-type: none;
     }
     #footer{
-        color: #F18F1F;
+        color: white;
+
     }
     .page-footer{
         color: white;
