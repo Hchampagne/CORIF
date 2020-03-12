@@ -12,7 +12,6 @@
       <p class="card-text" style="color:#343538">Venez découvrir les métiers et des vies de nos professionnels .</p>
     </div>
     <div class="card-footer">
-      <a href="<?= site_url("jeu/login") ?>"><small class="text-muted">Venez jouer !!!</small></a>
     </div>
   </div>
 
@@ -23,7 +22,6 @@
       <p class="card-text" style="color:#343538">Des métiers, des vies ? Espace de jeu en 3 parties d'environ 4h.</p>
     </div>
     <div class="card-footer">
-      <a href="<?= site_url("accueil/animation") ?>"><small class="text-muted">Entrez !!!</small></a>
     </div>
   </div>
 
@@ -34,7 +32,6 @@
       <p class="card-text" style="color:#343538">Liste des membres.</p>
     </div>
     <div class="card-footer">
-      <a href="<?= site_url("jeu/dashboad") ?>"><small class="text-muted">Venez nous voir !!!</small></a>
     </div>
   </div>
 </div>
