@@ -11,6 +11,7 @@ $(document).ready(function () {
          
     // initialise un compteur pour les piles /creation
     var nb = 0;
+    var xcarte = 0;
           
     /***  ajout drop zone  ***/
     $("#ajoutPile").on("click", function () {
@@ -56,19 +57,19 @@ $(document).ready(function () {
 
             // attribut à la variable objet deplacé courant
             var carte = ui.draggable;
-           
+            carte.remove("img");        
             // attribut à la variable 
             var dropZone = $("#"+target);
             // ajoute la carte dnas la drop zone
             dropZone.append('<li class="objet-target ui-widget-content">' + carte.html() + '</li>'); 
 
-            idCarte = $("li p:first-child").attr('id');
+            xcarte = $('#'+ target +'> li').length;
             
             // efface la carte de placée
             carte.fadeOut();
            
 
-            console.log(carte.html() +" / " + $("#" + target).attr('id') + " / " + idCarte);
+            console.log(target + " / " + xcarte);
 
 
             /* rend la carte deposée draggable 
@@ -94,17 +95,17 @@ $(document).ready(function () {
         out: function (event, ui) {
             $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
             
-            console.log($("#" + target + ' > li').length);
+            xcarte = $('#' + target + '> li').length;
         }
     });
 
 /**** Suppression d'une zone dropable ***/
     $("#" + btn).on("click", function () {  
                      
-        var delId = $("#"+pile).attr("id"); // recup id de div parentes .ajoutPile bouton 
-        var delTarget = $("#"+target).attr("id"); // recup le id target de div parent .ajoutPile bouton        
-        // requtet ajax supprime la target
-        
+        var delId = $("#"+pile).attr("id"); // recup id de pile  .ajoutPile bouton 
+        var delTarget = $("#"+target).attr("id"); // recup le id target  .ajoutPile bouton    
+
+        // requtet ajax supprime la target       
         $.post({
             url: "../../Ajax/suppression_pile",
             data: {
@@ -132,18 +133,15 @@ $(document).ready(function () {
         cursor: "move", cursorAt: {
             top: 150,
             left: 90
-        },
-
-        start: function(event,ui){                      
-        },
-
-        stop: function(event,ui){           
         }
+    });
 
+    $(".objet-target").draggable({
+        zIndex: "1000",
+        revert: "invalid"
     });
 
 
-    $(".card").selectable();
 
 
 /*** zone de départ tas initial droppable ***/
