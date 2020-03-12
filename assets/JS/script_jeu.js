@@ -12,7 +12,7 @@ $(document).ready(function () {
     // initialise un compteur pour les piles /creation
     var nb = 0;
           
-        /***  ajout drop zone  ***/
+    /***  ajout drop zone  ***/
     $("#ajoutPile").on("click", function () {
 
         nb += 1;
@@ -32,6 +32,7 @@ $(document).ready(function () {
         // ajout drop zone
         $(ZD).appendTo(".aireJeu");
         // requete AJAX ajout DZ en base de donnée table pile
+        
         $.post({
             url: "../../Ajax/ajout_pile",
             data: {
@@ -46,7 +47,7 @@ $(document).ready(function () {
                 }
             }
         });
-
+        
     /*** def zone target droppable ***/
     $("#" + target).droppable({ 
                                             
@@ -98,10 +99,12 @@ $(document).ready(function () {
     });
 
 /**** Suppression d'une zone dropable ***/
-    $("#" + btn).on("click", function () {                  
+    $("#" + btn).on("click", function () {  
+                     
         var delId = $("#"+pile).attr("id"); // recup id de div parentes .ajoutPile bouton 
         var delTarget = $("#"+target).attr("id"); // recup le id target de div parent .ajoutPile bouton        
         // requtet ajax supprime la target
+        
         $.post({
             url: "../../Ajax/suppression_pile",
             data: {
@@ -115,17 +118,16 @@ $(document).ready(function () {
                 } else {
                     // problème
                 }
-                }
-                
+                }           
             });
-        
         });            
     });
          
 
 /*** rend les cartes draggable ***/
-    $(".card").draggable({   
+    $(".card").draggable({ 
 
+        zIndex: "1000",
         revert : "invalid",
         cursor: "move", cursorAt: {
             top: 150,
@@ -141,14 +143,16 @@ $(document).ready(function () {
     });
 
 
+    $(".card").selectable();
+
+
 /*** zone de départ tas initial droppable ***/
     $(".start").droppable({
 
         accept : ".card",
 
         drop: function (event, ui) {
-            $(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
-            
+            $(this).css('background', 'rgba(133, 141, 133, 0.856)');            
         },
 
         over: function (event, ui) {
@@ -156,9 +160,7 @@ $(document).ready(function () {
         },
 
         out: function (event, ui) {
-            $(this).css('background', 'rgba(133, 141, 133, 0.856)');  
-                
-           
+            $(this).css('background', 'rgba(133, 141, 133, 0.856)');            
         }
     });
    

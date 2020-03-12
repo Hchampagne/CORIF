@@ -16,29 +16,29 @@
    </div>
    <hr>
    <div class="row">
+      <div class="col-3">
+         <p id="compteur"></p>
+         <div class="row justify-content-center">
+            <div id="start" class="start position-fixed ui-widget-header">
+               <ul class="liste">
+                  <?php foreach ($cartes as $carte) { ?>
+                     <li class="ui-widget-content">
+                        <div class="card position-fixed">
+                           <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
+                           <div class="card-body">
+                              <p class="card-title" id="<?= $carte->car_id; ?>"><?= $carte->car_numero ?></p>
+                              <p class="card-text"><?= $carte->car_description ?></p>
+                           </div>
+                           <div>
+                     </li>
+                  <?php } ?>
+               </ul>
+            </div>
+         </div>
+      </div>
       <div class="col-9">
          <div class="aireJeu row justify-content-center">
             <!-- insertion zone droppable -->
-         </div>
-      </div>
-      <div class="col-3">
-         <p id="compteur"></p>
-         <div class="row justify-content-center">           
-               <div id="start" class="start ui-widget-header">
-                  <ul class="liste">
-                     <?php foreach ($cartes as $carte) { ?>                   
-                        <li class="ui-widget-content">
-                           <div class="card position-fixed" z_index="<?= $carte->car_id; ?>">                          
-                           <img src="<?= base_url("assets/img/images/logo-b.jpg") ?>" class="card-img-top">
-                           <div class="card-body">
-                              <p class="card-title" id="<?= $carte->car_id; ?>"><?= $carte->car_numero ?></p>                             
-                              <p class="card-text"><?= $carte->car_description ?></p>
-                           </div>
-                           <div>                          
-                        </li>                     
-                     <?php } ?>
-                  </ul>
-               </div>            
          </div>
       </div>
    </div>

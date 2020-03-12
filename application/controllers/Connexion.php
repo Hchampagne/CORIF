@@ -268,15 +268,7 @@ class Connexion extends CI_Controller{
                         $this->session->set_userdata('validation',$detail->adh_validation);
 
                         // redirection page accueil
-                        $this->load->view('head');
-                        $this->load->view('banner');
-                        $this->load->view('header/header_loader');
-                        $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
-                        $this->load->view('modal/mailConfModal');
-                        $this->load->view('accueil/accueil');
-                        $this->load->view('footer');
-                        $this->load->view('script');
+                        redirect('Accueil');
 
                     } elseif (password_verify($this->input->post("con_password", true), $detail->adh_mdp) && ($detail->adh_validation == 0)) {
 
