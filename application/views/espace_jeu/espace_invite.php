@@ -1,4 +1,6 @@
 <div class="container-fluid">
+   <div hidden class="description" title="description">
+   </div>
    <div class="text-center">
       <h3>JEU METIER</h3>
    </div>
