@@ -3,6 +3,7 @@
    </div>
    <div class="text-center">
       <h3>JEU METIER</h3>
+      <h4 id="timer"></h4>
    </div>
    <hr>
    <div>

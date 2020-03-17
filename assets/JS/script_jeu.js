@@ -60,9 +60,15 @@ $(document).ready(function () {
                 // efface la carte déplacée
                 carte.fadeOut();
 
+                $('.ajout').draggable({
+                    zIndex: '1000',
+                    revert: 'invalid'
+                });
+
                 // montre la description de la carte réduite dropée
                 $('#' + ajout).hover(function(){                                   
                     $('#' + ajout + ' p:last-child').show();
+
                     console.log(numeroCarte + " : " +description);
                 }, function(){ $('#' + ajout + ' p:last-child').hide();}
                 );
@@ -71,7 +77,7 @@ $(document).ready(function () {
                 // Actualise le  nombre de carte(s) restante(s)
                 // ne compte que si la carte est dropée
                 nombreCartes -= 1;
-                $("#compteur").text("Cartes restantes : " + nombreCartes);                                            
+                $('#compteur').text("Cartes restantes : " + nombreCartes);                                            
             },
 
             over: function (event, ui) {
@@ -86,34 +92,50 @@ $(document).ready(function () {
 
     });
 
-        /*** rend les cartes draggable  ***/
-        $(".card").draggable({ 
+    /*** rend les cartes draggable  ***/
+    $(".card").draggable({ 
 
-            zIndex: "1000",
-            revert : "invalid",
-            cursor: "move", cursorAt: {
-                top: 150,
-                left: 90
-            }
+        zIndex: "1000",
+        revert : "invalid",
+        cursor: "move", cursorAt: {
+            top: 150,
+            left: 90
+        }
+    });
+
+    /*** zone de départ tas initial droppable ***/
+    $(".start").droppable({
+
+        accept : ".card",
+
+        drop: function (event, ui) {
+            //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
+        },
+
+        over: function (event, ui) {
+            //$(this).css('background', 'orange');
+        },
+
+        out: function (event, ui) {
+            //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
+        }
         });
 
-        /*** zone de départ tas initial droppable ***/
-        $(".start").droppable({
-
-            accept : ".card",
-
-            drop: function (event, ui) {
-                //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
-            },
-
-            over: function (event, ui) {
-                //$(this).css('background', 'orange');
-            },
-
-            out: function (event, ui) {
-                //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
-            }
-        });
-   
+    /** minuterie declenchement au chargement de la page timer 15 minutes*/         
+    window.onload = timer();
+    var startTime = new Date().getTime(); // timestamp au départ
+    function timer(){
+        var toTime = new Date().getTime(); // timestamp actualisé toute les 1000ms
+        var gameTime = new Date(901000-(toTime - startTime));  // pour demmarrer à 15 mn => 901000ms
+        var minute = gameTime.getMinutes(); // pour minute
+        var second = gameTime.getSeconds(); // pour seconde
+        var chrono ="";
+        //format affichage
+        chrono += ((minute < 10) ? "0" : " ")+minute+"mn";
+        chrono += ((second < 10) ? " 0" : " ")+second+"s";
+        $("#timer").text("Temps restant: "+chrono);
+        setTimeout(function(){timer(),1000}); // actualise chrono toute les 1000ms
+    }
+      
 });
 
