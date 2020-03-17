@@ -18,6 +18,11 @@
       </p>
    </div>
    <hr>
+   <div>
+      <textarea id="description">description</textarea>
+   
+   </div>
+   <hr>
    <div class="row">
       <div class="col-3">
          <p id="compteur"></p>

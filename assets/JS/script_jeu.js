@@ -68,6 +68,7 @@ $(document).ready(function () {
                 // montre la description de la carte réduite dropée
                 $('#' + ajout).hover(function(){                                   
                     $('#' + ajout + ' p:last-child').show();
+                    
 
                     console.log(numeroCarte + " : " +description);
                 }, function(){ $('#' + ajout + ' p:last-child').hide();}
@@ -121,20 +122,26 @@ $(document).ready(function () {
         }
         });
 
-    /** minuterie declenchement au chargement de la page timer 15 minutes*/         
-    window.onload = timer();
-    var startTime = new Date().getTime(); // timestamp au départ
+    /** minuterie declenchement au chargement de la page timer 15 minutes*/ 
+    var startTime = new Date().getTime(); // timestamp au départ 
+    // appel fonction calcul temps restant       
+    window.onload = timer(); 
+    var startTime = new Date().getTime(); // timestamp au départ   
     function timer(){
         var toTime = new Date().getTime(); // timestamp actualisé toute les 1000ms
         var gameTime = new Date(901000-(toTime - startTime));  // pour demmarrer à 15 mn => 901000ms
         var minute = gameTime.getMinutes(); // pour minute
         var second = gameTime.getSeconds(); // pour seconde
         var chrono ="";
-        //format affichage
+        //format affichage      
         chrono += ((minute < 10) ? "0" : " ")+minute+"mn";
         chrono += ((second < 10) ? " 0" : " ")+second+"s";
         $("#timer").text("Temps restant: "+chrono);
-        setTimeout(function(){timer(),1000}); // actualise chrono toute les 1000ms
+        if(minute+second != "0000"){
+        setTimeout(function(){timer()}); // actualise chrono toute les 1000ms
+    }else{
+        alert (" Le jeu est terminé");
+    }
     }
       
 });
