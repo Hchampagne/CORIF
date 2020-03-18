@@ -14,7 +14,7 @@
                 <div class="col-sm-5">
                     <input type="text" name="adh_id" id="adh_id" class="form-control" value="<?= $adherent->adh_id ?>" disabled>
                     <input type="hidden" name="adh_id" id="adh_id" class="form-control" value="<?= $adherent->adh_id ?>">
-                    <span id="">&nbsp</span>
+                    <span class="messerreur" id="">&nbsp</span>
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
                 <label for="adh_nom" class="col-sm-1 col-form-label ">Nom</label>
                 <div class="col-sm-5">
                     <input type="text" name="adh_nom" id="adh_nom" class="form-control" value="<?= set_value('adh_nom', $adherent->adh_nom); ?>">
-                    <span id="alertAdhNom">&nbsp<?= form_error('adh_nom', '<span>', '</span>') ?></span>
+                    <span class="messerreur" id="alertAdhNom">&nbsp<?= form_error('adh_nom', '<span>', '</span>') ?></span>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <label for="adh_prenom" class="col-sm-1 col-form-label ">Prénom</label>
                 <div class="col-sm-5">
                     <input type="text" name="adh_prenom" id="adh_prenom" class="form-control" value="<?= set_value('adh_prenom', $adherent->adh_prenom); ?>">
-                    <span id="alertAdhPrenom">&nbsp<?= form_error('adh_prenom', '<span>', '</span>') ?></span>
+                    <span class="messerreur"  id="alertAdhPrenom">&nbsp<?= form_error('adh_prenom', '<span>', '</span>') ?></span>
                 </div>
             </div>
 
@@ -38,7 +38,7 @@
                 <label for="adh_organisme" class="col-sm-1 col-form-label ">Organisme</label>
                 <div class="col-sm-5">
                     <input type="text" name="adh_organisme" id="adh_organisme" class="form-control" value="<?= set_value('adh_organisme', $adherent->adh_organisme); ?>">
-                    <span id="alertAdhOrganisme">&nbsp<?= form_error('adh-organisme', '<span>', '</span>') ?></span>
+                    <span class="messerreur" id="alertAdhOrganisme">&nbsp<?= form_error('adh-organisme', '<span>', '</span>') ?></span>
                 </div>
             </div>
 
@@ -46,7 +46,7 @@
                 <label for="adh_email" class="col-sm-1 col-form-label ">Email</label>
                 <div class="col-sm-5">
                     <input type="text" name="adh_email" id="adh_email" class="form-control" value="<?= set_value('adh_email', $adherent->adh_email);?>">
-                    <span id="alertAdhEmail">&nbsp<?= form_error('adh_email', '<span>', '</span>') ?></span>
+                    <span class="messerreur" id="alertAdhEmail">&nbsp<?= form_error('adh_email', '<span>', '</span>') ?></span>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                 <label for="adh_login" class="col-sm-1 col-form-label ">Login</label>
                 <div class="col-sm-5">
                     <input type="text" name="adh_login" id="adh_login" class="form-control" value="<?= set_value('adh_login', $adherent->adh_login); ?>">
-                    <span id="alertAdhLogin">&nbsp<?= form_error('adh_login', '<span>', '</span>') ?></span>
+                    <span class="messerreur" id="alertAdhLogin">&nbsp<?= form_error('adh_login', '<span>', '</span>') ?></span>
                 </div>
             </div>
 

@@ -21,7 +21,7 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ADHERENTS</a>
                     <!-- bloc menu déroulant -->
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="<?= site_url("Administration/ajout_adherent") ?>">Ajout</a>
+                        <a class="dropdown-item" href="#"></a>
                         <a class="dropdown-item" href="<?= site_url("Administration/adherent") ?>">Modification/Liste</a>
                         <a class="dropdown-item" href="#"></a>
                     </div>

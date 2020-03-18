@@ -31,73 +31,9 @@ public function invite(){
         $this->load->view('head');
         $this->load->view('header/header_loader');     
         $this->load->view('administration/adherent/liste_adherent', $data);    
-        $this->load->view('script');
-      
+        $this->load->view('script');     
     }
-
-// ajout adherent
-    public function ajout_adherent(){
-
-        if($this->input->post()){
-            // il y a un post
-
-            // Règles devalidation formulaires
-            $this->form_validation->set_rules('adh_nom','adh_nom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
-                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
-
-            $this->form_validation->set_rules('adh_prenom','adh_prenom','required|regex_match[/[A-Z][a-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[50]',
-                array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
-
-            $this->form_validation->set_rules('adh_organisme','adh_rganisme','required|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][0-9A-Za-zéèçàäëï]+)*/]|max_length[50]',
-                array('required' => 'Le champ est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
-
-            $this->form_validation->set_rules('adh_email','adh_email','required|valid_email|is_unique[adherent.adh_email]|max_length[150]',
-                array('required' => 'Le champs est vide', 'valid_email' => 'Votre email est incorrecte','is_unique'=>'Déjà utilisé', 'max_length' => 'Saisie trop longue'));
-
-            $this->form_validation->set_rules('adh_login','adh_login','required|is_unique[adherent.adh_email]|regex_match[/[0-9A-Za-zéèçàäëï]+([\s-][A-Z][a-zéèçàäëï]+)*/]|max_length[100]',
-                array('required' => 'Le champs est vide','is_unique'=>'Déjà utilisé', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
-
-
-            if($this->form_validation->run() != false){
-                // Validation formulaire ok
-                $data = $this->input->post(null,true);
-                $resultat = $this->Adherent_model->insert_adherent($data);
-                // def message de la modal de confirmation
-                if($resultat){
-                    $messModal['mess'] = "L'ajout a été effectué.";
-                }else{
-                    $messModal['mess'] = "L'ajout a échoué.";
-                }
-                // chargement modal   
-                $reload['reload'] = "<script> $('#mailConfModal').modal('show') </script>";    
-
-                $this->load->view('head');
-                $this->load->view('header/header_loader');
-                $this->load->view('modal/insertAdhConfModal', $messModal);
-                $this->load->view('administration/adherent/ajout_adherent');
-                $this->load->view('script', $reload);
-
-            }else{
-                // Validation formulaire non ok
-                // re affichage formulaire
-                
-                $this->load->view('head');
-                $this->load->view('header/header_loader');
-                $this->load->view('administration/adherent/ajout_adherent');
-                $this->load->view('script');
-            }
-        }else{
-            // pas de post 
-            // premier affichage
-            $this->load->view('head');
-            $this->load->view('header/header_loader');
-            $this->load->view('administration/adherent/ajout_adherent');
-            $this->load->view('script');
-        }
-
-        
-    }
-
+    
 // modification adhérent
     public function modif_adherent($id){
 

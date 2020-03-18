@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="<?= base_url("assets/download/bootstrap441/css/bootstrap.min.css") ?>">
+    <link rel="stylesheet" href="<?= base_url("assets/download/bootstrap441/css/bootstrap.min.css") ?>" type='text/css' >
     <link href="<?= base_url("assets/css/style.css") ?>" rel='stylesheet' type='text/css'>
     <link href="<?= base_url("assets/css/style_jeu.css") ?>" rel='stylesheet' type='text/css'> 
 </head>

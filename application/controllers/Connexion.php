@@ -56,7 +56,6 @@ class Connexion extends CI_Controller{
                 $this->load->view('banner');
                 $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
                 $this->load->view('connexion/inscription');
                 $this->load->view('footer');
                 $this->load->view('script');
@@ -107,7 +106,6 @@ class Connexion extends CI_Controller{
                                 $this->load->view('header/header_loader');
                                 $this->load->view('modal/inscriptionConfModal',$inscription + $envoi);
                                 $this->load->view('modal/connexionModal');
-                                $this->load->view('modal/espacejeuModal');
                                 $this->load->view('accueil/accueil');
                                 $this->load->view('footer');
                                 $this->load->view('script', $reload);
@@ -125,7 +123,6 @@ class Connexion extends CI_Controller{
                                 $this->load->view('header/header_loader');
                                 $this->load->view('modal/inscriptionConfModal', $inscription + $envoi);
                                 $this->load->view('modal/connexionModal');
-                                $this->load->view('modal/espacejeuModal');
                                 $this->load->view('accueil/accueil');
                                 $this->load->view('footer');
                                 $this->load->view('script', $reload);
@@ -144,7 +141,6 @@ class Connexion extends CI_Controller{
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/inscriptionConfModal', $inscription);
                         $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
                         $this->load->view('script', $reload);
@@ -157,7 +153,6 @@ class Connexion extends CI_Controller{
             $this->load->view('banner');
             $this->load->view('header/header_loader');
             $this->load->view('modal/connexionModal');
-            $this->load->view('modal/espacejeuModal');
             $this->load->view('connexion/inscription');
             $this->load->view('footer');
             $this->load->view('script');
@@ -207,7 +202,6 @@ class Connexion extends CI_Controller{
                 $this->load->view('banner');
                 $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
                 $this->load->view('accueil/accueil');
                 $this->load->view('footer');
                 $this->load->view('script',$reload);
@@ -239,7 +233,6 @@ class Connexion extends CI_Controller{
                     $this->load->view('banner');
                     $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal',$message);
-                    $this->load->view('modal/espacejeuModal');
                     $this->load->view('accueil/accueil');
                     $this->load->view('footer');
                     $this->load->view('script',$reload);
@@ -284,7 +277,6 @@ class Connexion extends CI_Controller{
                         $this->load->view('banner');
                         $this->load->view('header/header_loader'); 
                         $this->load->view('modal/connexionModal', $message);
-                        $this->load->view('modal/espacejeuModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
                         $this->load->view('script', $reload);
@@ -301,8 +293,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('head');
                         $this->load->view('banner');
                         $this->load->view('header/header_loader');
-                        $this->load->view('modal/connexionModal', $message);
-                        $this->load->view('modal/espacejeuModal');
+                        $this->load->view('modal/connexionModal', $message);;
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
                         $this->load->view('script', $reload);
@@ -365,7 +356,6 @@ class Connexion extends CI_Controller{
                             $this->load->view('banner');
                             $this->load->view('header/header_loader');
                             $this->load->view('modal/connexionModal');
-                            $this->load->view('modal/espacejeuModal');
                             $this->load->view('modal/resetConfModal');
                             $this->load->view('accueil/accueil');
                             $this->load->view('footer');
@@ -384,7 +374,6 @@ class Connexion extends CI_Controller{
                             $this->load->view('banner');
                             $this->load->view('header/header_loader');
                             $this->load->view('modal/connexionModal');
-                            $this->load->view('modal/espacejeuModal');
                             $this->load->view('connexion/resetPassword',$message);
                             $this->load->view('footer');
                             $this->load->view('script');
@@ -401,7 +390,6 @@ class Connexion extends CI_Controller{
                         $this->load->view('banner');
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
                         $this->load->view('connexion/resetPassword', $message);
                         $this->load->view('footer');
                         $this->load->view('script');
@@ -416,7 +404,6 @@ class Connexion extends CI_Controller{
                     $this->load->view('banner');
                     $this->load->view('header/header_loader');
                     $this->load->view('modal/connexionModal');
-                    $this->load->view('modal/espacejeuModal');
                     $this->load->view('connexion/resetPassword', $message);
                     $this->load->view('footer');
                     $this->load->view('script'); 
@@ -430,7 +417,6 @@ class Connexion extends CI_Controller{
                 $this->load->view('banner');
                 $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
                 $this->load->view('connexion/resetPassword');
                 $this->load->view('footer');
                 $this->load->view('script'); 
@@ -443,7 +429,6 @@ class Connexion extends CI_Controller{
             $this->load->view('banner');
             $this->load->view('header/header_loader');
             $this->load->view('modal/connexionModal');
-            $this->load->view('modal/espacejeuModal');
             $this->load->view('connexion/resetPassword');
             $this->load->view('footer');
             $this->load->view('script'); 
@@ -506,7 +491,6 @@ class Connexion extends CI_Controller{
                                     $this->load->view('banner');
                                     $this->load->view('header/header_loader');
                                     $this->load->view('modal/connexionModal');
-                                    $this->load->view('modal/espacejeuModal');
                                     $this->load->view('modal/newmdpConfModal', $messNewPass);
                                     $this->load->view('accueil/accueil');
                                     $this->load->view('footer');
@@ -523,8 +507,7 @@ class Connexion extends CI_Controller{
                                     $this->load->view('head');
                                     $this->load->view('banner');
                                     $this->load->view('header/header_loader');
-                                    $this->load->view('modal/connexionModal');
-                                    $this->load->view('modal/espacejeuModal');
+                                    $this->load->view('modal/connexionModal');;
                                     $this->load->view('modal/newmdpConfModal', $messNewPass);
                                     $this->load->view('accueil/accueil');
                                     $this->load->view('footer');
@@ -541,7 +524,6 @@ class Connexion extends CI_Controller{
                         $this->load->view('banner');
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
                         $this->load->view('modal/newmdpConfModal', $messNewPass);
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
@@ -553,7 +535,6 @@ class Connexion extends CI_Controller{
                         $this->load->view('banner');
                         $this->load->view('header/header_loader');
                         $this->load->view('modal/connexionModal');
-                        $this->load->view('modal/espacejeuModal');
                         $this->load->view('connexion/newPassword',$cle_url);
                         $this->load->view('footer');
                         $this->load->view('script');
@@ -566,7 +547,6 @@ class Connexion extends CI_Controller{
                 $this->load->view('banner');
                 $this->load->view('header/header_loader');
                 $this->load->view('modal/connexionModal');
-                $this->load->view('modal/espacejeuModal');
                 $this->load->view('connexion/newPassword',$cle_url);
                 $this->load->view('footer');
                 $this->load->view('script'); 

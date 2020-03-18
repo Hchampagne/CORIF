@@ -140,98 +140,6 @@ $('#adh_login').change(function () {
 
 
 /***********************************************/
-/**************  AJOUT ADHERENT  ***************/
-/***********************************************/
-$("#form_ajoutAdherent").submit(function(event){
-
-// champs nom
-    if ($('#adh_nom').val().length === 0) {
-        $('#alertAdhNom').text(vide);
-        event.preventDefault();
-    } 
-    else if ($('#adh_nom').val().length > 50 ) {
-        $('#alertAdhNom').text(long);
-        event.preventDefault();
-    }
-    else if (regNom.test($('#adh_nom').val()) == false) {
-        $('#alertAdhNom').text(saisie);
-        event.preventDefault();
-    } else {
-        $('#alertAdhNom').html('&nbsp');
-    }
-
-//champs prenom   
-    if ($('#adh_prenom').val().length === 0) {
-        $('#alertAdhPrenom').text(vide);
-        event.preventDefault();
-    } 
-    else if ($('#adh_prenom').val().length > 50) {
-        $('#alertAdhPrenom').text(long);
-        event.preventDefault();
-    } 
-    else if (regPrenom.test($('#adh_prenom').val()) == false) {
-        $('#alertAdhPrenom').text(saisie);
-        event.preventDefault();
-    } else {
-        $('#alertAdhPrenom').html('&nbsp');
-    }
-
-   
- //champ organisme   
-    if ($('#adh_organisme').val().length === 0 ) {
-        $('#alertAdhOrganisme').text(vide);
-        event.preventDefault();
-    } 
-    else if ($('#adh_organisme').val().length > 50 ) {
-        $('#alertAdhOrganisme').text(long);
-        event.preventDefault();
-    } 
-    else if (regOrganisme.test($('#adh_organisme').val()) == false) {
-        $('#alertAdhOrganisme').text(saisie);
-        event.preventDefault();
-    } else {
-        $('#alertAdhOrganisme').html('&nbsp');
-    }
-
-// champs email  
-    if ($('#adh_email').val().length === 0) {
-        $('#alertAdhEmail').text(vide);
-        event.preventDefault();
-    } 
-    else if ($('#adh_email').val().length > 150) {
-        $('#alertAdhEmail').text(long);
-        event.preventDefault();
-    } 
-    else if (regMail.test($('#adh_email').val()) == false) {
-        $('#alertAdhEmail').text(saisie);
-        event.preventDefault();
-    } else {
-        $('#alertAdhEmail').html('&nbsp');
-
-    }
-
-// champs login  
-    if ($('#adh_login').val().length === 0) {
-        $('#alertAdhLogin').text(vide);
-        event.preventDefault();
-    } 
-    else if ($('#adh_login').val().length > 100) {
-        $('#alertAdhLogin').text(vide);
-        event.preventDefault();
-    } 
-    else if (regLogin.test($('#adh_login').val()) == false) {
-        $('#alertAdhLogin').text(saisie);
-        event.preventDefault();
-    } else {
-        $('#alertAdhLogin').html('&nbsp');
-
-    }
-
-
-});
-
-
-/***********************************************/
 /***********  MODIFICATION ADHERENT  ***********/
 /***********************************************/
 
@@ -307,20 +215,6 @@ $("#form_modifAdherent").submit(function (event) {
     } else {
         $('#alertAdhLogin').html('&nbsp');
 
-    }
-
-    // champs mot de passe 
-    if ($('#ins_mdp').val().length === 0) {
-        $('#alertMdp').text(vide);
-        event.preventDefault();
-    } else if ($('#ins_mdp').val().length > 60) {
-        $('#alertMdp').text(long);
-        event.preventDefault();
-    } else if (regMdp.test($('#ins_mdp').val()) == false) {
-        $('#alertMdp').text(saisie);
-        event.preventDefault();
-    } else {
-        $('#alertMdp').html('&nbsp');
     }
 });
 

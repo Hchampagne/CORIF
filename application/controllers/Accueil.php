@@ -11,7 +11,7 @@ class Accueil extends CI_Controller {
 		$this->load->view('modal/connexionModal');
 		$this->load->view('accueil/accueil');
 		$this->load->view('footer');
-		$this->load->view('script');
+		$this->load->view('jsScript/script_loader');
 	}
 
 	public function avantpropos()
@@ -22,7 +22,7 @@ class Accueil extends CI_Controller {
 		$this->load->view('modal/connexionModal');	
 		$this->load->view('accueil/avantpropos');
 		$this->load->view('footer');
-		$this->load->view('script');
+		$this->load->view('jsScript/script_loader');
 	}
 
 
@@ -33,7 +33,7 @@ class Accueil extends CI_Controller {
 		$this->load->view('header/header_loader');
 		$this->load->view('accueil/remerciements');
 		$this->load->view('footer');
-		$this->load->view('script');
+		$this->load->view('jsScript/script_loader');
 	}
 
 	public function animation()
@@ -44,7 +44,7 @@ class Accueil extends CI_Controller {
 		$this->load->view('modal/connexionModal');
 		$this->load->view('accueil/animation');
 		$this->load->view('footer');
-		$this->load->view('script');
+		$this->load->view('jsScript/script_loader');
 	}
 
 

@@ -39,9 +39,9 @@ class Espace_jeu extends CI_Controller {
                         $this->session->set_userdata('inv_nom', $invite->inv_nom);
                         $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
                         $this->session->set_userdata('inv_id', $invite->inv_id);
-                        $this->session->set_userdata('inv_role',$invite->inv_role);    
+                        $this->session->set_userdata('role',$invite->inv_role);    
                         
-                        // mis à jour de la colonne connexion 
+                        // update à 1 de la colonne connexion 
                         $this->Invite_model->inviteConnexion_jeu($invite->inv_id);
 
                         // redirection page de jeu
@@ -55,7 +55,7 @@ class Espace_jeu extends CI_Controller {
                         $this->load->view('banner');                        
                         $this->load->view('espace_jeu/connexion_invite',$session + $message);
                         $this->load->view('footer');
-                        $this->load->view('script');
+                        $this->load->view('jsScript/script_loader');
                     }
                 }else{
                     // erreur mail et/ou nom
@@ -65,7 +65,7 @@ class Espace_jeu extends CI_Controller {
                     $this->load->view('banner');                  
                     $this->load->view('espace_jeu/connexion_invite',$session + $message);
                     $this->load->view('footer');
-                    $this->load->view('script');
+                    $this->load->view('jsScript/script_loader');
                 }
             }else{
                 // form validation false
@@ -74,7 +74,7 @@ class Espace_jeu extends CI_Controller {
                 $this->load->view('banner');                         
                 $this->load->view('espace_jeu/connexion_invite',$session);
                 $this->load->view('footer');
-                $this->load->view('script');
+                $this->load->view('jsScript/script_loader');
 
             }          
         } else { // pas de post premier affichage
@@ -83,7 +83,7 @@ class Espace_jeu extends CI_Controller {
             $this->load->view('banner');                     
             $this->load->view('espace_jeu/connexion_invite',$session);
             $this->load->view('footer');
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
         }
     }
   
@@ -120,7 +120,7 @@ class Espace_jeu extends CI_Controller {
         $this->load->view('head');
         $this->load->view('header/header_invite');           
         $this->load->view('espace_jeu/espace_invite',$data);
-        $this->load->view('script');
+        $this->load->view('jsScript/script_loader');
     }
 
 
