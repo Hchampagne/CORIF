@@ -18,8 +18,6 @@ class Invite extends CI_Controller {
         $this->load->view('script');
     }
 
-
-
     // Création invité-e(s)
     public function modificationListe_invite($session_id)
     {
@@ -63,7 +61,7 @@ class Invite extends CI_Controller {
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('invite/modificationListe_invite', $liste_invite + $session);
-                $this->load->view('script');
+                $this->load->view('jsScript/script_loader');
             }
         } else { //pas de post  
             // si pas de post premier affichage               
@@ -72,7 +70,7 @@ class Invite extends CI_Controller {
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('invite/modificationListe_invite', $liste_invite + $session);
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
         }
     }
         

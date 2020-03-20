@@ -5,6 +5,8 @@ class Espace_jeu extends CI_Controller {
 
     public function connexion_jeu($id_session){
 
+        $this->session->sess_destroy();
+
         $session['id_session'] = $id_session;
 
         if ($this->input->post()) {  //si post

@@ -15,7 +15,7 @@ public function invite(){
     $this->load->view('head');
     $this->load->view('header/header_loader');     
     $this->load->view('administration/invite/liste_invite', $data);    
-    $this->load->view('script');  
+    $this->load->view('jsScript/script_loader');
 }
 
 
@@ -31,7 +31,7 @@ public function invite(){
         $this->load->view('head');
         $this->load->view('header/header_loader');     
         $this->load->view('administration/adherent/liste_adherent', $data);    
-        $this->load->view('script');     
+        $this->load->view('jsScript/script_loader');    
     }
     
 // modification adhérent
@@ -117,7 +117,7 @@ public function invite(){
                     $this->load->view('header/header_loader');
                     $this->load->view('modal/mailConfModal', $messModal);                   
                     $this->load->view('administration/adherent/liste_adherent', $data);
-                    $this->load->view('script', $reload); 
+                    $this->load->view('jsScript/script_loader', $reload); 
 
                 }else{
                 // validation formulaire non ok    
@@ -127,7 +127,7 @@ public function invite(){
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('administration/adherent/modif_adherent', $data);
-                $this->load->view('script');  
+                $this->load->view('jsScript/script_loader'); 
                 }
         }else{
             // pas depost 
@@ -137,7 +137,7 @@ public function invite(){
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/adherent/modif_adherent', $data);
-            $this->load->view('script');        
+            $this->load->view('jsScript/script_loader');      
         }
     }
 
@@ -159,7 +159,7 @@ public function invite(){
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('administration/carte/liste_carte', $aview);
-        $this->load->view('script'); 
+        $this->load->view('jsScript/script_loader');
     }
 
 // Ajout carte
@@ -193,7 +193,7 @@ public function invite(){
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('administration/carte/ajout_carte', $liste);
-                $this->load->view('script');
+                $this->load->view('jsScript/script_loader');
 
             }else{
                 // validation formulaire non ok
@@ -202,7 +202,7 @@ public function invite(){
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('administration/carte/ajout_carte', $liste);
-                 $this->load->view('script');              
+                $this->load->view('jsScript/script_loader');              
             }
         }else{
             // pas de post chargement premier démarrage
@@ -211,7 +211,7 @@ public function invite(){
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/carte/ajout_carte', $liste);
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
         }       
     } 
     
@@ -266,7 +266,7 @@ public function invite(){
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('administration/carte/modif_carte', $data + $liste);
-                    $this->load->view('script');
+                    $this->load->view('jsScript/script_loader');
                 }
         }else{
             // pas de post / premier affichage
@@ -278,7 +278,7 @@ public function invite(){
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/carte/modif_carte', $data + $liste);
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
         }
     }
 
@@ -299,7 +299,7 @@ public function invite(){
         $this->load->view('head');
         $this->load->view('header/header_loader');
         $this->load->view('administration/metier/liste_metier', $aliste);
-        $this->load->view('script'); 
+        $this->load->view('jsScript/script_loader'); 
     }
 
 
@@ -329,7 +329,7 @@ public function invite(){
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('administration/metier/ajout_metier');
-                    $this->load->view('script');
+                    $this->load->view('jsScript/script_loader');
 
                 }else{
                     // validation formulaire non ok
@@ -337,7 +337,7 @@ public function invite(){
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('administration/metier/ajout_metier');
-                    $this->load->view('script');
+                    $this->load->view('jsScript/script_loader');
                 }
         }else{
             // pas de post 
@@ -345,7 +345,7 @@ public function invite(){
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/metier/ajout_metier');
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
            
         }       
     }
@@ -383,7 +383,7 @@ public function invite(){
                 $this->load->view('head');
                 $this->load->view('header/header_loader');
                 $this->load->view('administration/metier/modif_metier', $data);
-                $this->load->view('script');  
+               $this->load->view('jsScript/script_loader'); 
             }
         }else{
             // il n'y a pas de post
@@ -393,7 +393,7 @@ public function invite(){
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('administration/metier/modif_metier', $data);
-            $this->load->view('script');      
+           $this->load->view('jsScript/script_loader');     
         }     
     }
 

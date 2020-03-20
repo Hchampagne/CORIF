@@ -14,7 +14,7 @@ class Session_jeu extends CI_Controller {
         $this->load->view('header/header_loader');
         $this->load->view('session/listeParticipantModal');
         $this->load->view('session/liste_session', $liste_session);
-        $this->load->view('script');          
+        $this->load->view('jsScript/script_loader');         
     }
 
 // liste participant pour modal
@@ -32,7 +32,7 @@ class Session_jeu extends CI_Controller {
         $this->load->view('header/header_loader');
         $this->load->view('session/listeParticipantModal',$liste_participant);
         $this->load->view('session/liste_session', $liste_session);
-        $this->load->view('script',$load);
+        $this->load->view('jsScript/script_loader',$load);
    }
 
 // liste métier modal pour liste session
@@ -51,7 +51,7 @@ class Session_jeu extends CI_Controller {
         $this->load->view('header/header_loader');
         $this->load->view('session/listeMetierModal', $liste_metier);
         $this->load->view('session/liste_session', $liste_session);
-        $this->load->view('script', $load);
+        $this->load->view('jsScript/script_loader', $load);
 
    }
 
@@ -88,7 +88,7 @@ class Session_jeu extends CI_Controller {
                $this->load->view('head');
                $this->load->view('header/header_loader');
                $this->load->view('session/creation_session', $session);
-               $this->load->view('script');
+               $this->load->view('jsScript/script_loader');
             }
       }else{
          // pas de post / premier affichage
@@ -96,7 +96,7 @@ class Session_jeu extends CI_Controller {
          $this->load->view('head');
          $this->load->view('header/header_loader');
          $this->load->view('session/creation_session', $session);
-         $this->load->view('script');
+         $this->load->view('jsScript/script_loader');
       }        
    }
 
@@ -135,14 +135,14 @@ class Session_jeu extends CI_Controller {
                $this->load->view('head');
                $this->load->view('header/header_loader');
                $this->load->view('session/modification _session', $session);
-               $this->load->view('script');           
+               $this->load->view('jsScript/script_loader');        
             }
       }else{
          // pas de post premier affichage
          $this->load->view('head');
          $this->load->view('header/header_loader');
          $this->load->view('session/modification _session', $session);
-         $this->load->view('script');
+         $this->load->view('jsScript/script_loader');
       }
    }
 

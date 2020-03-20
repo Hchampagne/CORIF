@@ -14,5 +14,6 @@ else if ($role == "administrateur" && $valid == 1){
    $this->load->view('jsScript/scriptAdministrateur');
 }
 else{
-    $this->load->view('jsScript/scriptAccueil');}
+    $this->load->view('jsScript/scriptAccueil');
+}
 ?>

@@ -44,13 +44,13 @@ class Metier extends CI_Controller {
                     $this->load->view('head');
                     $this->load->view('header/header_loader');
                     $this->load->view('metier/modification_metier', $liste_metier + $liste + $session);
-                    $this->load->view('script');
+                    $this->load->view('jsScript/script_loader');
                 }
         } else {
             $this->load->view('head');
             $this->load->view('header/header_loader');
             $this->load->view('metier/modification_metier', $liste_metier + $liste + $session);
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
         }
     }
 

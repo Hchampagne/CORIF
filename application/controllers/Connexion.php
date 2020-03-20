@@ -13,6 +13,8 @@ class Connexion extends CI_Controller{
 /* inscription adhérents */
 /*************************/
     public function inscription(){
+
+        $this->session->sess_destroy();
              
         if ($this->input->post()){
 
@@ -58,7 +60,7 @@ class Connexion extends CI_Controller{
                 $this->load->view('modal/connexionModal');
                 $this->load->view('connexion/inscription');
                 $this->load->view('footer');
-                $this->load->view('script');
+                $this->load->view('jsScript/script_loader');
                    
                 }else{  
                     //pas d'erreurs dans les formulaires
@@ -108,7 +110,7 @@ class Connexion extends CI_Controller{
                                 $this->load->view('modal/connexionModal');
                                 $this->load->view('accueil/accueil');
                                 $this->load->view('footer');
-                                $this->load->view('script', $reload);
+                                $this->load->view('jsScript/script_loader', $reload);
 
                             }else{
                                 // affichage inscription réussi / problème envoi mail
@@ -125,7 +127,7 @@ class Connexion extends CI_Controller{
                                 $this->load->view('modal/connexionModal');
                                 $this->load->view('accueil/accueil');
                                 $this->load->view('footer');
-                                $this->load->view('script', $reload);
+                                $this->load->view('jsScript/script_loader', $reload);
                             }
                     }else{
                         // insert en base a échoué
@@ -143,7 +145,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('modal/connexionModal');
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
-                        $this->load->view('script', $reload);
+                        $this->load->view('jsScript/script_loader', $reload);
                     }                   
                 }
         } else {
@@ -155,7 +157,7 @@ class Connexion extends CI_Controller{
             $this->load->view('modal/connexionModal');
             $this->load->view('connexion/inscription');
             $this->load->view('footer');
-            $this->load->view('script');
+            $this->load->view('jsScript/script_loader');
 
         }     
     }
@@ -165,6 +167,8 @@ class Connexion extends CI_Controller{
 /* connexion administrateur/adhérent */
 /*************************************/
     public function login(){
+
+        $this->session->sess_destroy();
 
         if ($this->input->post()) {  // si il y a un post
 
@@ -279,7 +283,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('modal/connexionModal', $message);
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
-                        $this->load->view('script', $reload);
+                        $this->load->view('jsScript/script_loader', $reload);
                     } else {
                         // mot de passe erroné
                         // message mot de passe incorrecte
@@ -296,7 +300,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('modal/connexionModal', $message);;
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
-                        $this->load->view('script', $reload);
+                        $this->load->view('jsScript/script_loader', $reload);
                     }
                 }              
             }             
@@ -305,7 +309,9 @@ class Connexion extends CI_Controller{
  
 
 // RESET MOT DE PASSE
-    public function resetPassword() {          
+    public function resetPassword() {  
+        
+        $this->session->sess_destroy();
                        
         if($this->input->post()){  //si il y a un post
 
@@ -359,7 +365,7 @@ class Connexion extends CI_Controller{
                             $this->load->view('modal/resetConfModal');
                             $this->load->view('accueil/accueil');
                             $this->load->view('footer');
-                            $this->load->view('script', $reload);
+                            $this->load->view('jsScript/script_loader', $reload);
 
                         }else{
                             // envoi message échoué
@@ -376,7 +382,7 @@ class Connexion extends CI_Controller{
                             $this->load->view('modal/connexionModal');
                             $this->load->view('connexion/resetPassword',$message);
                             $this->load->view('footer');
-                            $this->load->view('script');
+                            $this->load->view('jsScript/script_loader');
 
                         }
 
@@ -392,7 +398,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('modal/connexionModal');
                         $this->load->view('connexion/resetPassword', $message);
                         $this->load->view('footer');
-                        $this->load->view('script');
+                        $this->load->view('jsScript/script_loader');
                     }
                 }else{
                     // email inconnu
@@ -406,7 +412,7 @@ class Connexion extends CI_Controller{
                     $this->load->view('modal/connexionModal');
                     $this->load->view('connexion/resetPassword', $message);
                     $this->load->view('footer');
-                    $this->load->view('script'); 
+                    $this->load->view('jsScript/script_loader'); 
 
 
                 }
@@ -419,7 +425,7 @@ class Connexion extends CI_Controller{
                 $this->load->view('modal/connexionModal');
                 $this->load->view('connexion/resetPassword');
                 $this->load->view('footer');
-                $this->load->view('script'); 
+                $this->load->view('jsScript/script_loader'); 
 
             }
         }else{
@@ -431,7 +437,7 @@ class Connexion extends CI_Controller{
             $this->load->view('modal/connexionModal');
             $this->load->view('connexion/resetPassword');
             $this->load->view('footer');
-            $this->load->view('script'); 
+            $this->load->view('jsScript/script_loader');
         }                           
     }
 
@@ -440,6 +446,8 @@ class Connexion extends CI_Controller{
               
         // extraction cle_url et passe dans champs input de la vue pour traitement
         $cle_url['cle_url'] = $this->uri->segment(3);
+
+        $this->session->sess_destroy();
 
             if($this->input->post()){
             //il y a un post
@@ -494,7 +502,7 @@ class Connexion extends CI_Controller{
                                     $this->load->view('modal/newmdpConfModal', $messNewPass);
                                     $this->load->view('accueil/accueil');
                                     $this->load->view('footer');
-                                    $this->load->view('script', $reload);
+                                    $this->load->view('jsScript/script_loader', $reload);
 
                                 }else{
                                     // l'update a échoué                                   
@@ -511,7 +519,7 @@ class Connexion extends CI_Controller{
                                     $this->load->view('modal/newmdpConfModal', $messNewPass);
                                     $this->load->view('accueil/accueil');
                                     $this->load->view('footer');
-                                    $this->load->view('script', $reload);
+                                    $this->load->view('jsScript/script_loader', $reload);
                                 }
 
                         }else{
@@ -527,7 +535,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('modal/newmdpConfModal', $messNewPass);
                         $this->load->view('accueil/accueil');
                         $this->load->view('footer');
-                        $this->load->view('script', $reload);
+                        $this->load->view('jsScript/script_loader', $reload);
                         }
                     }else{
                         // champs non valid
@@ -537,7 +545,7 @@ class Connexion extends CI_Controller{
                         $this->load->view('modal/connexionModal');
                         $this->load->view('connexion/newPassword',$cle_url);
                         $this->load->view('footer');
-                        $this->load->view('script');
+                        $this->load->view('jsScript/script_loader');
                     }
                         
             }else{
@@ -549,7 +557,7 @@ class Connexion extends CI_Controller{
                 $this->load->view('modal/connexionModal');
                 $this->load->view('connexion/newPassword',$cle_url);
                 $this->load->view('footer');
-                $this->load->view('script'); 
+                $this->load->view('jsScript/script_loader'); 
             }
     }
 
