@@ -4,11 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Espace_jeu extends CI_Controller {
 
     public function connexion_jeu($id_session){
-
-        $this->session->sess_destroy();
-
+        // pour transittion de id de la sessionde jeu
         $session['id_session'] = $id_session;
-
+        // force le role invité
+        $this->session->set_userdata('role','invite');
+        
         if ($this->input->post()) {  //si post
           
             $this->form_validation->set_rules('invConn_nom', 'invConn_nom',
@@ -37,7 +37,7 @@ class Espace_jeu extends CI_Controller {
                     $heure =date('H:i');
 
                     if( $jour == $date && $debut < $heure && $fin > $heure){ // condition crénaux horaire connexion
-                        // dans creneau
+                       
                         $this->session->set_userdata('inv_nom', $invite->inv_nom);
                         $this->session->set_userdata('inv_prenom', $invite->inv_prenom);
                         $this->session->set_userdata('inv_id', $invite->inv_id);

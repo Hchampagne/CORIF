@@ -14,22 +14,33 @@ $(document).ready(function () {
            
     /***  ajout drop zone  ***/
     $("#ajoutPile").on("click", function () {
-
+        // incrémentation des id d'une zone droppable
         nb += 1;
         var pile = "pile" + nb;
         var target = "target" + nb;
         var btn = "btn" + nb;              
         var reponseMetier = "reponseMetier"+nb
-
+        // zone droppable def html
         var ZD = '<div class="pile  col-sm-3 " id=' + pile + '>' + 
-            "<input type=\"text\" name=\"reponseMetier\" id=\"" + reponseMetier + "\" placeholder=\"Réponse\">" +          
+            '<input type="text" name="reponseMetier" id="' + reponseMetier + '" placeholder="Réponse">' +          
             "<ul class=\"target ui-widget-header \" id=\"" + target + "\">" +
-            "</ul>" +           
+            "</ul>" +  
+            "<button class=\"btnSuppr\" id=\"" + btn + "\">supprimer la pile</button>" +         
             "</div>";        
 
         // ajout drop zone
         $(ZD).appendTo(".aireJeu");
-    
+
+
+        // Suppression de zone droppable <=> Pile
+        $("#" + btn).on("click", function () {  
+            var delPile= $("#"+pile).attr("id"); // recup id de div parentes .ajoutPile bouton 
+            var delTarget = $("#"+target).attr("id"); // recup le id target de div parent .ajoutPile bouton 
+            var nbCarte = $('#'+ target +'> li').length; // compte le nombre de li <=> nombre carte dans la liste ul  
+            // Suppression que si la pile est vide
+            if (nbCarte < 1){$("#" + delPile).remove();} // suppression de div 
+console.log(delPile+" : "+delTarget);
+        });
         
         /*** def zone target droppable ***/
         $("#" + target).droppable({ 
@@ -37,7 +48,7 @@ $(document).ready(function () {
             drop: function (event, ui) {
                 $(this).css('background', 'rgba(133, 141, 133, 0.856)');
                 // incrément de id de la balise li ajout carte
-                x += 1;
+                x += 1; 
                 var ajout = "ajout"+x;
                 // attribut à la variable objet deplacé courant
                 var carte = ui.draggable;
@@ -45,7 +56,7 @@ $(document).ready(function () {
                 // attribut à la variable 
                 var dropZone = $("#"+target);
 
-                // ajoute la carte dnas la drop zone
+                // ajoute la carte dans la drop zone par balise li dans la iste ul /target
                 dropZone.append('<li class="ajout" id="'+ajout+'">' + carte.html() + '</li>'); 
 
                 // modificatioon apparence de la carte
@@ -60,21 +71,26 @@ $(document).ready(function () {
                 // efface la carte déplacée
                 carte.fadeOut();
 
+console.log(idCarte+" : "+numeroCarte + " : " +compteCarte);
+
+                // rend les carte dans zone drop déplaçable
                 $('.ajout').draggable({
                     zIndex: '1000',
                     revert: 'invalid'
                 });
 
+                $('#'+ajout).selectable({
+                    selecting: function(event,ui){
+                        var selTarget = $("#"+target).attr("id");
+                        console.log(selTarget);
+                    }
+                });
+
                 // montre la description de la carte réduite dropée
                 $('#' + ajout).hover(function(){                                   
-                    $('#' + ajout + ' p:last-child').show();
-                    
-
-                    console.log(numeroCarte + " : " +description);
+                    $('#' + ajout + ' p:last-child').show();                   
                 }, function(){ $('#' + ajout + ' p:last-child').hide();}
-                );
-
-           
+                );         
                 // Actualise le  nombre de carte(s) restante(s)
                 // ne compte que si la carte est dropée
                 nombreCartes -= 1;
@@ -91,11 +107,12 @@ $(document).ready(function () {
             }
         });
 
+
+
     });
 
     /*** rend les cartes draggable  ***/
     $(".card").draggable({ 
-
         zIndex: "1000",
         revert : "invalid",
         cursor: "move", cursorAt: {
@@ -104,19 +121,16 @@ $(document).ready(function () {
         }
     });
 
-    /*** zone de départ tas initial droppable ***/
+    /*** zone de départ sabot droppable ***/
     $(".start").droppable({
-
+        // accepte que les cartes classe card du sabot
         accept : ".card",
-
         drop: function (event, ui) {
             //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
         },
-
         over: function (event, ui) {
             //$(this).css('background', 'orange');
         },
-
         out: function (event, ui) {
             //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
         }
@@ -129,7 +143,7 @@ $(document).ready(function () {
     var startTime = new Date().getTime(); // timestamp au départ   
     function timer(){
         var toTime = new Date().getTime(); // timestamp actualisé toute les 1000ms
-        var gameTime = new Date(901000-(toTime - startTime));  // pour demmarrer à 15 mn => 901000ms
+        var gameTime = new Date(901000-(toTime - startTime));  // pour demmarrer à 15 mn => 901000ms // latence
         var minute = gameTime.getMinutes(); // pour minute
         var second = gameTime.getSeconds(); // pour seconde
         var chrono ="";

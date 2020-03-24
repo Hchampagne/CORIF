@@ -7,7 +7,7 @@
     <script src="<?= base_url("assets/JS/ctrl_connexion.js") ?>"></script>
     <script src="<?= base_url("assets/JS/ctrl_resetPassword.js") ?>"></script>
     <script src="<?= base_url("assets/JS/ctrl_newPassword.js") ?>"></script>
-    <script src="<?= base_url("assets/JS/ctrl_connexionInvite.js") ?>"></script>
+    
     <!-- modal loader -->
     <?= isset($reload) ? $reload : ""; ?>
     </body>

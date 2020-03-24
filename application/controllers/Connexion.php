@@ -168,10 +168,7 @@ class Connexion extends CI_Controller{
 /*************************************/
     public function login(){
 
-        $this->session->sess_destroy();
-
         if ($this->input->post()) {  // si il y a un post
-
 
             //test si champ saisie correspond a un mail valide
             $email = $this->input->post('con_login',true);
@@ -192,9 +189,6 @@ class Connexion extends CI_Controller{
                 'required|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]' 
                 ,array('required' => 'Le champs est vide','regex_match' => 'La saisie est incorrecte'));
 
-            
-
-            // 
             if($this->form_validation->run() == false){ // non conforme
 
                 $this->session->sess_destroy();

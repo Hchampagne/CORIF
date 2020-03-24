@@ -43,7 +43,7 @@ class Jeu_model extends CI_Model {
           date_default_timezone_set('Europe/Paris');
           $date = date("Y-m-d H:i:s");
 
-           $this->db->set('jeu_date', $date);
+          $this->db->set('jeu_date', $date);
           $this->db->set('jeu_inv_id', $jeu_inv_id);
           $this->db->insert('jeu');
           $id = $this->db->insert_id();
