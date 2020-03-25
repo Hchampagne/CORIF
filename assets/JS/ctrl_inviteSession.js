@@ -13,8 +13,8 @@ var vide = "Le champs n'est pas rempli";
 var long = "La saisie est trop longue";
 var saisie = "La saisie est incorrecte";
 
-// Contrôle sur le change de l'input
-// champs email
+
+//champs email
 $('#invEmail').blur(function () {
     if ($('#invEmail').val().length === 0) {      
         $('#alertParEmail').text(vide);
@@ -26,9 +26,10 @@ $('#invEmail').blur(function () {
         $('#alertParEmail').text(saisie);
     }     
     else {
-        $('#alertParEmail').html('&nbsp');       
+        //$('#alertParEmail').html('&nbsp');       
     }
 });
+
 // champs nom
 $('#invNom').blur(function () {
     if ($('#invNom').val().length === 0) {      
@@ -60,26 +61,21 @@ $('#invPrenom').blur(function () {
     }
 });
 
-//controle doublons email (ajax) inscription
-// averti seulement le formateur
+//controle doublons email (ajax) invité
 $('#invEmail').blur(function () {
     $.post({
-        url: "../../Ajax/doublon",
+        url: "../../Ajax/doublonListeInvite",
         data: {
-            verifRef: $("#invEmail").val(),
-            verifChamps: "inv_email",
-            verifTable: "invite",
+            verifSession: $("#invSession").val(),
+            verifEmail: $("#invEmail").val(),           
         },
         success: function (data) {
             if (data == 1) {
-                $("#alertParEmail").text("Déjà présent dans une session");
-            } else {
-                $("#alertParEmail").html('&nbsp');
-            }
+                $("#alertParEmail").text("Déjà présent dans la session");
+            } 
         }
     });
 });
-
 
 // Controle sur envoi du formulaire
 $("#form_creatInvite").submit(function(event){
@@ -117,6 +113,7 @@ $("#form_creatInvite").submit(function(event){
     else {
         $('#alertParNom').html('&nbsp');
     }
+
 // champs prénom
     if ($('#invPrenom').val().length === 0) {
         event.preventDefault();

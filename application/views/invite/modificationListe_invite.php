@@ -13,8 +13,8 @@
                 <div class="col-sm-1">
                     <label for=""> Session </label>
                     <input type="text" name="" id="" class="form-control" placeholder="Email" value="<?= $session ?>" disabled>
+                    <input type="hidden" name="inv_ses_id" id="invSession" class="form-control" placeholder="Email" value="<?= $session ?>">
                 </div>
-
                 <div class="col-sm-3">
                     <label for="inv_email"> Email </label>
                     <input type="text" name="inv_email" id="invEmail" class="form-control" placeholder="Email" value="<?= set_value('inv_email') ?>">

@@ -36,10 +36,10 @@ $(document).ready(function () {
         $("#" + btn).on("click", function () {  
             var delPile= $("#"+pile).attr("id"); // recup id de div parentes .ajoutPile bouton 
             var delTarget = $("#"+target).attr("id"); // recup le id target de div parent .ajoutPile bouton 
-            var nbCarte = $('#'+ target +'> li').length; // compte le nombre de li <=> nombre carte dans la liste ul  
+            var nbCarte = $('#'+ target +' > li').length; // compte le nombre de li <=> nombre carte dans la liste ul  
             // Suppression que si la pile est vide
-            if (nbCarte < 1){$("#" + delPile).remove();} // suppression de div 
-console.log(delPile+" : "+delTarget);
+            if (nbCarte === 0){$("#" + delPile).remove();} // suppression de la div pile
+
         });
         
         /*** def zone target droppable ***/
@@ -53,7 +53,7 @@ console.log(delPile+" : "+delTarget);
                 // attribut à la variable objet deplacé courant
                 var carte = ui.draggable;
                      
-                // attribut à la variable 
+                // attribut à la variable objet dropzone
                 var dropZone = $("#"+target);
 
                 // ajoute la carte dans la drop zone par balise li dans la iste ul /target
@@ -69,28 +69,20 @@ console.log(delPile+" : "+delTarget);
                 var description = $('#' + ajout + ' p:last-child').html();  // recupère la description de la carte 
 
                 // efface la carte déplacée
-                carte.fadeOut();
-
-console.log(idCarte+" : "+numeroCarte + " : " +compteCarte);
+                carte.fadeOut();           
 
                 // rend les carte dans zone drop déplaçable
                 $('.ajout').draggable({
                     zIndex: '1000',
-                    revert: 'invalid'
-                });
-
-                $('#'+ajout).selectable({
-                    selecting: function(event,ui){
-                        var selTarget = $("#"+target).attr("id");
-                        console.log(selTarget);
-                    }
+                    revert: 'invalid',                 
                 });
 
                 // montre la description de la carte réduite dropée
                 $('#' + ajout).hover(function(){                                   
                     $('#' + ajout + ' p:last-child').show();                   
                 }, function(){ $('#' + ajout + ' p:last-child').hide();}
-                );         
+                );  
+
                 // Actualise le  nombre de carte(s) restante(s)
                 // ne compte que si la carte est dropée
                 nombreCartes -= 1;
@@ -110,6 +102,8 @@ console.log(idCarte+" : "+numeroCarte + " : " +compteCarte);
 
 
     });
+
+  
 
     /*** rend les cartes draggable  ***/
     $(".card").draggable({ 

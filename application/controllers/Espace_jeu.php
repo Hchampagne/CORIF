@@ -23,10 +23,11 @@ class Espace_jeu extends CI_Controller {
 
                 $email = $this->input->post('invConn_email',TRUE);
                 $nom = $this->input->post('invConn_nom', TRUE);         
-                $invite = $this->Invite_model->invite_jeu($id_session);
+                $tabInvite = $this->Invite_model->invite_jeu($id_session, $nom, $email);
 
-                if( $invite->inv_email == $email && $invite->inv_nom == $nom){ // condition email et nom si
+                if( $tabInvite->num_rows() === 1 ){ // condition email et nom si
                     // un resultat
+                    $invite = $tabInvite->row();
                     $session = $this->Session_model->session($invite->inv_ses_id);
                     $date= $session->ses_d_session;
                     $debut = date("H:i", strtotime($session->ses_h_debut));

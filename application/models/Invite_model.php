@@ -36,8 +36,7 @@ class Invite_model extends CI_Model {
     }
 
     // ajout invite
-    function ajout_invite($session_id, $data){
-        $this->db->set('inv_ses_id',$session_id);
+    function ajout_invite($data){
         $this->db->insert('invite', $data);       
         return ;
     }
@@ -56,10 +55,12 @@ class Invite_model extends CI_Model {
         return;
     }
 
-    // retourne l'enregitrement en fonction du mail et la session
-    function invite_jeu($id_session){
+    // retourne l'enregitrement en fonction du mail et la session et du nom
+    function invite_jeu($id_session, $nom, $email){
         $this->db->where('inv_ses_id', $id_session);
-        $data = $this->db->get('invite')->row();
+        $this->db->where('inv_nom', $nom);
+        $this->db->where('inv_email',$email);
+        $data = $this->db->get('invite');
         return $data;
     }
 
