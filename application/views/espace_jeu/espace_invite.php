@@ -17,11 +17,7 @@
          <h5><?= "Bonjour : " . $inv_nom . " " . $inv_prenom ?></h5>
       </p>
    </div>
-   <hr>
-   <div>
-      <textarea id="description">description</textarea>
    
-   </div>
    <hr>
    <div class="row">
       <div class="col-3">

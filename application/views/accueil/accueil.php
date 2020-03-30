@@ -8,7 +8,7 @@
   <div class="row">
     <div class="col-sm-2 text-center">
     </div>
-    <div id="carousel" class="carousel col-sm-8" data-ride="carousel">
+    <div id="carousel" class="carousel slide col-sm-8" data-ride="carousel">
 
       <div class="carousel-inner">
         <div class="carousel-item active">

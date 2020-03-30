@@ -6,7 +6,7 @@
         <hr>
         <?= form_open('Metier/modificationMetier_session/' . $session, 'id="form_metierSession"'); ?>
         <div class="form-group row ">
-            <label for="id_metier" class="col-sm-1 col-form-label">Metier 1</label>
+            <label for="id_metier" class="col-sm-1 col-form-label">Metier</label>
             <div class="col-sm-5">
                 <select type="text" name="id_metier" id="metSession" class="form-control"> 
                                     

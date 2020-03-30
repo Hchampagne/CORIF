@@ -8,7 +8,7 @@ class Invite_model extends CI_Model {
         parent::__construct();
     }
 
-    // liste participant
+    /* liste participant non utilisé
     function invite(){
         $this->db->from('invite');
         $this->db->join('session', 'ses_id = inv_ses_id');
@@ -16,6 +16,7 @@ class Invite_model extends CI_Model {
         $result = $this->db->get()->result();
         return $result;
     }
+    */
 
     // liste invité-e(s) fct adherent-e
     // jointure table session et invite 

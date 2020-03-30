@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <h1>ajout session de session </h1>
+        <h1>Ajout session </h1>
     </div>
     <hr>
     <div class="row">

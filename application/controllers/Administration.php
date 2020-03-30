@@ -3,21 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administration extends CI_Controller {
 
-/*****************/
-/*** INVITE ***/
-/*****************/
-
-// Lstes des invité-e(s)
-public function invite(){
-       
-    $data['liste'] = $this->Invite_model->invite();
-
-    $this->load->view('head');
-    $this->load->view('header/header_loader');     
-    $this->load->view('administration/invite/liste_invite', $data);    
-    $this->load->view('jsScript/script_loader');
-}
-
 
 /*****************/
 /*** ADHERENT ***/

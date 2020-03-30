@@ -4,7 +4,6 @@
       <h1> Login</h1>
       <hr>
     </div><br>
-    <!--<form action="" name="login" role="form" class="" method="post" id="mc_signup_form" accept-charset="utf-8"> -->
     <?= form_open('connexion/login', 'id="form_inscription"'); ?>
 
     <div class="form-group row justify-content-md-center">
