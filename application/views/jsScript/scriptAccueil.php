@@ -10,5 +10,6 @@
     
     <!-- modal loader -->
     <?= isset($reload) ? $reload : ""; ?>
+        </div>
     </body>
 </html>

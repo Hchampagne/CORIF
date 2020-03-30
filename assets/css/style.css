@@ -108,9 +108,6 @@ ajout bande de couleur*/
     }
 
 
-
-
-
     body{   
         background-color: #eeeded;
         margin-left: 10px;
@@ -134,7 +131,7 @@ ajout bande de couleur*/
 
 
 
-    a:hover{
+    .nav-link:hover{
         color:#343538;
         background-color:#F18F1F; 
     }

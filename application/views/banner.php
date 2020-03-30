@@ -1,4 +1,4 @@
-<div class="container-fluid banner">
+<div class="banner">
     <div class="row">
         <div class="col">
             <a href="http://www.corif.fr/">
