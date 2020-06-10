@@ -11,7 +11,7 @@
       <label for="res_mail" class="col-sm-2 col-form-label">Votre Email</label>
       <div class="col-sm-6">
         <input type="text" name="res_mail" id="res_mail" class="form-control" value="<?php echo set_value('email') ?>" placeholder="Votre email">
-        <span class="messerreur" id=alertResMail>&nbsp<?= form_error('res_mail', '<span>', '</span>') ?></span>
+        <span class="messerreur" id="alertResMail">&nbsp<?= form_error('res_mail', '<span>', '</span>') ?></span>
 
       </div>
     </div>
@@ -28,7 +28,7 @@
       </div>
       <div class="col-sm-6">
         <p>Un lien de réinitialisation pour votre mot de passe vous sera envoyé par mail.</p>
-        <p id="lienMdp">Attention ce lien sera actif pendant 24 heures.</p>
+        <p id="lienMdp">Attention ce lien sera actif pour ce jour.</p>
       </div>
     </div>
     </form>

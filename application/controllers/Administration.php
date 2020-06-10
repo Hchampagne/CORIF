@@ -287,7 +287,6 @@ class Administration extends CI_Controller {
         $this->load->view('jsScript/script_loader'); 
     }
 
-
 // Ajout métier
     public function ajout_metier(){
 
@@ -350,7 +349,6 @@ class Administration extends CI_Controller {
 
             $this->form_validation->set_rules('met_age','met_age','required|regex_match[/^[0-9]{2,3}$/]|max_length[3]',
                 array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte', 'max_length' => 'Saisie trop longue'));
-
 
             if($this->form_validation->run() != false){
                 // validation formulaire ok

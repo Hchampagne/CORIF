@@ -67,7 +67,7 @@ class Connexion extends CI_Controller{
                     // nous pouvons faire l'indsertion en base De donnée                 
 
                     //recup le post du formulaire inscription
-                    $data = $this->input->post(null,true);  // filtre html balise 
+                    $data = $this->input->post(null,true);  // filtre html 
 
                     //supprime le champ verifmdp du post => "controle champs identiques"
                     //ATTENTION supprime la 6ème position (5)
@@ -132,7 +132,7 @@ class Connexion extends CI_Controller{
                     }else{
                         // insert en base a échoué
                         // modal avec retour a l'accueil
-                        $incription['inscription'] = "Votre inscription a échouée !";
+                        $inscription['inscription'] = "Votre inscription a échouée !";
                         $titre['titre'] = "Inscription";
 
                         //reload modal
@@ -455,7 +455,7 @@ class Connexion extends CI_Controller{
                 $this->form_validation->set_rules('newMdp','newMdp','required|regex_match[/(?=.{8,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*/]',
                     array('required' => 'Le champs est vide', 'regex_match' => 'La saisie est incorrecte'));
 
-                $this->form_validation->set_rules('verifNewMdp','erifNewMdp','required|matches[newMdp]',
+                $this->form_validation->set_rules('verifNewMdp','verifNewMdp','required|matches[newMdp]',
                     array('required' => 'Le champs est vide', 'matches' => 'Les mots de passes ne sont pas identiques'));
 
 

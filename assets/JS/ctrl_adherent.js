@@ -53,7 +53,7 @@ $('#adh_organisme').blur(function () {
     else if ($('#adh_organisme').val().length >50) {
         $('#alertAdhOrganisme').text(long);
     } 
-    else if (regOrganisme.test($('#adh_organisme').val()) == false) {
+    else if (regOrganisme.test($('#adh_organisme').val()) === false) {
         $('#alertAdhOrganisme').text(saisie);
     } else {
         $('#alertAdhOrganisme').html('&nbsp');

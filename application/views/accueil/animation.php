@@ -80,7 +80,7 @@
 <hr>
         3 à 4 heures avec un groupe de 12 à 15 personnes (groupe mixte ou non mixte).
 <br>
-        Ce travail peutnaussi être mené en individuel.
+        Ce travail peut aussi être mené en individuel.
         Dans ce cas, c'est l'animateur ou l'animatrice qui questionnera la ou le stagiaire pour qu'elle ou il puisse être confronté(es) à ses représentations.
         </div>
 

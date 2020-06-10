@@ -25,13 +25,13 @@ class Espace_jeu extends CI_Controller {
                 $nom = $this->input->post('invConn_nom', TRUE);         
                 $tabInvite = $this->Invite_model->invite_jeu($id_session, $nom, $email);
 
-                if( $tabInvite->num_rows() === 1 ){ // condition email et nom si
-                    // un resultat
+                if( $tabInvite->num_rows() === 1 ){ // condition id_session,email et nom si un résultat
+                   
                     $invite = $tabInvite->row();
-                    $session = $this->Session_model->session($invite->inv_ses_id);
-                    $date= $session->ses_d_session;
-                    $debut = date("H:i", strtotime($session->ses_h_debut));
-                    $fin = date("H:i", strtotime($session->ses_h_fin));
+                    $sess= $this->Session_model->session($invite->inv_ses_id);
+                    $date= $sess->ses_d_session;
+                    $debut = date("H:i", strtotime($sess->ses_h_debut));
+                    $fin = date("H:i", strtotime($sess->ses_h_fin));
 
                     date_default_timezone_set('Europe/Paris');
                     $jour = date('Y-m-d');
@@ -52,7 +52,7 @@ class Espace_jeu extends CI_Controller {
 
                     }else{
                         // hors creneau horaire
-                        $message['message'] = "L'horaire ne semble pas correcte vérifier votre email !";
+                        $message['message'] = "L'horaire ne semble pas correcte, vérifier l'horaire dans votre email !";
                       
                         $this->load->view('head');
                         $this->load->view('banner');                        
