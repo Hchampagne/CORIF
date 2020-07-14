@@ -11,9 +11,8 @@ class Ajax extends CI_Controller
         //appel du model pour traitement base de donnée
         $dat= $this->Ajax_model->doublon($verif, $champs, $table);  
         //retour resultat de la requete vers controleur ajax            
-        echo  $dat;        
+        echo $dat;        
     }
-
 
     // controle doublons liste invite dans session
     public function doublonListeInvite(){ //doublons email 
@@ -23,10 +22,9 @@ class Ajax extends CI_Controller
         //appel du model pour traitement base de donnée
         $dat= $this->Ajax_model->doublonlisteInvite($email, $session);  
         //retour resultat de la requete vers controleur ajax            
-        echo  $dat;        
+        echo $dat;        
     }
-
-    
+  
     // ajout pile pour le jeu
     public function ajout_pile(){
         $jeu = $this->input->post('pil_jeu_id',true);      

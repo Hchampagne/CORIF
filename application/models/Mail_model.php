@@ -35,8 +35,7 @@ class Mail_model extends CI_Model
                 $subject = "Inscription sur Corif : Des métiers, des vies ";
                 $message = $message;
                 break;
-
-            
+        
             case "resetMdp" :  // reset mot de passe
                 $to = $sendMail;
                 $from = "noreply@jerem1formatic.fr";
@@ -55,7 +54,6 @@ class Mail_model extends CI_Model
                 redirect('Accueil');
                 break;
         }
-
 
         //  paramètres email
         $this->email->from($from, "CORIF des métiers, des vies");  // mail emetteur

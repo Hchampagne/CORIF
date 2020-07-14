@@ -60,7 +60,7 @@ class Administration extends CI_Controller {
                 // VALIDATION FORMULAIRE
                 if ($this->form_validation->run() != false){
                 // validation de formulaire OK
-                    // html escape sur le post$thius->input->post(), 
+                    // html escape sur le post 
                     $data = $this->input->post(null, true);
                     // envoi au model pour mis a jour base                 
                     $update=$this->Adherent_model->modif_adherent($id, $data);

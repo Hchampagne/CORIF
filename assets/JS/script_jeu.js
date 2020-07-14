@@ -31,7 +31,6 @@ $(document).ready(function () {
         // ajout drop zone
         $(ZD).appendTo(".aireJeu");
 
-
         // Suppression de zone droppable <=> Pile
         $("#" + btn).on("click", function () {  
             var delPile= $("#"+pile).attr("id"); // recup id de div parentes .ajoutPile bouton 
@@ -56,7 +55,7 @@ $(document).ready(function () {
                 // attribut à la variable objet dropzone
                 var dropZone = $("#"+target);
 
-                // ajoute la carte dans la drop zone par balise li dans la iste ul /target
+                // ajoute la carte dans la drop zone par balise li dans la liste ul /target
                 dropZone.append('<li class="ajout" id="'+ajout+'">' + carte.html() + '</li>'); 
 
                 // modificatioon apparence de la carte
@@ -71,7 +70,7 @@ $(document).ready(function () {
                 // efface la carte déplacée
                 carte.fadeOut();           
 
-                // rend les carte dans zone drop déplaçable
+                // rend les carte visible dans zone drop déplaçable
                 $('.ajout').draggable({
                     zIndex: '1000',
                     revert: 'invalid',                 
@@ -81,12 +80,7 @@ $(document).ready(function () {
                 $('#' + ajout).hover(function(){                                   
                     $('#' + ajout + ' p:last-child').show();                   
                 }, function(){ $('#' + ajout + ' p:last-child').hide();}
-                );  
-
-                // Actualise le  nombre de carte(s) restante(s)
-                // ne compte que si la carte est dropée
-                nombreCartes -= 1;
-                $('#compteur').text("Cartes restantes : " + nombreCartes);                                            
+                );                                       
             },
 
             over: function (event, ui) {
@@ -98,12 +92,7 @@ $(document).ready(function () {
                       
             }
         });
-
-
-
     });
-
-  
 
     /*** rend les cartes draggable  ***/
     $(".card").draggable({ 
@@ -120,13 +109,18 @@ $(document).ready(function () {
         // accepte que les cartes classe card du sabot
         accept : ".card",
         drop: function (event, ui) {
-            //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
+            //$(this).css('background', 'rgba(133, 141, 133, 0.856)'); 
+            nombreCartes += 1;
+            $('#compteur').text("Cartes restantes : " + nombreCartes);         
         },
         over: function (event, ui) {
             //$(this).css('background', 'orange');
         },
         out: function (event, ui) {
-            //$(this).css('background', 'rgba(133, 141, 133, 0.856)');            
+            //$(this).css('background', 'rgba(133, 141, 133, 0.856)');  
+            nombreCartes -= 1;
+            $('#compteur').text("Cartes restantes : " + nombreCartes);
+
         }
         });
 
@@ -148,7 +142,10 @@ $(document).ready(function () {
         if(minute+second != "0000"){
         setTimeout(function(){timer()}); // actualise chrono toute les 1000ms
     }else{
-        alert (" Le jeu est terminé");
+        alert (" Le jeu est terminé !");
+
+        // enregistrement de la partie
+        
     }
     }
       

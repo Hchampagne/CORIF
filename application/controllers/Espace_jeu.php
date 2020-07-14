@@ -97,6 +97,7 @@ class Espace_jeu extends CI_Controller {
         $cartes = $this->Jeu_model->cartes_jeu($session_id);
         // requete metiers selectionnés
         $metiers =$this->Jeu_model->metier_jeu($session_id); 
+        
         // un jeu enregistré ? si $jeu n'existe pas création jeu // cause refresh page
         $jeu = $this->Jeu_model->jeu($this->session->inv_id);
         if($jeu == false){

@@ -150,7 +150,7 @@ class Connexion extends CI_Controller{
                 }
         } else {
 
-            // pas de post() rechargement de la page premier affichage
+            // pas de post() chargement de la page premier affichage
             $this->load->view('head');
             $this->load->view('banner');
             $this->load->view('header/header_loader');
@@ -177,7 +177,7 @@ class Connexion extends CI_Controller{
             //Règles de validation
             if ($testEmail){ 
                 // form email valide
-                $this->form_validation->set_rules('con_login', 'con_login', 'required|html_escape');
+                $this->form_validation->set_rules('con_login', 'con_login', 'required');
             }else{ 
                 // form email non valide => peut etre login
                 $this->form_validation->set_rules('con_login', 'con_login',
@@ -412,7 +412,7 @@ class Connexion extends CI_Controller{
                 }
             }else{
                 // validation non conforme retour au formulaire
-                // + message erreur
+                // + message erreur controleur validation
                 $this->load->view('head');
                 $this->load->view('banner');
                 $this->load->view('header/header_loader');
@@ -465,7 +465,7 @@ class Connexion extends CI_Controller{
                         // attribut les valeurs du post aux clés
                         $cle_conf = $this->input->post('cleConf');
                         $cle_url = $this->input->post('cleUrl');
-                        // retourne l'enr de la base fct les clés url et conf
+                        // retourne l'enr de la base fct les clés url et confirmation
                         $result = $this->Connexion_model->edit_reset_cle($cle_url, $cle_conf);
                         $res = $result->row();
                        
@@ -478,7 +478,7 @@ class Connexion extends CI_Controller{
                             //hash du mot de passe 
                             $mdp = password_hash($this->input->post('newMdp', true), PASSWORD_DEFAULT);
                             // update du mot de passe 
-                            var_dump($mdp, $id);
+                           
                             $data = $this->Connexion_model->modif_password($mdp, $id); 
                             
                                 if($data){
